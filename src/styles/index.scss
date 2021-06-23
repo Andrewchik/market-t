@@ -1,0 +1,97 @@
+@import "./_variables";
+
+* {
+  outline: none;
+  box-sizing: border-box;
+}
+
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: $main-font-family;
+}
+
+h1, h2 {
+  font-family: $main-font-family;
+  font-weight: bold;
+}
+
+p, input {
+  font-family: $main-font-family;
+}
+
+button {
+  border: none;
+  border-radius: 20px;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+p, input {
+  margin: 0;
+  font-size: 16px;
+}
+
+img {
+  max-width: 100%;
+}
+
+.default-button, .default-border-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 25px;
+  border: 2px solid $main-light-color;
+  font-size: 16px;
+  font-weight: 500;
+  align-self: center;
+  transition: all 500ms ease;
+}
+
+.default-button {
+  background-color: $main-light-color;
+  color: $light-white-color;
+
+  &:hover {
+    background-color: $light-white-color;
+    color: black;
+  }
+}
+
+.default-border-button {
+  background-color: $light-white-color;
+  color: black;
+
+  &:hover {
+    background-color: $main-light-color;
+    color: $light-white-color;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+.Toastify__toast-container {
+  width: 600px;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.Toastify__toast--success, .Toastify__toast--warning {
+  width: 300px;
+  font-weight: bold;
+
+  @media screen and (max-width: 300px) {
+    width: 100%;
+  }
+}

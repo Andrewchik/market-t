@@ -1,0 +1,45 @@
+@import '../../styles/_variables';
+
+.market-container {
+  display: flex;
+  min-height: 90vh;
+  background: $light-white-color;
+
+  @media screen and (max-width: 1024px) {
+    padding-top: 100px;
+  }
+}
+
+.items-container {
+  padding: 50px 5% 50px 0;
+  width: 70%;
+
+  @media screen and (max-width: 1024px) {
+    padding-top: 0;
+  }
+}
+
+.items-wrapper {
+  padding-top: 50px;
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1024px) {
+  .market-container {
+    flex-direction: column;
+  }
+
+  .items-container {
+    padding-right: 0;
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .items-wrapper {
+    justify-content: center;
+  }
+}

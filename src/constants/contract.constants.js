@@ -1,0 +1,5 @@
+export const DARKCOUNTRY_ADDRESS = '0x44659a80ac8cbfaa';
+export const DARKCOUNTRY_MARKET_ADDRESS = '0x44659a80ac8cbfaa';
+export const FUNGIBLE_TOKEN_ADDRESS = '0x9a0766d93b6608b7';
+export const FLOW_TOKEN_ADDRESS = '0x7e60df042a9c0868';
+export const NON_FUNGIBLE_TOKEN_ADDRESS = '0x631e88ae7f1d7c20';

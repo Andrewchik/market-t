@@ -1,0 +1,21 @@
+@import "./../../styles/_variables";
+
+.custom-text-field {
+  margin-bottom: 40px;
+
+  .MuiTextField-root {
+    width: 100%;
+  }
+
+  .MuiOutlinedInput-input {
+    padding: 12px;
+  }
+
+  .MuiOutlinedInput-root {
+    border-radius: 20px;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $secondary-dark-color!important;
+  }
+}

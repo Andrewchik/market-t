@@ -1,0 +1,36 @@
+@import "./../../styles/_variables";
+
+.custom-select-container {
+  display: flex;
+  justify-content: flex-end;
+
+  .MuiFormControl-root {
+    width: 200px;
+  }
+
+  .MuiOutlinedInput-root {
+    border-radius: 20px;
+  }
+
+  .MuiSelect-icon {
+    top: auto;
+    color: $secondary-dark-color!important;
+  }
+
+  .MuiSelect-iconOutlined {
+    right: 0;
+  }
+
+  .MuiSvgIcon-root {
+    font-size: 2rem;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $secondary-dark-color!important;
+  }
+
+  select {
+    padding: 8px 10px 8px 15px;
+    font-weight: bold;
+  }
+}

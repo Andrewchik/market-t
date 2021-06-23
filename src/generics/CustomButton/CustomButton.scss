@@ -1,0 +1,33 @@
+@import "../../styles/_variables";
+
+.custom-button, .border-custom-button {
+  display: flex!important;
+  align-items: center!important;
+  letter-spacing: 0.04em!important;
+  font-weight: 600!important;
+  padding: 15px 15px!important;
+  box-sizing: border-box!important;
+  transition: all 500ms ease!important;
+  height: 40px!important;
+  border: 2px solid $main-light-color!important;
+}
+
+.custom-button {
+  background-color: $main-light-color!important;
+  color: $button-text-color!important;
+
+  &:hover {
+    color: $button-text-hover-color!important;
+    background-color: $light-white-color!important;
+  }
+}
+
+.border-custom-button {
+  background-color: $light-white-color!important;
+  color: $button-text-hover-color!important;
+
+  &:hover {
+    color: $button-text-color!important;
+    background-color: $main-light-color!important;
+  }
+}

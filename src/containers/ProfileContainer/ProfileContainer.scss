@@ -1,0 +1,151 @@
+@import '../../styles/_variables';
+
+.profile-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+  font-family: $main-font-family;
+  background: $light-white-color;
+
+  @media screen and (max-width: 1024px) {
+    padding-top: 100px;
+  }
+
+  .profile-bg {
+    background-image: url("../../resources/images/bg_profile_pg.png");
+    background-size: cover;
+    height: 250px;
+    position: relative;
+
+    .profile-icon {
+      width: 120px;
+      height: 120px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 30px);
+
+      > img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    .check-icon {
+      width: 30px;
+      height: 30px;
+      bottom: 0;
+      right: 0;
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+      background: $light-white-color;
+      box-sizing: content-box;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .profile-content {
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin: 0 auto;
+
+    @media screen and (max-width: 1200px) {
+      width: 90%;
+    }
+
+    .profile-info {
+      padding-top: 15px;
+
+      .username-title {
+        font-weight: 600;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .wallet-name {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        height: 20px;
+
+        p {
+          font-size: 20px;
+          margin-top: auto;
+        }
+
+        svg, img {
+          margin-left: 10px;
+        }
+
+        img {
+          width: 15px;
+          height: 15px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .follow-share-container {
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      width: max-content;
+      margin: 0 auto;
+
+      button {
+        padding: 10px 30px !important;
+        min-width: 160px;
+
+        &:first-child {
+          margin-right: 40px;
+        }
+      }
+    }
+
+    .profile-assets {
+      .asset-status-switch {
+        display: flex;
+        overflow: auto;
+        padding-bottom: 15px;
+
+        @media screen and (max-width: 600px) {
+          padding-bottom: 30px;
+        }
+
+        button {
+          font-size: 15px;
+          margin-right: 30px;
+          color: $main-light-color;
+          border-bottom: 2px solid $light-white-color;
+          transition: 0.1s ease-out;
+          border-radius: 0;
+          min-width: 100px;
+
+          &:hover {
+            border-bottom: 2px solid $main-light-color;
+          }
+        }
+
+        .selected-button {
+          border-bottom: 2px solid $main-light-color;
+        }
+      }
+
+      .items-wrapper {
+        min-height: 490px;
+        padding-top: 20px;
+      }
+    }
+  }
+}

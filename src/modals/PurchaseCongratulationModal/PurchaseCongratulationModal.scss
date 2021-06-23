@@ -1,0 +1,47 @@
+@import "../../styles/_variables";
+
+.purchase-congratulation {
+  .rodal-dialog {
+    width: 400px!important;
+    height: max-content!important;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border-radius: 20px;
+
+    @media screen and (max-width: 400px) {
+      width: 100%!important;
+    }
+  }
+}
+
+.purchase-congratulation-modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: $main-font-family;
+  color: black;
+  height: 100%;
+
+  img {
+    width: 250px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 22px;
+    font-weight: bold;
+    padding: 0 20px 10px;
+
+    @media screen and (max-width: 580px) {
+      font-size: 19px;
+    }
+  }
+
+  button {
+    width: 290px;
+    margin-top: 10px;
+  }
+}

@@ -1,0 +1,127 @@
+@import "../../styles/_variables";
+
+.drop-container-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 90vh;
+  font-family: $main-font-family;
+  background: $light-white-color;
+
+  .drop-container-content {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-weight: 500;
+
+    @media screen and (max-width: 500px) {
+      width: 95%;
+    }
+
+    h3:nth-child(1) {
+      font-family: initial;
+      font-size: 33px;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .line {
+      width: 130px;
+      margin: 0 auto;
+    }
+
+    .drop {
+      width: 300px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+      padding: 20px 10px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      min-height: 300px;
+
+      @media screen and (max-width: 500px) {
+        width: 80%;
+        min-height: 100px;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .drop-info {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+
+      @media screen and (max-width: 500px) {
+        width: 90%;
+      }
+
+      .drop-info-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 15px;
+
+        p:nth-child(2) {
+          font-weight: bold;
+        }
+      }
+
+      .drop-info-inside {
+        h3 {
+          font-size: 17px;
+          text-align: left;
+        }
+
+        li {
+          margin-bottom: 10px;
+        }
+
+        p {
+          margin-top: 15px;
+        }
+      }
+
+      .drop-price {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+
+        p {
+          font-size: 30px;
+          font-weight: 600;
+          color: $main-light-color;
+          margin-bottom: 20px;
+        }
+
+        .drop-price-actions {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          width: 250px;
+
+          @media screen and (max-width: 500px) {
+            width: 90%;
+          }
+
+          input {
+            width: 100px;
+            height: 40px;
+          }
+
+          button {
+            width: 115px;
+          }
+        }
+      }
+    }
+  }
+}
