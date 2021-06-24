@@ -137,7 +137,7 @@ function HomeContainer() {
                     <div className={'home-container-head-single'}>
                         <div className={'head-single-info'}>
                             <h2>Dark Country</h2>
-                            <h2>Cards & Heroes Drop</h2>
+                            <h2>Lands Unpacking</h2>
                             <p>Coming soon!</p>
                         </div>
                         { isMobile
@@ -154,7 +154,7 @@ function HomeContainer() {
                     <div className={'home-container-head-single'}>
                         <div className={'head-single-info'}>
                             <h2>Dark Country</h2>
-                            <h2>Lands Unpacking</h2>
+                            <h2>Cards & Heroes Drop</h2>
                             <p>Coming soon!</p>
                         </div>
                         <img src={UpcomingDrop1Image} alt="" />
@@ -178,7 +178,7 @@ function HomeContainer() {
                                     mouseTracking
                                     items={newListings}
                                     responsive={responsive}
-                                    infinite={false}
+                                    infinite={true}
                                     autoPlay={true}
                                     autoPlayStrategy={'action'}
                                     autoPlayInterval={2000}/>
@@ -202,7 +202,7 @@ function HomeContainer() {
                         <AliceCarousel
                             items={lastPurchases}
                             responsive={responsive}
-                            infinite={false}
+                            infinite={true}
                             autoPlay={true}
                             autoPlayStrategy={'action'}
                             autoPlayInterval={3000}

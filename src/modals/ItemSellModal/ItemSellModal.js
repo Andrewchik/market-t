@@ -93,7 +93,7 @@ function ItemSellModal({ visible, onClose, itemId, ipfs, moveItemToOnSaleBlock }
                             />
                         </div>
                         <div className={'sale-info'}>
-                            <p>Service fee 2.5%</p>
+                            <p>Market fee 2.5%</p>
                             <p>Collection fee 2.5%</p>
                             <p>You will receive <span>{ receivedMoney }</span> FLOW</p>
                         </div>
