@@ -42,11 +42,11 @@ function LastPurchaseItem({ history, match: { params: { id } } }) {
                         />
                     </div>
                     <div className={'listed-item-info'}>
-                        <p className={'item-description'}>{ item.data ? item.data.description : 'description' }</p>
+                        <p className={'item-description'}>{ item.data ? item.data.name : 'name' }</p>
                         <p className={'mint-info'}>ItemID - { item.item_id }</p>
                         <div className={'category'}>
                             <img src={DcLogo2} alt="category" />
-                            <p>{ item.data ? item.data.name : 'name' }</p>
+                            <p>{ item.data ? item.data.description : 'description' }</p>
                         </div>
                         <div className={'listed-item-info-buy'}>
                             <div className={'listed-item-owner'}>
