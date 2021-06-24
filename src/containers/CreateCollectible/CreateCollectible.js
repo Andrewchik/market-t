@@ -87,7 +87,7 @@ function CreateCollectible() {
                                     </Select>
                                 </FormControl>
                             </div>
-                            <p>Service fee 2.5%</p>
+                            <p>Market fee 2.5%</p>
                             <p>You will receive 0.00 FLOW</p>
                         </div>
                         <div className={'collectible-name'}>
