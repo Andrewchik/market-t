@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { forceVisible } from "react-lazyload";
 
 import axios from "axios";
 
@@ -97,6 +98,8 @@ function MarketContainer() {
 
         handleSort();
     }, [sortOption])
+
+    useEffect(() => forceVisible(), [reRender]);
 
     useEffect(() => {
         window.addEventListener('scroll', onScroll);
