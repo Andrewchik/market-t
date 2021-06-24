@@ -20,14 +20,14 @@ import './styles/fonts/Saira_SemiExpanded-Regular.ttf';
 import './styles/fonts/Saira_SemiExpanded-SemiBold.ttf';
 
 //TESTNET
-fcl.config()
-    .put("accessNode.api", "https://access-testnet.onflow.org")
-    .put("challenge.handshake", "https://flow-wallet-testnet.blocto.app/authn")
-
-// //MAINNET
 // fcl.config()
-//     .put("accessNode.api", "https://access-mainnet-beta.onflow.org")
-//     .put("challenge.handshake", "https://flow-wallet.blocto.app/authn")
+//     .put("accessNode.api", "https://access-testnet.onflow.org")
+//     .put("challenge.handshake", "https://flow-wallet-testnet.blocto.app/authn")
+
+//MAINNET
+fcl.config()
+    .put("accessNode.api", "https://access-mainnet-beta.onflow.org")
+    .put("challenge.handshake", "https://flow-wallet.blocto.app/authn")
 
 const saga = createSagaMiddleware();
 
