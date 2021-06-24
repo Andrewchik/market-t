@@ -9,7 +9,7 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: $main-font-family;
+  font-family: $main-font-family!important;
 }
 
 h1, h2 {
@@ -42,7 +42,7 @@ img {
   max-width: 100%;
 }
 
-.MuiButton-root {
+.MuiButton-root, .MuiTypography-root, .MuiInputBase-input, .MuiSelect-root {
   font-family: $main-font-family!important;
 }
 
