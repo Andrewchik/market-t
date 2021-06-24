@@ -31,7 +31,7 @@ function Footer() {
                 </div>
                 <div className={'footer-contact'}>
                     <h3>Contact</h3>
-                    <p>Email</p>
+                    <p><a href="mailto:contact@topexpo.io">Email</a></p>
                 </div>
             </div>
         </div>
