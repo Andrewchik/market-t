@@ -99,3 +99,15 @@ img {
     width: 100%;
   }
 }
+
+@font-face {
+  font-family: 'SairaRegular';
+  src: local("Saira"), url("./fonts/Saira_SemiExpanded-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'SairaBold';
+  src: local("Saira"), url("./fonts/Saira_SemiExpanded-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
