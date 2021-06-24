@@ -16,6 +16,8 @@ import * as fcl from "@onflow/fcl";
 import App from './App';
 
 import './styles/index.scss'
+import './styles/fonts/Saira_SemiExpanded-Regular.ttf';
+import './styles/fonts/Saira_SemiExpanded-SemiBold.ttf';
 
 //TESTNET
 fcl.config()

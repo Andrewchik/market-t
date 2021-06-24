@@ -140,15 +140,17 @@ function HomeContainer() {
                             <h2>Lands Unpacking</h2>
                             <p>Coming soon!</p>
                         </div>
-                        { isMobile
-                            ? <img src={landImage} alt="dc-land" />
-                            : <video
-                                src={landVideo ? landVideo : LegendaryLandVideo}
-                                loop={true}
-                                muted={true}
-                                autoPlay={true}
-                            />
-                        }
+                        <a href="https://darkcountry.io/about-lands" target="_blank">
+                            { isMobile
+                                ? <img src={landImage} alt="dc-land" />
+                                : <video
+                                    src={landVideo ? landVideo : LegendaryLandVideo}
+                                    loop={true}
+                                    muted={true}
+                                    autoPlay={true}
+                                />
+                            }
+                        </a>
                     </div>
 
                     <div className={'home-container-head-single'}>
@@ -157,7 +159,9 @@ function HomeContainer() {
                             <h2>Cards & Heroes Drop</h2>
                             <p>Coming soon!</p>
                         </div>
-                        <img src={UpcomingDrop1Image} alt="" />
+                        <a href="https://darkcountry.io" target="_blank">
+                            <img src={UpcomingDrop1Image} alt="" />
+                        </a>
                     </div>
                 </div>
             </div>

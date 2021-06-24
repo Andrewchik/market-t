@@ -46,13 +46,10 @@
     color: white;
     margin-right: 20px;
     padding-bottom: 30px;
+    text-align: right;
 
     h2:first-child {
       font-family: Gill Sans, sans-serif;
-    }
-
-    h2 {
-      color: $main-light-color;
     }
 
     p {
