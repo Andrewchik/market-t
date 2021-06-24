@@ -42,6 +42,10 @@ img {
   max-width: 100%;
 }
 
+.MuiButton-root {
+  font-family: $main-font-family!important;
+}
+
 .default-button, .default-border-button {
   display: flex;
   flex-direction: row;
