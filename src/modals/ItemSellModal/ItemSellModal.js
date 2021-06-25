@@ -95,14 +95,14 @@ function ItemSellModal({ visible, onClose, itemId, ipfs, moveItemToOnSaleBlock }
                         <div className={'sale-info'}>
                             <p>Market fee 2.5%</p>
                             <p>Collection fee 2.5%</p>
-                            <p>You will receive <span>{ receivedMoney }</span> FLOW</p>
+                            <p>You will receive <span>{ receivedMoney && parseFloat(receivedMoney) > 0 ? receivedMoney : 0 }</span> FLOW</p>
                         </div>
                         { selling
                             ? <Loader />
                             : <CustomButton
                                 text={'SELL'}
                                 onClick={handleSellMarketItem}
-                                disabled={!!!price}
+                                disabled={!!!price || parseFloat(price) <= 0}
                             />
                         }
                     </div>
