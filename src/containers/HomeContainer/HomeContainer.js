@@ -140,7 +140,7 @@ function HomeContainer() {
                             <h2>Lands Unpacking</h2>
                             <p>Coming soon!</p>
                         </div>
-                        <a href="https://darkcountry.io/about-lands" target="_blank">
+                        <a href="https://darkcountry.io/about-lands" target="_blank" rel="noreferrer">
                             { isMobile
                                 ? <img src={landImage} alt="dc-land" />
                                 : <video
@@ -159,7 +159,7 @@ function HomeContainer() {
                             <h2>Cards & Heroes Drop</h2>
                             <p>Coming soon!</p>
                         </div>
-                        <a href="https://darkcountry.io" target="_blank">
+                        <a href="https://darkcountry.io" target="_blank" rel="noreferrer">
                             <img src={UpcomingDrop1Image} alt="" />
                         </a>
                     </div>
