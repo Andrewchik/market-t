@@ -15,7 +15,7 @@ const CODE = fcl.cdc`
     pub fun main(address: Address): [UInt64] {
         let account = getAccount(address)
     
-        let collectionRef = account.getCapability(DarkCountry.CollectionPublicPath)!.borrow<&{NonFungibleToken.CollectionPublic}>()
+        let collectionRef = account.getCapability(DarkCountry.CollectionPublicPath)!.borrow<&{DarkCountry.DarkCountryCollectionPublic}>()
             ?? panic("Could not borrow capability from public collection")
     
         return collectionRef.getIDs()
