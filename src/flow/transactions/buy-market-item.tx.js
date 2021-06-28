@@ -83,8 +83,6 @@ const CODE = fcl.cdc`
 `;
 
 export function buyMarketItem({ saleItemID, marketCollectionAddress }) {
-    console.log({ saleItemID });
-
     return tx(
         [
             fcl.transaction(CODE),

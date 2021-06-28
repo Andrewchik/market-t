@@ -24,8 +24,6 @@ const CODE = fcl.cdc`
 `;
 
 export function removeMarketItem({ itemId }) {
-    console.log({ itemId });
-
     return tx(
         [
             fcl.transaction(CODE),
