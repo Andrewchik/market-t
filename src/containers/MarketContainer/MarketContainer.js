@@ -37,6 +37,7 @@ function MarketContainer() {
     const [reRender, setReRender] = useState(false);
     const [sortOption, setSortOption] = useState(LISTINGS_ASC);
     const [filteredCollections, setFilteredCollections] = useState(allCollections);
+    const [selectedTemplate, setSelectedTemplate] = useState('');
     const [loading, setLoading] = useState(true);
 
     const { userItems } = useSelector(({ user }) => user);
@@ -102,6 +103,11 @@ function MarketContainer() {
     useEffect(() => forceVisible(), [reRender]);
 
     useEffect(() => {
+        setItemsToShow(selectedTemplate ? allItems.filter(({ data: { name } }) => name === selectedTemplate) : allItems);
+        setReRender(!reRender);
+    }, [selectedTemplate]);
+
+    useEffect(() => {
         window.addEventListener('scroll', onScroll);
         return () => window.removeEventListener('scroll', onScroll);
     });
@@ -153,12 +159,18 @@ function MarketContainer() {
             setSearchItems(null);
     };
 
+    const handleTemplateFilter = (templateName) => {
+        setSelectedTemplate(templateName === selectedTemplate ? '' : templateName);
+    };
+
     return (
         <div className={'market-container'}>
             <MarketFilters
                 collections={filteredCollections}
                 handleCollectionFilter={handleCollectionFilter}
                 handleCollectionsSearch={handleCollectionsSearch}
+                handleTemplateFilter={handleTemplateFilter}
+                selectedTemplate={selectedTemplate}
             />
             <div className={'items-container'}>
                 <CustomTextField
