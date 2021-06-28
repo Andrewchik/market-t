@@ -12,21 +12,9 @@
     display: flex;
     flex-direction: column;
 
-    .filter-collection {
+    .filter-collection-wrapper {
       display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      img {
-        width: 30px;
-        margin-right: 10px;
-      }
-
-      p {
-        font-size: 18px;
-        font-weight: 600;
-        color: $heading-dark-color;
-      }
+      flex-direction: column;
 
       span {
         margin-left: auto;
@@ -35,11 +23,69 @@
         margin-right: 5px;
       }
 
-      &:hover {
-        cursor: pointer;
+      .filter-collection {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
 
-        span {
-          color: $main-light-color;
+        img {
+          width: 30px;
+          margin-right: 10px;
+        }
+
+        p {
+          font-size: 18px;
+          font-weight: 600;
+          color: $heading-dark-color;
+        }
+
+        &:hover {
+          cursor: pointer;
+
+          span {
+            color: $main-light-color;
+          }
+        }
+      }
+
+      .filter-collection-templates {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        margin-left: 5px;
+
+        .filter-collection-template {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          height: 38px;
+
+          &:hover {
+            cursor: pointer;
+
+            span {
+              color: $main-light-color;
+            }
+          }
+
+          .template-image {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background: $main-light-color;
+          }
+
+          p {
+            font-size: 15px;
+            font-weight: 600;
+            color: $dark-block-color;
+            margin-bottom: 5px;
+          }
+
+          span {
+            margin-bottom: 5px;
+          }
         }
       }
     }

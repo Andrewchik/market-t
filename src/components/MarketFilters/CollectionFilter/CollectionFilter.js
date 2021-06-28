@@ -10,7 +10,7 @@ import './CollectionFilter.scss'
 
 import CustomTextField from "../../../generics/CustomTextField/CustomTextField";
 
-function CollectionFilter({ collections, handleFilter, handleCollectionsSearch }) {
+function CollectionFilter({ collections, handleFilter, handleCollectionsSearch, handleTemplateFilter, selectedTemplate }) {
     const [expanded, setExpanded] = useState(true);
     const [selectedCollections, setSelectedCollections] = useState([]);
 
@@ -39,13 +39,29 @@ function CollectionFilter({ collections, handleFilter, handleCollectionsSearch }
                         onChange={handleCollectionsSearch}
                     />
                     <div className={'filter-collections'}>
-                        {collections.map(({ image, name }) =>
-                            <div className={'filter-collection'} onClick={() => handleSelectCollection(name)} key={name}>
-                                <img src={ image } alt="" />
-                                <p>{ name }</p>
-                                { selectedCollections.includes(name) &&
-                                    <span onClick={() => handleSelectCollection(name)}>x</span>
-                                }
+                        {collections.map(({ image, name, templates }) =>
+                            <div className={'filter-collection-wrapper'}>
+                                <div className={'filter-collection'} onClick={() => handleSelectCollection(name)} key={name}>
+                                    <img src={ image } alt="" />
+                                    <p>{ name }</p>
+                                    { selectedCollections.includes(name) &&
+                                        <span onClick={() => handleSelectCollection(name)}>x</span>
+                                    }
+                                </div>
+                                <div className={'filter-collection-templates'}>
+                                    { templates.map(templateName =>
+                                        <div
+                                            className={'filter-collection-template'}
+                                            onClick={() => handleTemplateFilter(templateName)}
+                                        >
+                                            <p className={'template-image'} />
+                                            <p>{ templateName }</p>
+                                            { selectedTemplate === templateName &&
+                                                <span onClick={() => handleTemplateFilter(templateName)}>x</span>
+                                            }
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         ) }
                     </div>
