@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import * as fcl from "@onflow/fcl";
 
@@ -23,7 +23,9 @@ function Footer() {
                 </div>
                 <div className={'footer-explore'}>
                     <h3>Explore</h3>
-                    <p onClick={ () => history.push('/market') }>Market</p>
+                    <Link to={'/market'}>
+                        <p>Market</p>
+                    </Link>
                     <p onClick={ user && user.address
                         ? () => history.push(`/profile/${user.address}`)
                         : () => fcl.authenticate()

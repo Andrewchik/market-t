@@ -1,4 +1,4 @@
-import React, { useHistory } from "react-router-dom";
+import React, { Link, useHistory } from "react-router-dom";
 import LazyLoad from "react-lazyload";
 //import ReactPlayer from 'react-player/lazy';
 
@@ -27,11 +27,9 @@ function Item({
                 {/*    onClick={ () => price ? history.push(`/market/${item_id}`) : {} }*/}
                 {/*/>*/}
                 <div className={'image-wrapper'}>
-                    <img
-                        src={getDarkCountryImage(ipfs)}
-                        onClick={ () => price ? history.push(`/market/${item_id}`) : {} }
-                        alt=""
-                    />
+                    <Link to={price ? `/market/${item_id}` : ''}>
+                        <img src={getDarkCountryImage(ipfs)} alt="" />
+                    </Link>
                 </div>
                 <div className={ `item-description ${hideButtons ? 'block-center' : ''}` }>
                     <p className={'collection'}>{ collection }</p>

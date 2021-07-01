@@ -11,6 +11,7 @@ import DcLogo2 from "../../resources/images/dc-logo2.png";
 
 import './LastPurchaseItem.scss';
 import '../ListedItemContainer/ListedItemContainer.scss';
+import { Link } from "react-router-dom";
 
 function LastPurchaseItem({ history, match: { params: { id } } }) {
     const [item, setItem] = useState({});
@@ -51,15 +52,15 @@ function LastPurchaseItem({ history, match: { params: { id } } }) {
                         <div className={'listed-item-info-buy'}>
                             <div className={'listed-item-owner'}>
                                 <div className={'name-icon bg-seller'}>S</div>
-                                <p onClick={() => item.seller ? history.push(`/profile/${item.seller}`) : {} }>
-                                    @seller - { item.seller ? item.seller : 'seller' }
-                                </p>
+                                <Link to={ item.seller ? `/profile/${item.seller}` : ''}>
+                                    <p>@seller - { item.seller ? item.seller : 'seller' }</p>
+                                </Link>
                             </div>
                             <div className={'listed-item-owner'}>
                                 <div className={'name-icon bg-buyer'}>B</div>
-                                <p onClick={() => item.buyer ? history.push(`/profile/${item.buyer}`) : {} }>
-                                    @buyer - { item.buyer ? item.buyer : 'buyer' }
-                                </p>
+                                <Link to={ item.buyer ? `/profile/${item.buyer}` : ''}>
+                                    <p>@buyer - { item.buyer ? item.buyer : 'buyer' }</p>
+                                </Link>
                             </div>
                             <div className={'listed-item-owner'}>
                                 <div className={'name-icon bg-creator'}>C</div>
