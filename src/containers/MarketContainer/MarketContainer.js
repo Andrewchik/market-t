@@ -43,6 +43,7 @@ function MarketContainer() {
     const { userItems } = useSelector(({ user }) => user);
 
     useEffect(() => fetchItems(), []);
+
     useEffect(() => {
         const handleSort = () => {
             switch (sortOption) {
@@ -98,7 +99,7 @@ function MarketContainer() {
         };
 
         handleSort();
-    }, [sortOption])
+    }, [sortOption, itemsToShow])
 
     useEffect(() => forceVisible(), [reRender]);
 
