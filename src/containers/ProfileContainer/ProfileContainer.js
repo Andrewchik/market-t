@@ -48,7 +48,7 @@ function ProfileContainer({ history, match: { params: { address } } }) {
     useEffect(() => {
         const fetchUser = () => {
             axios.get(`${MARKET_USER_API}?address=${address}`)
-                .then(({ data }) => !!data ?setUser(data) : history.push('/'))
+                .then(({ data }) => !!data ? setUser(data) : history.push('/'))
                 .catch(e => console.log(e));
         };
 
@@ -66,14 +66,18 @@ function ProfileContainer({ history, match: { params: { address } } }) {
                 .then(ids => fetchUserItems(ids))
                 .catch(error => {
                     setLoading(false);
-                    console.log(error)
+                    hideItems();
+                    console.log(error);
                 });
         };
 
         const fetchUserItems = (ids) => {
             axios.get(`${MARKET_NFT_API}/user-nfts?itemIds=${ids.join(',')}`)
                 .then(({ data }) => groupItems(data))
-                .catch(error => console.log(error))
+                .catch(error => {
+                    hideItems();
+                    console.log(error);
+                })
                 .finally(() => setLoading(false));
         };
 
@@ -87,6 +91,11 @@ function ProfileContainer({ history, match: { params: { address } } }) {
             setUserOwnProfile(user.address === authUser.address);
 
     }, [user, authUser]);
+
+    const hideItems = () => {
+        setMyItems([]);
+        setOnSaleItems([]);
+    };
 
     const groupItems = (items) => {
         const userOnSaleItems = items.filter(item => item.status_msg && item.status_msg === SALE_STATUS);
