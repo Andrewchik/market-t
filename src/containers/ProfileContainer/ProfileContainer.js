@@ -23,6 +23,7 @@ import { MARKET_NFT_API, SALE_STATUS, MARKET_USER_API, VERIFICATION_LEVEL_1 } fr
 import { readCollectionIds } from "../../flow";
 
 const MY_ITEMS_BLOCK = 'My items';
+const ITEMS = 'Items';
 const ON_SALE_BLOCK = 'On sale'
 
 const ITEMS_BLOCKS = [
@@ -156,7 +157,7 @@ function ProfileContainer({ history, match: { params: { address } } }) {
                                         onClick={ () => setCurrentItemsBlock(itemBlock) }
                                         key={itemBlock}
                                     >
-                                        { itemBlock }
+                                        { itemBlock === MY_ITEMS_BLOCK && !userOwnProfile ? ITEMS : itemBlock }
                                     </Button>
                                 )
                             }
