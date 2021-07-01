@@ -121,7 +121,7 @@ function ProfileContainer({ history, match: { params: { address } } }) {
                             onCopy={() => setCopiedAddress(true)}
                         >
                             <div className={'wallet-name'}>
-                                <p className={'text-center'}>{ user ? user.address : 'walletname' }</p>
+                                <p className={'text-center'}>{ user ? user.address : 'address' }</p>
                                 { copiedAddress
                                     ? <Copied />
                                     : <img src={CopyIcon} alt="" />

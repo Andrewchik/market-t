@@ -24,6 +24,7 @@ import {
 import {
     showErrorMessage
 } from "../../helpers";
+import { Link } from "react-router-dom";
 
 const INITIAL_ITEM_STATUS = 'INITIAL_ITEM_STATUS';
 const BUY_ITEM_STATUS = 'BUY_ITEM_STATUS';
@@ -116,9 +117,9 @@ function ListedItemContainer({ history, match: { params: { id } } }) {
                         <div className={'listed-item-info-buy'}>
                             <div className={'listed-item-owner'}>
                                 <div className={'name-icon bg-seller'}>O</div>
-                                <p onClick={() => item.seller ? history.push(`/profile/${item.seller}`) : {} }>
-                                    @owner - { item.seller ? item.seller : '' }
-                                </p>
+                                <Link to={ item.seller ? `/profile/${item.seller}` : ''}>
+                                    <p>@owner - { item.seller ? item.seller : '' }</p>
+                                </Link>
                             </div>
                             <div className={'listed-item-owner'}>
                                 <div className={'name-icon bg-creator'}>C</div>

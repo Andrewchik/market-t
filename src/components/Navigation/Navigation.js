@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import * as fcl from "@onflow/fcl";
@@ -31,10 +31,14 @@ function Navigation() {
             <div
                 className={`navigation-menu  ${menuOpened ? 'menu-opened' : 'menu-closed'}`}>
                 <div className={'navigation-logo'}>
-                    <img src={logo} alt="logo" onClick={() => handleRedirect('/')}/>
+                    <Link to={'/'}>
+                        <img src={logo} alt="logo" onClick={() => handleRedirect('/')}/>
+                    </Link>
                 </div>
                 <div className={'navigation-options'}>
-                    <p onClick={ () => handleRedirect('/market') }>Market</p>
+                    <Link to={'/market'}>
+                        <p onClick={ () => handleRedirect('/market') }>Market</p>
+                    </Link>
                     <p onClick={ user && user.address
                         ? () => handleRedirect(`/profile/${user.address}`)
                         : () => fcl.authenticate()
