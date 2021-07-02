@@ -40,7 +40,7 @@ function CollectionFilter({ collections, handleFilter, handleCollectionsSearch, 
                     />
                     <div className={'filter-collections'}>
                         {collections.map(({ image, name, templates }) =>
-                            <div className={'filter-collection-wrapper'}>
+                            <div className={'filter-collection-wrapper'} key={name}>
                                 <div className={'filter-collection'} onClick={() => handleSelectCollection(name)} key={name}>
                                     <img src={ image } alt="" />
                                     <p>{ name }</p>
@@ -53,6 +53,7 @@ function CollectionFilter({ collections, handleFilter, handleCollectionsSearch, 
                                         <div
                                             className={'filter-collection-template'}
                                             onClick={() => handleTemplateFilter(templateName)}
+                                            key={templateName}
                                         >
                                             <p className={'template-image'} />
                                             <p>{ templateName }</p>

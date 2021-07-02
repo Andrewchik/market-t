@@ -83,14 +83,18 @@ function ListedItemContainer({ history, match: { params: { id } } }) {
 
         removeMarketItem({ itemId })
             .then(() => {
-                toast.success('Removed from sale');
-                setTimeout(() => history.push('/market'), 2000);
+                setTimeout(() => {
+                    toast.success('Removed from sale');
+                    setProcessing(false);
+
+                    history.push('/market');
+                }, 3000);
             })
             .catch(e => {
                 console.log(e);
                 showErrorMessage(e);
-            })
-            .finally(() => setProcessing(false));
+                setProcessing(false);
+            });
     };
 
     return (
