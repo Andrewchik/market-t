@@ -24,6 +24,32 @@ const CODE = fcl.cdc`
         let marketCollection: &DarkCountryMarket.Collection
     
         prepare(signer: AuthAccount) {
+            // if the account doesn't already have a collection
+            if signer.borrow<&DarkCountry.Collection>(from: DarkCountry.CollectionStoragePath) == nil {
+    
+                // create a new empty collection
+                let collection <- DarkCountry.createEmptyCollection()
+    
+                // save it to the account
+                signer.save(<-collection, to: DarkCountry.CollectionStoragePath)
+    
+                // create a public capability for the collection
+                signer.link<&DarkCountry.Collection{NonFungibleToken.CollectionPublic, DarkCountry.DarkCountryCollectionPublic}>(DarkCountry.CollectionPublicPath, target: DarkCountry.CollectionStoragePath)
+            }
+            
+            // if the account doesn't already have a collection
+            if signer.borrow<&DarkCountryMarket.Collection>(from: DarkCountryMarket.CollectionStoragePath) == nil {
+    
+                // create a new empty collection
+                let collection <- DarkCountryMarket.createEmptyCollection() as! @DarkCountryMarket.Collection
+    
+                // save it to the account
+                signer.save(<-collection, to: DarkCountryMarket.CollectionStoragePath)
+    
+                // create a public capability for the collection
+                signer.link<&DarkCountryMarket.Collection{DarkCountryMarket.CollectionPublic}>(DarkCountryMarket.CollectionPublicPath, target: DarkCountryMarket.CollectionStoragePath)
+            }
+            
             // we need a provider capability, but one is not provided by default so we create one.
             let DarkCountryCollectionProviderPrivatePath = /private/darkCountryCollectionProvider
     
