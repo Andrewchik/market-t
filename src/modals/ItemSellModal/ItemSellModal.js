@@ -16,7 +16,7 @@ import { sellMarketItem } from '../../flow';
 
 import { renderDarkCountryItemImageOrVideo, showErrorMessage } from "../../helpers";
 
-function ItemSellModal({ visible, onClose, itemId, ipfs, moveItemToOnSaleBlock }) {
+function ItemSellModal({ visible, onClose, itemId, ipfs, mediaUrl, moveItemToOnSaleBlock }) {
     const [currency, setCurrency] = useState(FLOW);
     const [price, setPrice] = useState('');
     const [receivedMoney, setReceivedMoney] = useState('0.00');
@@ -71,7 +71,7 @@ function ItemSellModal({ visible, onClose, itemId, ipfs, moveItemToOnSaleBlock }
                 <p className={'item-id'}>Item id: { itemId }</p>
                 <div className={'item-sell-image-price'}>
                     { renderDarkCountryItemImageOrVideo(
-                        ipfs, null, null, true,
+                        ipfs, mediaUrl, null, true,
                         { width: '350px', height: 'auto', style: { display: 'flex', maxHeight: '300px' } }
                     ) }
                     <div className={'item-sell-price-wrapper'}>

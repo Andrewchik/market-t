@@ -23,7 +23,7 @@ function Item({
                     <Link to={price ? `/market/${item_id}` : ''}>
                         { renderDarkCountryItemImageOrVideo(
                             ipfs, mediaUrl, name, false,
-                            { width: '90%', height: '80%' }
+                            { width: '100%', height: 'auto' }
                         ) }
                     </Link>
                 </div>
