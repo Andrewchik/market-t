@@ -220,6 +220,7 @@ function ProfileContainer({ history, match: { params: { address } } }) {
                 visible={ sellModal }
                 onClose={ () => showSellModal(false) }
                 ipfs={ item && item.data && item.data.ipfs ? item.data.ipfs : '' }
+                mediaUrl={ item && item.data && item.data.mediaUrl ? item.data.mediaUrl : '' }
                 itemId={item ? item.item_id : null}
                 moveItemToOnSaleBlock={moveItemToOnSaleBlock}
             />

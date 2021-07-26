@@ -3,18 +3,21 @@ import { Link, useHistory } from "react-router-dom";
 import './HomeItem.scss';
 import '../Item/Item.scss';
 
-import { getDarkCountryImage } from "../../helpers";
-
 import CustomButton from "../../generics/CustomButton/CustomButton";
 
-function HomeItem({ purchaseId, item_id, image, name, price, collection }) {
+import { renderDarkCountryItemImageOrVideo } from "../../helpers";
+
+function HomeItem({ purchaseId, item_id, ipfs, mediaUrl, name, price, collection }) {
     const history = useHistory();
 
     return (
         <Link to={ purchaseId ? `/purchase/${ purchaseId }` : `/market/${ item_id }` }>
             <div className={ 'home-item-wrapper item-wrapper' }>
                 <div className={ 'image-wrapper' }>
-                    <img src={ getDarkCountryImage(image) } alt=""/>
+                    { renderDarkCountryItemImageOrVideo(
+                        ipfs, mediaUrl, name, false,
+                        { width: '100%', height: 'auto' }
+                    ) }
                 </div>
                 <div className={ 'item-description' }>
                     <p className={ 'collection' }>{ collection }</p>

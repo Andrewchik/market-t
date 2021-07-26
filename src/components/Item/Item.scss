@@ -7,7 +7,11 @@
   align-items: center;
   width: 250px;
   height: 400px;
-  margin: 0 auto 70px;
+  margin: 0 auto;
+}
+
+.lazyload-wrapper {
+  margin-bottom: 70px;
 }
 
 .item-wrapper {
@@ -19,6 +23,9 @@
     height: 80%;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:after {
       content: "";
@@ -61,6 +68,10 @@
 
     video, img {
       cursor: pointer;
+    }
+
+    video {
+      border-radius: 20px;
     }
   }
 

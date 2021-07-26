@@ -104,7 +104,15 @@ function MarketContainer() {
     useEffect(() => forceVisible(), [reRender]);
 
     useEffect(() => {
-        setItemsToShow(selectedTemplate ? allItems.filter(({ data: { name } }) => name === selectedTemplate) : allItems);
+        if (selectedTemplate)
+            setItemsToShow(selectedTemplate === 'Cards'
+                //TODO: add type card to data in db and then check type card instead of rarity
+                ? allItems.filter(({ data: { rarity } }) => !!rarity)
+                : allItems.filter(({ data: { name } }) => name === selectedTemplate)
+            )
+        else
+            setItemsToShow(allItems);
+
         setReRender(!reRender);
     }, [selectedTemplate]);
 

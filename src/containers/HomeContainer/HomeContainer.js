@@ -64,9 +64,10 @@ function HomeContainer() {
 
     const mapNewListings = (items) => {
         return items
-            .map(({ data: { name, ipfs }, price, item_id, collection }) => {
+            .map(({ data: { name, ipfs, mediaUrl }, price, item_id, collection }) => {
                 return <HomeItem
-                    image={ipfs}
+                    ipfs={ipfs}
+                    mediaUrl={mediaUrl}
                     name={name}
                     price={price}
                     item_id={item_id}
@@ -77,10 +78,11 @@ function HomeContainer() {
 
     const mapLastPurchases = (items) => {
         return items
-            .map(({ id, price, collection, data: { name, ipfs } }) => {
+            .map(({ id, price, collection, data: { name, ipfs, mediaUrl } }) => {
                 return <HomeItem
                     purchaseId={id}
-                    image={ipfs}
+                    ipfs={ipfs}
+                    mediaUrl={mediaUrl}
                     name={name}
                     price={price}
                     collection={collection}
@@ -128,7 +130,7 @@ function HomeContainer() {
         <div className={'home-container'}>
             <div className={'home-container-head'}>
                 <div className={'home-container-heading'}>
-                    <h1>Upcoming Events</h1>
+                    <h1>New Events</h1>
                     <div className={'home-head-line'} />
                 </div>
 
@@ -138,9 +140,9 @@ function HomeContainer() {
                         <div className={'head-single-info'}>
                             <h2>Dark Country</h2>
                             <h2>Lands Unpacking</h2>
-                            <p>Coming soon!</p>
+                            <p>Launched!</p>
                         </div>
-                        <a href="https://darkcountry.io/about-lands" target="_blank" rel="noreferrer">
+                        <a href="https://flow.darkcountry.io/unpacker/land" target="_blank" rel="noreferrer">
                             { isMobile
                                 ? <img src={landImage} alt="dc-land" />
                                 : <video

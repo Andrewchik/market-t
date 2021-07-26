@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ReactPlayer from "react-player/lazy";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -11,7 +11,8 @@ import DcLogo2 from "../../resources/images/dc-logo2.png";
 
 import './LastPurchaseItem.scss';
 import '../ListedItemContainer/ListedItemContainer.scss';
-import { Link } from "react-router-dom";
+
+import { renderDarkCountryItemImageOrVideo } from "../../helpers";
 
 function LastPurchaseItem({ history, match: { params: { id } } }) {
     const [item, setItem] = useState({});
@@ -34,13 +35,10 @@ function LastPurchaseItem({ history, match: { params: { id } } }) {
                 ? <ListedItemLoadingPlaceholder />
                 : <div className={'listed-item-container'}>
                     <div className={'listed-item-image'}>
-                        <ReactPlayer
-                            url={ item.data ?  `https://ipfs.io/ipfs/${item.data.ipfs}` : '' }
-                            playing={true}
-                            loop={true}
-                            width={'max-content'}
-                            height={'auto'}
-                        />
+                        { item.data && renderDarkCountryItemImageOrVideo(
+                            item.data.ipfs, item.data.mediaUrl, item.data.name, true,
+                            { width: 'max-content', height: 'auto' }
+                        ) }
                     </div>
                     <div className={'listed-item-info'}>
                         <p className={'item-description'}>{ item.data ? item.data.name : 'name' }</p>

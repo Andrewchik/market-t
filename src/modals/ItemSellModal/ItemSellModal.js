@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ReactPlayer from "react-player/lazy";
 import { toast } from "react-toastify";
 
 import Rodal from "rodal";
@@ -14,9 +13,10 @@ import Loader from "../../components/Loader/Loader";
 
 import { FLOW } from '../../constants';
 import { sellMarketItem } from '../../flow';
-import { showErrorMessage } from "../../helpers";
 
-function ItemSellModal({ visible, onClose, itemId, ipfs, moveItemToOnSaleBlock }) {
+import { renderDarkCountryItemImageOrVideo, showErrorMessage } from "../../helpers";
+
+function ItemSellModal({ visible, onClose, itemId, ipfs, mediaUrl, moveItemToOnSaleBlock }) {
     const [currency, setCurrency] = useState(FLOW);
     const [price, setPrice] = useState('');
     const [receivedMoney, setReceivedMoney] = useState('0.00');
@@ -70,14 +70,10 @@ function ItemSellModal({ visible, onClose, itemId, ipfs, moveItemToOnSaleBlock }
                 <h3>Put item on sale</h3>
                 <p className={'item-id'}>Item id: { itemId }</p>
                 <div className={'item-sell-image-price'}>
-                    <ReactPlayer
-                        url={ ipfs ?  `https://ipfs.io/ipfs/${ipfs}` : '' }
-                        playing={true}
-                        loop={true}
-                        width={'350px'}
-                        height={'auto'}
-                        style={{ display: 'flex', maxHeight: '300px' }}
-                    />
+                    { renderDarkCountryItemImageOrVideo(
+                        ipfs, mediaUrl, null, true,
+                        { width: '350px', height: 'auto', style: { display: 'flex', maxHeight: '300px' } }
+                    ) }
                     <div className={'item-sell-price-wrapper'}>
                         <div className={'item-sell-price-actions'}>
                             <CustomTextField

@@ -67,7 +67,13 @@
     }
   }
 
-  .footer-explore, .footer-contact {
+  .footer-follow {
+    @media screen and (max-width: 1024px) {
+      margin-right: 30px;
+    }
+  }
+
+  .footer-explore, .footer-contact, .footer-follow {
     width: 155px;
 
     @media screen and (max-width: 1024px) {
