@@ -123,8 +123,10 @@ function MarketContainer() {
 
         axios.get(`${SALE_ORDERS_API}/orders`)
             .then(({ data }) => {
-                setAllItems(data);
-                setItemsToShow(data);
+                const dataToSave = data.filter(({ item_id }) => item_id !== 3306)
+
+                setAllItems(dataToSave);
+                setItemsToShow(dataToSave);
             })
             .catch(error => console.log(error))
             .finally(() => setLoading(false));
