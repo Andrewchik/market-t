@@ -64,9 +64,10 @@ function HomeContainer() {
 
     const mapNewListings = (items) => {
         return items
-            .map(({ data: { name, ipfs }, price, item_id, collection }) => {
+            .map(({ data: { name, ipfs, mediaUrl }, price, item_id, collection }) => {
                 return <HomeItem
-                    image={ipfs}
+                    ipfs={ipfs}
+                    mediaUrl={mediaUrl}
                     name={name}
                     price={price}
                     item_id={item_id}
@@ -77,10 +78,11 @@ function HomeContainer() {
 
     const mapLastPurchases = (items) => {
         return items
-            .map(({ id, price, collection, data: { name, ipfs } }) => {
+            .map(({ id, price, collection, data: { name, ipfs, mediaUrl } }) => {
                 return <HomeItem
                     purchaseId={id}
-                    image={ipfs}
+                    ipfs={ipfs}
+                    mediaUrl={mediaUrl}
                     name={name}
                     price={price}
                     collection={collection}

@@ -1,15 +1,14 @@
 import React, { Link, useHistory } from "react-router-dom";
 import LazyLoad from "react-lazyload";
-//import ReactPlayer from 'react-player/lazy';
 
 import './Item.scss'
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
 
-import { getDarkCountryImage } from '../../helpers';
+import { renderDarkCountryItemImageOrVideo } from '../../helpers';
 
 function Item({
-    item: { item_id, price, collection, data: { name, ipfs } },
+    item: { item_id, price, collection, data: { name, ipfs, mediaUrl } },
     showSellModal = null,
     processing = false,
     userOwner = false,
@@ -20,15 +19,12 @@ function Item({
     return (
         <LazyLoad height={'400px'} once>
             <div className={'item-wrapper'}>
-                {/*<ReactPlayer*/}
-                {/*    url={ ipfs ?  `https://ipfs.io/ipfs/${ipfs}` : '' }*/}
-                {/*    width={'90%'}*/}
-                {/*    height={'80%'}*/}
-                {/*    onClick={ () => price ? history.push(`/market/${item_id}`) : {} }*/}
-                {/*/>*/}
                 <div className={'image-wrapper'}>
                     <Link to={price ? `/market/${item_id}` : ''}>
-                        <img src={getDarkCountryImage(ipfs)} alt="" />
+                        { renderDarkCountryItemImageOrVideo(
+                            ipfs, mediaUrl, name, false,
+                            { width: '90%', height: '80%' }
+                        ) }
                     </Link>
                 </div>
                 <div className={ `item-description ${hideButtons ? 'block-center' : ''}` }>

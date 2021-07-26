@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ReactPlayer from 'react-player/lazy';
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -22,9 +22,9 @@ import {
     removeMarketItem
 } from "../../flow";
 import {
+    renderDarkCountryItemImageOrVideo,
     showErrorMessage
 } from "../../helpers";
-import { Link } from "react-router-dom";
 
 const INITIAL_ITEM_STATUS = 'INITIAL_ITEM_STATUS';
 const BUY_ITEM_STATUS = 'BUY_ITEM_STATUS';
@@ -103,13 +103,10 @@ function ListedItemContainer({ history, match: { params: { id } } }) {
                 ? <ListedItemLoadingPlaceholder />
                 : <div className={'listed-item-container'}>
                     <div className={'listed-item-image'}>
-                        <ReactPlayer
-                            url={ item.data ?  `https://ipfs.io/ipfs/${item.data.ipfs}` : '' }
-                            playing={true}
-                            loop={true}
-                            width={'max-content'}
-                            height={'auto'}
-                        />
+                        { item.data && renderDarkCountryItemImageOrVideo(
+                            item.data.ipfs, item.data.mediaUrl, item.data.name, true,
+                            { width: 'max-content', height: 'auto' }
+                        ) }
                     </div>
                     <div className={'listed-item-info'}>
                         <p className={'item-description'}>{ item.data ? item.data.name : '' }</p>
