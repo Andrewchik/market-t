@@ -16,7 +16,7 @@ function HomeItem({ purchaseId, item_id, ipfs, mediaUrl, name, price, collection
                 <div className={ 'image-wrapper' }>
                     { renderDarkCountryItemImageOrVideo(
                         ipfs, mediaUrl, name, false,
-                        { width: '100%', height: '100%' }
+                        { width: '100%', height: 'auto' }
                     ) }
                 </div>
                 <div className={ 'item-description' }>
