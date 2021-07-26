@@ -130,7 +130,7 @@ function HomeContainer() {
         <div className={'home-container'}>
             <div className={'home-container-head'}>
                 <div className={'home-container-heading'}>
-                    <h1>Upcoming Events</h1>
+                    <h1>New Events</h1>
                     <div className={'home-head-line'} />
                 </div>
 
@@ -140,9 +140,9 @@ function HomeContainer() {
                         <div className={'head-single-info'}>
                             <h2>Dark Country</h2>
                             <h2>Lands Unpacking</h2>
-                            <p>Coming soon!</p>
+                            <p>Launched!</p>
                         </div>
-                        <a href="https://darkcountry.io/about-lands" target="_blank" rel="noreferrer">
+                        <a href="https://flow.darkcountry.io/unpacker/land" target="_blank" rel="noreferrer">
                             { isMobile
                                 ? <img src={landImage} alt="dc-land" />
                                 : <video
