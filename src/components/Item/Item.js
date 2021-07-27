@@ -20,12 +20,20 @@ export default function Item({
         <LazyLoad height={'400px'} once>
             <div className={'item-wrapper'}>
                 <div className={'image-wrapper'}>
-                    <Link to={price ? `/market/${item_id}` : ''}>
-                        { renderDarkCountryItemImageOrVideo(
-                            ipfs, mediaUrl, name, false,
-                            { width: '100%', height: 'auto' }
-                        ) }
-                    </Link>
+                    { price
+                        ? <Link to={`/market/${item_id}`}>
+                            { renderDarkCountryItemImageOrVideo(
+                                ipfs, mediaUrl, name, false,
+                                { width: '100%', height: 'auto' }
+                            ) }
+                        </Link>
+                        : <>
+                            { renderDarkCountryItemImageOrVideo(
+                                ipfs, mediaUrl, name, false,
+                                { width: '100%', height: 'auto' }
+                            ) }
+                        </>
+                    }
                 </div>
                 <div className={ `item-description ${hideButtons ? 'block-center' : ''}` }>
                     <p className={'collection'}>{ collection }</p>
