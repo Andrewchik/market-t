@@ -14,8 +14,6 @@ import '../ListedItem/ListedItem.scss';
 
 import { renderDarkCountryItemImageOrVideo } from "../../helpers";
 
-import { renderDarkCountryItemImageOrVideo } from "../../helpers";
-
 export default function LastPurchaseItem({ history, match: { params: { id } } }) {
     const [item, setItem] = useState({});
     const [loading, setLoading] = useState(true);
