@@ -1,11 +1,11 @@
-import './DropContainer.scss';
+import './Drop.scss';
 
 import HeaderLine from "../../resources/images/header_line.png";
 import RanchoPack from "../../resources/images/packs/Rancho.png";
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
 
-export default function DropContainer() {
+export default function Drop() {
     return (
         <div className={'drop-container-wrapper'}>
             <div className={'drop-container-content'}>
