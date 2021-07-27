@@ -11,7 +11,7 @@ import CopyIcon from '../../resources/images/icons/copy_icon.png';
 import AvatarPlaceholder from '../../resources/images/placeholders/avatar_placeholder.png';
 import Copied from '../../resources/svg/checkIcon';
 
-import './Profile.scss'
+import './ProfileContainer.scss'
 
 import ItemSellModal from "../../modals/ItemSellModal/ItemSellModal";
 //import CustomButton from "../../generics/CustomButton/CustomButton";
@@ -31,7 +31,7 @@ const ITEMS_BLOCKS = [
     ON_SALE_BLOCK
 ];
 
-export default function Profile({ history, match: { params: { address } } }) {
+export default function ProfileContainer({ history, match: { params: { address } } }) {
     const [currentItemsBlock, setCurrentItemsBlock] = useState(ITEMS_BLOCKS[0]);
     const [sellModal, showSellModal] = useState(false);
     const [item, setItem] = useState(null);
@@ -145,7 +145,7 @@ export default function Profile({ history, match: { params: { address } } }) {
                         <div className={'follow-share-container'}>
                             {/*{ userOwnProfile*/}
                             {/*    ? <CustomButton*/}
-                            {/*        text={'Edit Profile'}*/}
+                            {/*        text={'Edit ProfileContainer'}*/}
                             {/*        onClick={ () => history.push('/settings') }*/}
                             {/*    />*/}
                             {/*    :  <CustomButton*/}

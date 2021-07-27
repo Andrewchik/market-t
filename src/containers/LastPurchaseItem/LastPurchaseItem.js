@@ -10,7 +10,7 @@ import ListedItemLoadingPlaceholder from "../../components/LoadingPlaceholders/L
 import DcLogo2 from "../../resources/images/logos/dc-logo2.png";
 
 import './LastPurchaseItem.scss';
-import '../ListedItem/ListedItem.scss';
+import '../ListedItemContainer/ListedItemContainer.scss';
 
 import { renderDarkCountryItemImageOrVideo } from "../../helpers";
 

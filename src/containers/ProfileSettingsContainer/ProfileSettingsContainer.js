@@ -6,7 +6,7 @@ import axios from "axios";
 
 import { TextField } from "@material-ui/core";
 
-import './ProfileSettings.scss';
+import './ProfileSettingsContainer.scss';
 
 import CustomButton from '../../generics/CustomButton/CustomButton';
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
@@ -17,7 +17,7 @@ import AvatarPlaceholder from '../../resources/images/placeholders/avatar_placeh
 import { MARKET_USER_API } from '../../constants';
 import { showErrorMessage } from "../../helpers";
 
-export default function ProfileSettings() {
+export default function ProfileSettingsContainer() {
     const [settingChosen, chooseSetting] = useState(0);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -61,7 +61,7 @@ export default function ProfileSettings() {
             bio,
             avatar_link: avatarLink
         })
-            .then(() => toast.success('Profile updated!'))
+            .then(() => toast.success('ProfileContainer updated!'))
             .catch(e => showErrorMessage(e))
             .finally(() => setProcessing(false));
     };

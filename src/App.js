@@ -6,14 +6,14 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import Navigation from "./components/Navigation/Navigation";
-import Market from "./containers/Market/Market";
+import MarketContainer from "./containers/MarketContainer/MarketContainer";
 import Footer from "./components/Footer/Footer";
-import Profile from "./containers/Profile/Profile";
-import ListedItem from "./containers/ListedItem/ListedItem";
-// import ProfileSettings from "./containers/ProfileSettings/ProfileSettings";
-// import Drop from "./containers/Drop/Drop";
+import ProfileContainer from "./containers/ProfileContainer/ProfileContainer";
+import ListedItemContainer from "./containers/ListedItemContainer/ListedItemContainer";
+// import ProfileSettingsContainer from "./containers/ProfileSettingsContainer/ProfileSettingsContainer";
+// import DropContainer from "./containers/DropContainer/DropContainer";
 // import CreateCollectible from "./containers/CreateCollectible/CreateCollectible";
-import Home from "./containers/Home/Home";
+import HomeContainer from "./containers/HomeContainer/HomeContainer";
 import LastPurchaseItem from "./containers/LastPurchaseItem/LastPurchaseItem";
 
 import PurchaseCongratulationModal from "./modals/PurchaseCongratulationModal/PurchaseCongratulationModal";
@@ -46,13 +46,13 @@ function App() {
       <Navigation />
 
       <Switch>
-          <Route path={'/'} component={Home} exact />
-          <Route path={'/market'} component={Market} exact />
-          <Route path={'/market/:id'} component={ListedItem} />
+          <Route path={'/'} component={HomeContainer} exact />
+          <Route path={'/market'} component={MarketContainer} exact />
+          <Route path={'/market/:id'} component={ListedItemContainer} />
           <Route path={'/purchase/:id'} component={LastPurchaseItem} />
-          <Route path={'/profile/:address'} component={Profile} exact />
-          {/*<Route path={'/settings'} component={ProfileSettings} exact />*/}
-          {/*<Route path={'/drop/:id'} component={Drop} exact />*/}
+          <Route path={'/profile/:address'} component={ProfileContainer} exact />
+          {/*<Route path={'/settings'} component={ProfileSettingsContainer} exact />*/}
+          {/*<Route path={'/drop/:id'} component={DropContainer} exact />*/}
           {/*<Route path={'/create-collectible'} component={CreateCollectible} exact />*/}
           <Redirect to={'/'} />
       </Switch>
