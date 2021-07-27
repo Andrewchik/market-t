@@ -144,25 +144,33 @@ export default function Profile({ history, match: { params: { address } } }) {
         switch (currentItemsBlock) {
             case MY_ITEMS_BLOCK:
                 itemsToRender = searchItems ? searchItems : myItems;
-                break;
+
+                return itemsToRender.map(item =>
+                    <Item
+                        item={item}
+                        showSellButton={true}
+                        showSellModal={() => {
+                            setItem(item);
+                            showSellModal(true)
+                        }}
+                        userOwner={userOwnProfile}
+                        hideButtons={!userOwnProfile}
+                        key={item.item_id}
+                    />)
 
             case ON_SALE_BLOCK:
                 itemsToRender = searchItems ? searchItems : onSaleItems;
-                break;
+
+                return itemsToRender.map(item =>
+                    <Item
+                        item={ item }
+                        userOwner={userOwnProfile}
+                        hideButtons={!userOwnProfile}
+                        key={item.item_id}
+                    />)
         }
 
-        return itemsToRender.map(item =>
-            <Item
-                item={item}
-                showSellButton={true}
-                showSellModal={() => {
-                    setItem(item);
-                    showSellModal(true)
-                }}
-                userOwner={userOwnProfile}
-                hideButtons={!userOwnProfile}
-                key={item.item_id}
-            />)
+
     };
 
     return (
