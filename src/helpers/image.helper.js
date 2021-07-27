@@ -48,19 +48,17 @@ export const renderDarkCountryItemImageOrVideo = (ipfs, mediaUrl, name, showVide
             loop={true}
         />;
 
-    switch (ipfs) {
-        case RANCHO_PACK_IPFS:
-            return <img src={ RanchoPackImage } alt="" />;
+    if (ipfs === RANCHO_PACK_IPFS)
+        return <img src={ RanchoPackImage } alt="" />;
 
-        case GOVERNORS_PACK_IPFS:
-            return <img src={ GovernorsPackImage } alt="" />;
+    if (ipfs === GOVERNORS_PACK_IPFS)
+        return <img src={ GovernorsPackImage } alt="" />;
 
-        case MAYORS_PACK_IPFS:
-            return <img src={ MayorsPackImage } alt="" />;
+    if (ipfs === MAYORS_PACK_IPFS)
+        return <img src={ MayorsPackImage } alt="" />;
 
-        case BONUS_PACK_IPFS:
-            return <img src={ BonusPackImage } alt="" />;
-    }
+    if (ipfs === BONUS_PACK_IPFS)
+        return <img src={ BonusPackImage } alt="" />;
 
     return <img src={ `https://ipfs.io/ipfs/${ipfs}` } alt="" />;
 };
