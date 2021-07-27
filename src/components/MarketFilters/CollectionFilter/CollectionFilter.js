@@ -55,7 +55,18 @@ function CollectionFilter({ collections, handleFilter, handleCollectionsSearch, 
                                             onClick={() => handleTemplateFilter(templateName)}
                                             key={templateName}
                                         >
-                                            <p className={'template-image'} />
+                                            { templateName.toString().includes('Land') &&
+                                                <p className={'template-image template-image-land-color'} />
+                                            }
+
+                                            { templateName.toString().includes('Card') &&
+                                                <p className={'template-image template-image-card-color'} />
+                                            }
+
+                                            { templateName.toString().includes('Pack') &&
+                                                <p className={'template-image template-image-pack-color'} />
+                                            }
+
                                             <p>{ templateName }</p>
                                             { selectedTemplate === templateName &&
                                                 <span onClick={() => handleTemplateFilter(templateName)}>x</span>
