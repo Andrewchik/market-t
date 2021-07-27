@@ -10,11 +10,14 @@ import CheckIcon from '../../resources/images/icons/check_icon.png'
 import CopyIcon from '../../resources/images/icons/copy_icon.png';
 import AvatarPlaceholder from '../../resources/images/placeholders/avatar_placeholder.png';
 import Copied from '../../resources/svg/checkIcon';
+import SearchIcon from "../../resources/images/icons/search_icon.png";
 
 import './Profile.scss'
 
 import ItemSellModal from "../../modals/ItemSellModal/ItemSellModal";
+
 //import CustomButton from "../../generics/CustomButton/CustomButton";
+import CustomTextField from "../../generics/CustomTextField/CustomTextField";
 
 import Item from "../../components/Item/Item";
 import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
@@ -36,6 +39,8 @@ export default function Profile({ history, match: { params: { address } } }) {
     const [sellModal, showSellModal] = useState(false);
     const [item, setItem] = useState(null);
     const [myItems, setMyItems] = useState([]);
+    const [searchItems, setSearchItems] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
     const [onSaleItems, setOnSaleItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const [copiedAddress, setCopiedAddress] = useState(false);
@@ -96,6 +101,8 @@ export default function Profile({ history, match: { params: { address } } }) {
 
     }, [user, authUser]);
 
+    useEffect(() => handleItemsSearch(searchQuery), [searchQuery]);
+
     const hideItems = () => {
         setMyItems([]);
         setOnSaleItems([]);
@@ -112,6 +119,50 @@ export default function Profile({ history, match: { params: { address } } }) {
     const moveItemToOnSaleBlock = (price) => {
         setMyItems(myItems.filter(({ item_id }) => item.item_id !== item_id));
         setOnSaleItems([...onSaleItems, { ...item, price, status_msg: SALE_STATUS }]);
+    };
+
+    const handleItemsSearch = (value) => {
+        if (value && value.length > 2) {
+            if (currentItemsBlock === MY_ITEMS_BLOCK)
+                return setSearchItems(myItems.filter(({ data: { name } }) => {
+                    return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
+                }));
+
+            if (currentItemsBlock === ON_SALE_BLOCK)
+                return setSearchItems(onSaleItems.filter(({ data: { name } }) => {
+                    return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
+                }));
+        }
+
+        if (!!searchItems)
+            setSearchItems(null);
+    };
+
+    const renderItems = () => {
+        let itemsToRender = [];
+
+        switch (currentItemsBlock) {
+            case MY_ITEMS_BLOCK:
+                itemsToRender = searchItems ? searchItems : myItems;
+                break;
+
+            case ON_SALE_BLOCK:
+                itemsToRender = searchItems ? searchItems : onSaleItems;
+                break;
+        }
+
+        return itemsToRender.map(item =>
+            <Item
+                item={item}
+                showSellButton={true}
+                showSellModal={() => {
+                    setItem(item);
+                    showSellModal(true)
+                }}
+                userOwner={userOwnProfile}
+                hideButtons={!userOwnProfile}
+                key={item.item_id}
+            />)
     };
 
     return (
@@ -167,7 +218,11 @@ export default function Profile({ history, match: { params: { address } } }) {
                             { ITEMS_BLOCKS.map(itemBlock =>
                                     <Button
                                         className={ currentItemsBlock === itemBlock ? 'selected-button' : '' }
-                                        onClick={ () => setCurrentItemsBlock(itemBlock) }
+                                        onClick={ () => {
+                                            setCurrentItemsBlock(itemBlock);
+                                            setSearchQuery('');
+                                            setSearchItems(null);
+                                        } }
                                         key={itemBlock}
                                     >
                                         { itemBlock === MY_ITEMS_BLOCK && !userOwnProfile ? ITEMS : itemBlock }
@@ -176,45 +231,19 @@ export default function Profile({ history, match: { params: { address } } }) {
                             }
                         </div>
 
+                        <div className={'profile-search'}>
+                            <CustomTextField
+                                placeholder={'Search items'}
+                                img={SearchIcon}
+                                value={searchQuery}
+                                onChange={({ target: { value } }) => setSearchQuery(value)}
+                            />
+                        </div>
+
                         { loading
                             ? <ItemsLoadingPlaceholder />
                             : <div className={'items-wrapper'}>
-                                { currentItemsBlock === MY_ITEMS_BLOCK &&
-                                    myItems.map(item =>
-                                        <Item
-                                            item={item}
-                                            showSellButton={true}
-                                            showSellModal={() => {
-                                                setItem(item);
-                                                showSellModal(true)
-                                            }}
-                                            userOwner={userOwnProfile}
-                                            hideButtons={!userOwnProfile}
-                                            key={item.item_id}
-                                        />)
-                                }
-                                {/*TODO: mb remove*/}
-                                { currentItemsBlock === MY_ITEMS_BLOCK &&
-                                    onSaleItems.map(item =>
-                                        <Item
-                                            item={ item }
-                                            userOwner={userOwnProfile}
-                                            hideButtons={!userOwnProfile}
-                                            key={item.item_id}
-                                        />
-                                    )
-                                }
-
-                                { currentItemsBlock === ON_SALE_BLOCK &&
-                                    onSaleItems.map(item =>
-                                        <Item
-                                            item={ item }
-                                            userOwner={userOwnProfile}
-                                            hideButtons={!userOwnProfile}
-                                            key={item.item_id}
-                                        />
-                                    )
-                                }
+                                { renderItems() }
                             </div>
                         }
                     </div>
