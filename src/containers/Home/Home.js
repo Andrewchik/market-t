@@ -44,7 +44,7 @@ export default function Home() {
     useEffect(() => {
         const fetchLastPurchases = () => {
             axios.get(`${MARKET_PURCHASE_API}/purchases`)
-                .then(({ data }) => setLastPurchases(mapLastPurchases(data.filter(({ item_id }) => item_id !== 3306))))
+                .then(({ data }) => setLastPurchases(mapLastPurchases(data)))
                 .catch(error => console.log(error))
                 .finally(() => setLastPurchasesLoading(false));
         };
@@ -54,7 +54,7 @@ export default function Home() {
     useEffect(() => {
         const fetchNewListingsPurchases = () => {
             axios.get(`${SALE_ORDERS_API}/last-listings`)
-                .then(({ data }) => setNewListings(mapNewListings(data.filter(({ item_id }) => item_id !== 3306))))
+                .then(({ data }) => setNewListings(mapNewListings(data)))
                 .catch(error => console.log(error))
                 .finally(() => setNewListingsLoading(false));
         };
