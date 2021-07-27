@@ -45,7 +45,15 @@ export default function LastPurchaseItem({ history, match: { params: { id } } })
                         <p className={'mint-info'}>ItemID - { item.item_id }</p>
                         <div className={'category'}>
                             <img src={DcLogo2} alt="category" />
-                            <p>{ item.data ? item.data.description : 'description' }</p>
+                            { item.data && item.data.description &&
+                                <p>{ item.data.description }</p>
+                            }
+                            { item.data && item.data.rarity && !item.data.description &&
+                                <p>{ `Dark Country ${item.data.name} card` }</p>
+                            }
+                            { !item.data &&
+                                <p>description</p>
+                            }
                         </div>
                         <div className={'listed-item-info-buy'}>
                             <div className={'listed-item-owner'}>
