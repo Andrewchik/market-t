@@ -37,7 +37,7 @@ export default function LastPurchaseItem({ history, match: { params: { id } } })
                     <div className={'listed-item-image'}>
                         { item.data && renderDarkCountryItemImageOrVideo(
                             item.data.ipfs, item.data.mediaUrl, item.data.name, true,
-                            { width: 'max-content', height: 'auto' }
+                            { width: 'max-content', height: 'auto', style: { display: 'flex', alignItems: 'center' } }
                         ) }
                     </div>
                     <div className={'listed-item-info'}>
