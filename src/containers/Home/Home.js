@@ -18,7 +18,7 @@ import LegendaryLandVideo from "../../resources/videos/Legendary__xvid.mp4";
 import MythicalLandVideo from "../../resources/videos/Mithycal__xvid.mp4"
 import RareLandVideo from "../../resources/videos/Rare__xvid.mp4";
 
-import './HomeContainer.scss';
+import './Home.scss';
 import '../../components/HomeItem/HomeItem.scss';
 
 import HomeItem from "../../components/HomeItem/HomeItem";
@@ -26,7 +26,7 @@ import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsL
 
 import { SALE_ORDERS_API, MARKET_PURCHASE_API } from "../../constants";
 
-export default function HomeContainer() {
+export default function Home() {
     const [lastPurchases, setLastPurchases] = useState([]);
     const [lastPurchasesLoading, setLastPurchasesLoading] = useState(true);
     const [newListings, setNewListings] = useState([]);

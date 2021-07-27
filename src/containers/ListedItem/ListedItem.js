@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 
-import './ListedItemContainer.scss'
+import './ListedItem.scss'
 
 import DcLogo2 from "../../resources/images/logos/dc-logo2.png";
 
@@ -30,7 +30,7 @@ const INITIAL_ITEM_STATUS = 'INITIAL_ITEM_STATUS';
 const BUY_ITEM_STATUS = 'BUY_ITEM_STATUS';
 const CANCEL_ITEM_STATUS = 'CANCEL_ITEM_STATUS';
 
-export default function ListedItemContainer({ history, match: { params: { id } } }) {
+export default function ListedItem({ history, match: { params: { id } } }) {
     const [item, setItem] = useState({});
     const [processing, setProcessing] = useState(false);
     const [itemStatus, setItemStatus] = useState(INITIAL_ITEM_STATUS);

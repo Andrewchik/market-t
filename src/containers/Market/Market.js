@@ -5,7 +5,7 @@ import { forceVisible } from "react-lazyload";
 
 import axios from "axios";
 
-import './MarketContainer.scss';
+import './Market.scss';
 
 import MarketFilters from "../../components/MarketFilters/MarketFilters";
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
@@ -25,7 +25,7 @@ import {
     DARKCOUNTRY_COLLECTION
 } from "../../constants";
 
-export default function MarketContainer() {
+export default function Market() {
     //5 rows
     const INITIAL_LIMIT = 20;
     const allCollections = [DARKCOUNTRY_COLLECTION];
