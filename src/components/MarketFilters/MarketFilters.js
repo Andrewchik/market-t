@@ -2,7 +2,9 @@ import './MarketFilters.scss';
 
 import CollectionFilter from "./CollectionFilter/CollectionFilter";
 
-function MarketFilters({ collections, handleCollectionFilter, handleCollectionsSearch, handleTemplateFilter, selectedTemplate }) {
+export default function MarketFilters(
+    { collections, handleCollectionFilter, handleCollectionsSearch, handleTemplateFilter, selectedTemplate }
+) {
     return (
         <div className={'market-filters-wrapper'}>
             <CollectionFilter
@@ -15,5 +17,3 @@ function MarketFilters({ collections, handleCollectionFilter, handleCollectionsS
         </div>
     );
 }
-
-export default MarketFilters;

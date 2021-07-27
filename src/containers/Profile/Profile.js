@@ -6,17 +6,17 @@ import axios from "axios";
 
 import { Button } from "@material-ui/core";
 
-import CheckIcon from '../../resources/images/check_icon.png'
-import CopyIcon from '../../resources/images/copy_icon.png';
-import AvatarPlaceholder from '../../resources/images/avatar_placeholder.png';
+import CheckIcon from '../../resources/images/icons/check_icon.png'
+import CopyIcon from '../../resources/images/icons/copy_icon.png';
+import AvatarPlaceholder from '../../resources/images/placeholders/avatar_placeholder.png';
 import Copied from '../../resources/svg/checkIcon';
 
-import './ProfileContainer.scss'
+import './Profile.scss'
 
-import Item from "../../components/Item/Item";
 import ItemSellModal from "../../modals/ItemSellModal/ItemSellModal";
 //import CustomButton from "../../generics/CustomButton/CustomButton";
 
+import Item from "../../components/Item/Item";
 import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
 
 import { MARKET_NFT_API, SALE_STATUS, MARKET_USER_API, VERIFICATION_LEVEL_1 } from "../../constants";
@@ -31,7 +31,7 @@ const ITEMS_BLOCKS = [
     ON_SALE_BLOCK
 ];
 
-function ProfileContainer({ history, match: { params: { address } } }) {
+export default function Profile({ history, match: { params: { address } } }) {
     const [currentItemsBlock, setCurrentItemsBlock] = useState(ITEMS_BLOCKS[0]);
     const [sellModal, showSellModal] = useState(false);
     const [item, setItem] = useState(null);
@@ -231,5 +231,3 @@ function ProfileContainer({ history, match: { params: { address } } }) {
         </>
     );
 }
-
-export default ProfileContainer;

@@ -7,14 +7,14 @@ import { MARKET_PURCHASE_API } from "../../constants";
 
 import ListedItemLoadingPlaceholder from "../../components/LoadingPlaceholders/ListedItemLoadingPlaceholder/ListedItemLoadingPlaceholder";
 
-import DcLogo2 from "../../resources/images/dc-logo2.png";
+import DcLogo2 from "../../resources/images/logos/dc-logo2.png";
 
 import './LastPurchaseItem.scss';
-import '../ListedItemContainer/ListedItemContainer.scss';
+import '../ListedItem/ListedItem.scss';
 
 import { renderDarkCountryItemImageOrVideo } from "../../helpers";
 
-function LastPurchaseItem({ history, match: { params: { id } } }) {
+export default function LastPurchaseItem({ history, match: { params: { id } } }) {
     const [item, setItem] = useState({});
     const [loading, setLoading] = useState(true);
 
@@ -72,5 +72,3 @@ function LastPurchaseItem({ history, match: { params: { id } } }) {
         </div>
     );
 }
-
-export default LastPurchaseItem;
