@@ -72,13 +72,17 @@ function ProfileContainer({ history, match: { params: { address } } }) {
         };
 
         const fetchUserItems = (ids) => {
-            axios.get(`${MARKET_NFT_API}/user-nfts?itemIds=${ids.join(',')}`)
-                .then(({ data }) => groupItems(data))
-                .catch(error => {
-                    hideItems();
-                    console.log(error);
-                })
-                .finally(() => setLoading(false));
+            if (ids && ids.length) {
+                axios.get(`${MARKET_NFT_API}/user-nfts?itemIds=${ids.join(',')}`)
+                    .then(({ data }) => groupItems(data))
+                    .catch(error => {
+                        hideItems();
+                        console.log(error);
+                    })
+                    .finally(() => setLoading(false));
+            } else {
+                setLoading(false);
+            }
         };
 
         if (user && user.address)
