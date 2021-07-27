@@ -7,7 +7,7 @@ import axios from "axios";
 
 import './ListedItemContainer.scss'
 
-import DcLogo2 from "../../resources/images/dc-logo2.png";
+import DcLogo2 from "../../resources/images/logos/dc-logo2.png";
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
 import Loader from "../../components/Loader/Loader";
@@ -30,7 +30,7 @@ const INITIAL_ITEM_STATUS = 'INITIAL_ITEM_STATUS';
 const BUY_ITEM_STATUS = 'BUY_ITEM_STATUS';
 const CANCEL_ITEM_STATUS = 'CANCEL_ITEM_STATUS';
 
-function ListedItemContainer({ history, match: { params: { id } } }) {
+export default function ListedItemContainer({ history, match: { params: { id } } }) {
     const [item, setItem] = useState({});
     const [processing, setProcessing] = useState(false);
     const [itemStatus, setItemStatus] = useState(INITIAL_ITEM_STATUS);
@@ -105,7 +105,7 @@ function ListedItemContainer({ history, match: { params: { id } } }) {
                     <div className={'listed-item-image'}>
                         { item.data && renderDarkCountryItemImageOrVideo(
                             item.data.ipfs, item.data.mediaUrl, item.data.name, true,
-                            { width: 'max-content', height: 'auto' }
+                            { width: 'max-content', height: 'auto', style: { display: 'flex', alignItems: 'center' } }
                         ) }
                     </div>
                     <div className={'listed-item-info'}>
@@ -159,5 +159,3 @@ function ListedItemContainer({ history, match: { params: { id } } }) {
         </div>
     );
 }
-
-export default ListedItemContainer

@@ -6,11 +6,11 @@ import AliceCarousel from "react-alice-carousel";
 import 'react-alice-carousel/lib/alice-carousel.css';
 
 import UpcomingDrop1Image from "../../resources/images/Drop Cards.png";
-import CommonLandImage from "../../resources/images/Common__xvid.b6df2fac.jpg";
-import EpicLandImage from "../../resources/images/Epic__xvid.d15929ea.jpg";
-import LegendaryLandImage from "../../resources/images/Legendary__xvid.d534466a.jpg";
-import MythicalLandImage from "../../resources/images/Mithycal__xvid.b7d97282.jpg";
-import RareLandImage from "../../resources/images/Rare__xvid.b478551e.jpg";
+import CommonLandImage from "../../resources/images/lands/Common__xvid.b6df2fac.jpg";
+import EpicLandImage from "../../resources/images/lands/Epic__xvid.d15929ea.jpg";
+import LegendaryLandImage from "../../resources/images/lands/Legendary__xvid.d534466a.jpg";
+import MythicalLandImage from "../../resources/images/lands/Mithycal__xvid.b7d97282.jpg";
+import RareLandImage from "../../resources/images/lands/Rare__xvid.b478551e.jpg";
 
 import CommonLandVideo from "../../resources/videos/Common__xvid.mp4";
 import EpicLandVideo from "../../resources/videos/Epic__xvid.mp4";
@@ -26,7 +26,7 @@ import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsL
 
 import { SALE_ORDERS_API, MARKET_PURCHASE_API } from "../../constants";
 
-function HomeContainer() {
+export default function HomeContainer() {
     const [lastPurchases, setLastPurchases] = useState([]);
     const [lastPurchasesLoading, setLastPurchasesLoading] = useState(true);
     const [newListings, setNewListings] = useState([]);
@@ -220,5 +220,3 @@ function HomeContainer() {
         </div>
     )
 }
-
-export default HomeContainer

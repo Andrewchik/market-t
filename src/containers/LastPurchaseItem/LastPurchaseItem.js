@@ -7,14 +7,16 @@ import { MARKET_PURCHASE_API } from "../../constants";
 
 import ListedItemLoadingPlaceholder from "../../components/LoadingPlaceholders/ListedItemLoadingPlaceholder/ListedItemLoadingPlaceholder";
 
-import DcLogo2 from "../../resources/images/dc-logo2.png";
+import DcLogo2 from "../../resources/images/logos/dc-logo2.png";
 
 import './LastPurchaseItem.scss';
 import '../ListedItemContainer/ListedItemContainer.scss';
 
 import { renderDarkCountryItemImageOrVideo } from "../../helpers";
 
-function LastPurchaseItem({ history, match: { params: { id } } }) {
+import { renderDarkCountryItemImageOrVideo } from "../../helpers";
+
+export default function LastPurchaseItem({ history, match: { params: { id } } }) {
     const [item, setItem] = useState({});
     const [loading, setLoading] = useState(true);
 
@@ -37,7 +39,7 @@ function LastPurchaseItem({ history, match: { params: { id } } }) {
                     <div className={'listed-item-image'}>
                         { item.data && renderDarkCountryItemImageOrVideo(
                             item.data.ipfs, item.data.mediaUrl, item.data.name, true,
-                            { width: 'max-content', height: 'auto' }
+                            { width: 'max-content', height: 'auto', style: { display: 'flex', alignItems: 'center' } }
                         ) }
                     </div>
                     <div className={'listed-item-info'}>
@@ -72,5 +74,3 @@ function LastPurchaseItem({ history, match: { params: { id } } }) {
         </div>
     );
 }
-
-export default LastPurchaseItem;

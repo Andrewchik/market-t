@@ -14,7 +14,7 @@ import CustomSelect from "../../generics/CustomSelect/CustomSelect";
 import Item from "../../components/Item/Item";
 import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
 
-import SearchIcon from "../../resources/images/search_icon.png";
+import SearchIcon from "../../resources/images/icons/search_icon.png";
 
 import {
     SALE_ORDERS_API,
@@ -25,7 +25,7 @@ import {
     DARKCOUNTRY_COLLECTION
 } from "../../constants";
 
-function MarketContainer() {
+export default function MarketContainer() {
     //5 rows
     const INITIAL_LIMIT = 20;
     const allCollections = [DARKCOUNTRY_COLLECTION];
@@ -231,5 +231,3 @@ function MarketContainer() {
         </div>
     )
 }
-
-export default MarketContainer

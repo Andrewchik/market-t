@@ -1,6 +1,6 @@
 import './ListedItemLoadingPlaceholder.scss';
 
-function ListedItemLoadingPlaceholder() {
+export default function ListedItemLoadingPlaceholder() {
     return (
       <div className={'listed-item-loading-placeholder-wrapper'}>
           <div className="ph-item">
@@ -35,5 +35,3 @@ function ListedItemLoadingPlaceholder() {
       </div>
     );
 }
-
-export default ListedItemLoadingPlaceholder;

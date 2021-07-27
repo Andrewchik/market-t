@@ -1,18 +1,18 @@
 import './DropContainer.scss';
 
 import HeaderLine from "../../resources/images/header_line.png";
-import BronzePack from "../../resources/images/Bronze_1.png";
+import RanchoPack from "../../resources/images/packs/Rancho.png";
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
 
-function DropContainer() {
+export default function DropContainer() {
     return (
         <div className={'drop-container-wrapper'}>
             <div className={'drop-container-content'}>
                 <h3>Mystic Drop</h3>
                 <img className={'line'} src={HeaderLine} alt="line" />
                 <div className={'drop'}>
-                    <img src={BronzePack} alt="drop" />
+                    <img src={RanchoPack} alt="drop" />
                 </div>
                 <div className={'drop-info'}>
                     <div className={'drop-info-row'}>
@@ -57,5 +57,3 @@ function DropContainer() {
         </div>
     );
 }
-
-export default DropContainer;

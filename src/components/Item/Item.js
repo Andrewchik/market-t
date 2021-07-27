@@ -7,7 +7,7 @@ import CustomButton from "../../generics/CustomButton/CustomButton";
 
 import { renderDarkCountryItemImageOrVideo } from '../../helpers';
 
-function Item({
+export default function Item({
     item: { item_id, price, collection, data: { name, ipfs, mediaUrl } },
     showSellModal = null,
     processing = false,
@@ -54,5 +54,3 @@ function Item({
         </LazyLoad>
     )
 }
-
-export default Item

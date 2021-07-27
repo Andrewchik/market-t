@@ -1,10 +1,10 @@
 import React from "react";
 import ReactPlayer from 'react-player/lazy';
 
-import RanchoPackImage from '../resources/images/Rancho.png';
-import GovernorsPackImage from '../resources/images/Governor.png';
-import MayorsPackImage from '../resources/images/Mayor.png';
-import BonusPackImage from '../resources/images/Bonus.png';
+import RanchoPackImage from '../resources/images/packs/Rancho.png';
+import GovernorsPackImage from '../resources/images/packs/Governor.png';
+import MayorsPackImage from '../resources/images/packs/Mayor.png';
+import BonusPackImage from '../resources/images/packs/Bonus.png';
 
 import CommonLandVideo from "../resources/videos/Common__xvid.mp4";
 import EpicLandVideo from "../resources/videos/Epic__xvid.mp4";

@@ -5,9 +5,9 @@ import * as fcl from "@onflow/fcl";
 
 import './Footer.scss'
 
-import logo from "../../resources/images/TopExpo_LOGO1_2.png";
+import logo from "../../resources/images/logos/TopExpo_LOGO1_2.png";
 
-function Footer() {
+export default function Footer() {
     const history = useHistory();
     const user = useSelector(({ auth }) => auth.auth);
 
@@ -43,5 +43,3 @@ function Footer() {
         </div>
     )
 }
-
-export default Footer

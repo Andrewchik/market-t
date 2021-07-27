@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import SearchIcon from "../../../resources/images/search_icon.png";
+import SearchIcon from "../../../resources/images/icons/search_icon.png";
 import DotsMenu from "../../../resources/images/dots_menu_filter.png";
 
 import './CollectionFilter.scss'

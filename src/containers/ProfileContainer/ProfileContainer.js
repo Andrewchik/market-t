@@ -6,17 +6,17 @@ import axios from "axios";
 
 import { Button } from "@material-ui/core";
 
-import CheckIcon from '../../resources/images/check_icon.png'
-import CopyIcon from '../../resources/images/copy_icon.png';
-import AvatarPlaceholder from '../../resources/images/avatar_placeholder.png';
+import CheckIcon from '../../resources/images/icons/check_icon.png'
+import CopyIcon from '../../resources/images/icons/copy_icon.png';
+import AvatarPlaceholder from '../../resources/images/placeholders/avatar_placeholder.png';
 import Copied from '../../resources/svg/checkIcon';
 
 import './ProfileContainer.scss'
 
-import Item from "../../components/Item/Item";
 import ItemSellModal from "../../modals/ItemSellModal/ItemSellModal";
 //import CustomButton from "../../generics/CustomButton/CustomButton";
 
+import Item from "../../components/Item/Item";
 import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
 
 import { MARKET_NFT_API, SALE_STATUS, MARKET_USER_API, VERIFICATION_LEVEL_1 } from "../../constants";
@@ -31,7 +31,7 @@ const ITEMS_BLOCKS = [
     ON_SALE_BLOCK
 ];
 
-function ProfileContainer({ history, match: { params: { address } } }) {
+export default function ProfileContainer({ history, match: { params: { address } } }) {
     const [currentItemsBlock, setCurrentItemsBlock] = useState(ITEMS_BLOCKS[0]);
     const [sellModal, showSellModal] = useState(false);
     const [item, setItem] = useState(null);
@@ -72,13 +72,17 @@ function ProfileContainer({ history, match: { params: { address } } }) {
         };
 
         const fetchUserItems = (ids) => {
-            axios.get(`${MARKET_NFT_API}/user-nfts?itemIds=${ids.join(',')}`)
-                .then(({ data }) => groupItems(data))
-                .catch(error => {
-                    hideItems();
-                    console.log(error);
-                })
-                .finally(() => setLoading(false));
+            if (ids && ids.length) {
+                axios.get(`${MARKET_NFT_API}/user-nfts?itemIds=${ids.join(',')}`)
+                    .then(({ data }) => groupItems(data))
+                    .catch(error => {
+                        hideItems();
+                        console.log(error);
+                    })
+                    .finally(() => setLoading(false));
+            } else {
+                setLoading(false);
+            }
         };
 
         if (user && user.address)
@@ -141,7 +145,7 @@ function ProfileContainer({ history, match: { params: { address } } }) {
                         <div className={'follow-share-container'}>
                             {/*{ userOwnProfile*/}
                             {/*    ? <CustomButton*/}
-                            {/*        text={'Edit Profile'}*/}
+                            {/*        text={'Edit ProfileContainer'}*/}
                             {/*        onClick={ () => history.push('/settings') }*/}
                             {/*    />*/}
                             {/*    :  <CustomButton*/}
@@ -227,5 +231,3 @@ function ProfileContainer({ history, match: { params: { address } } }) {
         </>
     );
 }
-
-export default ProfileContainer;

@@ -7,7 +7,7 @@ import CustomButton from "../../generics/CustomButton/CustomButton";
 
 import { renderDarkCountryItemImageOrVideo } from "../../helpers";
 
-function HomeItem({ purchaseId, item_id, ipfs, mediaUrl, name, price, collection }) {
+export default function HomeItem({ purchaseId, item_id, ipfs, mediaUrl, name, price, collection }) {
     const history = useHistory();
 
     return (
@@ -40,5 +40,3 @@ function HomeItem({ purchaseId, item_id, ipfs, mediaUrl, name, price, collection
         </Link>
     );
 }
-
-export default HomeItem;

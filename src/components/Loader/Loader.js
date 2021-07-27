@@ -1,6 +1,6 @@
 import './Loader.scss';
 
-function Loader() {
+export default function Loader() {
     return (
         <div className={'loader-wrapper'}>
             <div className="bar1" />
@@ -12,5 +12,3 @@ function Loader() {
         </div>
     )
 }
-
-export default Loader;
