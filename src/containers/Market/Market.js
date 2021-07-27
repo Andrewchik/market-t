@@ -104,14 +104,16 @@ export default function Market() {
     useEffect(() => forceVisible(), [reRender]);
 
     useEffect(() => {
-        if (selectedTemplate)
-            setItemsToShow(selectedTemplate === 'Cards'
-                //TODO: add type card to data in db and then check type card instead of rarity
-                ? allItems.filter(({ data: { rarity } }) => !!rarity)
-                : allItems.filter(({ data: { name } }) => name === selectedTemplate)
-            )
-        else
+        if (!selectedTemplate) {
             setItemsToShow(allItems);
+        } else if (selectedTemplate && selectedTemplate.includes('Card')) {
+            //TODO: add type card to data in db and then check type card instead of rarity
+            const cardRarity = selectedTemplate.replace('Card', '').trim();
+
+            setItemsToShow(allItems.filter(({ data: { rarity } }) => rarity === cardRarity));
+        } else {
+            setItemsToShow(allItems.filter(({ data: { name } }) => name === selectedTemplate));
+        }
 
         setReRender(!reRender);
     }, [selectedTemplate]);
