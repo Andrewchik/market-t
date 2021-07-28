@@ -11,7 +11,7 @@ import './CollectionFilter.scss'
 import CustomTextField from "../../../generics/CustomTextField/CustomTextField";
 
 function CollectionFilter({ collections, handleFilter, handleCollectionsSearch, handleTemplateFilter, selectedTemplate }) {
-    const [expanded, setExpanded] = useState(true);
+    const [expanded, setExpanded] = useState(window.innerWidth >= 1024);
     const [selectedCollections, setSelectedCollections] = useState([]);
 
     const handleSelectCollection = (selectedCollection) => {
