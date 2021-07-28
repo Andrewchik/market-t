@@ -117,7 +117,7 @@ export default function ListedItem({ history, match: { params: { id } } }) {
                                 <p>{ item.data.description }</p>
                             }
                             { item.data && item.data.rarity && !item.data.description &&
-                                <p>{ `Dark Country ${item.data.name} card` }</p>
+                                <p>Dark Country {item.data.rarity} Card</p>
                             }
                             { !item.data &&
                                 <p>description</p>

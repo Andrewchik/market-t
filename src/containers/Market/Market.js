@@ -107,7 +107,6 @@ export default function Market() {
         if (!selectedTemplate) {
             setItemsToShow(allItems);
         } else if (selectedTemplate && selectedTemplate.includes('Card')) {
-            //TODO: add type card to data in db and then check type card instead of rarity
             const cardRarity = selectedTemplate.replace('Card', '').trim();
 
             setItemsToShow(allItems.filter(({ data: { rarity } }) => rarity === cardRarity));
