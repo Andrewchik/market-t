@@ -133,7 +133,6 @@ export default function Market() {
 
         axios.get(`${SALE_ORDERS_API}/orders`)
             .then(({ data }) => {
-                console.log({ data });
                 setAllItems(data);
                 setItemsToShow(data);
             })
