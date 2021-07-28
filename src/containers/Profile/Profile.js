@@ -86,6 +86,7 @@ export default function Profile({ history, match: { params: { address } } }) {
                     })
                     .finally(() => setLoading(false));
             } else {
+                hideItems();
                 setLoading(false);
             }
         };
@@ -101,7 +102,26 @@ export default function Profile({ history, match: { params: { address } } }) {
 
     }, [user, authUser]);
 
-    useEffect(() => handleItemsSearch(searchQuery), [searchQuery]);
+    useEffect(() => {
+        const handleItemsSearch = (value) => {
+            if (value && value.length > 2) {
+                if (currentItemsBlock === MY_ITEMS_BLOCK)
+                    return setSearchItems(myItems.filter(({ data: { name } }) => {
+                        return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
+                    }));
+
+                if (currentItemsBlock === ON_SALE_BLOCK)
+                    return setSearchItems(onSaleItems.filter(({ data: { name } }) => {
+                        return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
+                    }));
+            }
+
+            if (!!searchItems)
+                setSearchItems(null);
+        };
+
+        handleItemsSearch(searchQuery);
+    }, [searchQuery]);
 
     const hideItems = () => {
         setMyItems([]);
@@ -119,23 +139,6 @@ export default function Profile({ history, match: { params: { address } } }) {
     const moveItemToOnSaleBlock = (price) => {
         setMyItems(myItems.filter(({ item_id }) => item.item_id !== item_id));
         setOnSaleItems([...onSaleItems, { ...item, price, status_msg: SALE_STATUS }]);
-    };
-
-    const handleItemsSearch = (value) => {
-        if (value && value.length > 2) {
-            if (currentItemsBlock === MY_ITEMS_BLOCK)
-                return setSearchItems(myItems.filter(({ data: { name } }) => {
-                    return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
-                }));
-
-            if (currentItemsBlock === ON_SALE_BLOCK)
-                return setSearchItems(onSaleItems.filter(({ data: { name } }) => {
-                    return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
-                }));
-        }
-
-        if (!!searchItems)
-            setSearchItems(null);
     };
 
     const renderItems = () => {
@@ -156,7 +159,7 @@ export default function Profile({ history, match: { params: { address } } }) {
                         userOwner={userOwnProfile}
                         hideButtons={!userOwnProfile}
                         key={item.item_id}
-                    />)
+                    />);
 
             case ON_SALE_BLOCK:
                 itemsToRender = searchItems ? searchItems : onSaleItems;
@@ -167,10 +170,11 @@ export default function Profile({ history, match: { params: { address } } }) {
                         userOwner={userOwnProfile}
                         hideButtons={!userOwnProfile}
                         key={item.item_id}
-                    />)
+                    />);
+
+            default:
+                return <></>;
         }
-
-
     };
 
     return (
