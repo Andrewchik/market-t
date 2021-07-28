@@ -12,6 +12,12 @@ import LegendaryLandVideo from "../resources/videos/Legendary__xvid.mp4";
 import MythicalLandVideo from "../resources/videos/Mithycal__xvid.mp4"
 import RareLandVideo from "../resources/videos/Rare__xvid.mp4";
 
+import CommonLandImage from "../resources/images/lands/Common__xvid.b6df2fac.jpg";
+import EpicLandImage from "../resources/images/lands/Epic__xvid.d15929ea.jpg";
+import LegendaryLandImage from "../resources/images/lands/Legendary__xvid.d534466a.jpg";
+import MythicalLandImage from "../resources/images/lands/Mithycal__xvid.b7d97282.jpg";
+import RareLandImage from "../resources/images/lands/Rare__xvid.b478551e.jpg";
+
 import {
     RANCHO_PACK_IPFS,
     GOVERNORS_PACK_IPFS,
@@ -29,14 +35,16 @@ export const renderDarkCountryItemImageOrVideo = (ipfs, mediaUrl, name, showVide
         return <img src={ mediaUrl } alt="" />;
 
     if ([COMMON_LAND, RARE_LAND, EPIC_LAND, LEGENDARY_LAND, MYTHICAL_LAND].includes(name))
-        return <ReactPlayer
-            url={ getLandVideoByName(name, ipfs) }
-            width={videoStyle.width}
-            height={videoStyle.height}
-            style={videoStyle.style}
-            playing={true}
-            loop={true}
-        />;
+        return !showVideo
+            ? <ReactPlayer
+                url={ getLandVideoByName(name, ipfs) }
+                width={videoStyle.width}
+                height={videoStyle.height}
+                style={videoStyle.style}
+                playing={true}
+                loop={true}
+            />
+            : <img src={ getLandImageByName(name) } alt="" />;
 
     if ([RANCHO_PACK_IPFS, GOVERNORS_PACK_IPFS, MAYORS_PACK_IPFS, BONUS_PACK_IPFS].includes(ipfs) && showVideo)
         return <ReactPlayer
@@ -82,5 +90,27 @@ const getLandVideoByName = (name, ipfs) => {
 
         default:
             return `https://ipfs.io/ipfs/${ipfs}`;
+    }
+};
+
+const getLandImageByName = (name) => {
+    switch (name) {
+        case COMMON_LAND:
+            return CommonLandImage;
+
+        case RARE_LAND:
+            return RareLandImage;
+
+        case EPIC_LAND:
+            return EpicLandImage;
+
+        case LEGENDARY_LAND:
+            return LegendaryLandImage;
+
+        case MYTHICAL_LAND:
+            return MythicalLandImage;
+
+        default:
+            return '';
     }
 };

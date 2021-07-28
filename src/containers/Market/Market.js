@@ -210,7 +210,7 @@ export default function Market() {
                                     .map(i => <Item
                                         item={i}
                                         userOwner={userItems.includes(i.item_id)}
-                                        key={i.item_id}
+                                        //key={i.item_id}
                                     /> )
                             }
 
@@ -220,7 +220,7 @@ export default function Market() {
                                     .map(i => <Item
                                         item={i}
                                         userOwner={userItems.includes(i.item_id)}
-                                        key={i.item_id}
+                                        //key={i.item_id}
                                     /> )
                             }
                         </>
