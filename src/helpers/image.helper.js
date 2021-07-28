@@ -35,7 +35,7 @@ export const renderDarkCountryItemImageOrVideo = (ipfs, mediaUrl, name, showVide
         return <img src={ mediaUrl } alt="" />;
 
     if ([COMMON_LAND, RARE_LAND, EPIC_LAND, LEGENDARY_LAND, MYTHICAL_LAND].includes(name))
-        return !showVideo
+        return showVideo
             ? <ReactPlayer
                 url={ getLandVideoByName(name, ipfs) }
                 width={videoStyle.width}
