@@ -133,6 +133,7 @@ export default function Market() {
 
         axios.get(`${SALE_ORDERS_API}/orders`)
             .then(({ data }) => {
+                console.log({ data });
                 setAllItems(data);
                 setItemsToShow(data);
             })
@@ -210,7 +211,7 @@ export default function Market() {
                                     .map(i => <Item
                                         item={i}
                                         userOwner={userItems.includes(i.item_id)}
-                                        //key={i.item_id}
+                                        key={i.id}
                                     /> )
                             }
 
@@ -220,7 +221,7 @@ export default function Market() {
                                     .map(i => <Item
                                         item={i}
                                         userOwner={userItems.includes(i.item_id)}
-                                        //key={i.item_id}
+                                        key={i.id}
                                     /> )
                             }
                         </>
