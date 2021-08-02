@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { forceVisible } from "react-lazyload";
 
 import axios from "axios";
 
@@ -47,6 +48,7 @@ export default function Profile({ history, match: { params: { address } } }) {
     const [user, setUser] = useState(null);
     const [userOwnProfile, setUserOwnProfile] = useState(false);
     const [currentAddress, setCurrentAddress] = useState('');
+    const [reRender, setReRender] = useState(false);
 
     const authUser = useSelector(({ auth }) => auth.auth);
 
@@ -106,22 +108,28 @@ export default function Profile({ history, match: { params: { address } } }) {
         const handleItemsSearch = (value) => {
             if (value && value.length > 2) {
                 if (currentItemsBlock === MY_ITEMS_BLOCK)
-                    return setSearchItems(myItems.filter(({ data: { name } }) => {
+                    setSearchItems(myItems.filter(({ data: { name } }) => {
                         return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
                     }));
 
                 if (currentItemsBlock === ON_SALE_BLOCK)
-                    return setSearchItems(onSaleItems.filter(({ data: { name } }) => {
+                    setSearchItems(onSaleItems.filter(({ data: { name } }) => {
                         return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
                     }));
+
+                return setReRender(!reRender);
             }
 
-            if (!!searchItems)
+            if (!!searchItems) {
                 setSearchItems(null);
+                setReRender(!reRender);
+            }
         };
 
         handleItemsSearch(searchQuery);
     }, [searchQuery]);
+
+    useEffect(() => forceVisible(), [reRender]);
 
     const hideItems = () => {
         setMyItems([]);
