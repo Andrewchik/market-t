@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { forceVisible } from "react-lazyload";
 
 import axios from "axios";
 
@@ -15,6 +16,7 @@ import SearchIcon from "../../resources/images/icons/search_icon.png";
 import './Profile.scss'
 
 import ItemSellModal from "../../modals/ItemSellModal/ItemSellModal";
+import TransferModal from "../../modals/TransferModal/TransferModal";
 
 //import CustomButton from "../../generics/CustomButton/CustomButton";
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
@@ -37,6 +39,7 @@ const ITEMS_BLOCKS = [
 export default function Profile({ history, match: { params: { address } } }) {
     const [currentItemsBlock, setCurrentItemsBlock] = useState(ITEMS_BLOCKS[0]);
     const [sellModal, showSellModal] = useState(false);
+    const [transferModal, showTransferModal] = useState(false);
     const [item, setItem] = useState(null);
     const [myItems, setMyItems] = useState([]);
     const [searchItems, setSearchItems] = useState(null);
@@ -47,6 +50,7 @@ export default function Profile({ history, match: { params: { address } } }) {
     const [user, setUser] = useState(null);
     const [userOwnProfile, setUserOwnProfile] = useState(false);
     const [currentAddress, setCurrentAddress] = useState('');
+    const [reRender, setReRender] = useState(false);
 
     const authUser = useSelector(({ auth }) => auth.auth);
 
@@ -106,22 +110,28 @@ export default function Profile({ history, match: { params: { address } } }) {
         const handleItemsSearch = (value) => {
             if (value && value.length > 2) {
                 if (currentItemsBlock === MY_ITEMS_BLOCK)
-                    return setSearchItems(myItems.filter(({ data: { name } }) => {
+                    setSearchItems(myItems.filter(({ data: { name } }) => {
                         return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
                     }));
 
                 if (currentItemsBlock === ON_SALE_BLOCK)
-                    return setSearchItems(onSaleItems.filter(({ data: { name } }) => {
+                    setSearchItems(onSaleItems.filter(({ data: { name } }) => {
                         return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
                     }));
+
+                return setReRender(!reRender);
             }
 
-            if (!!searchItems)
+            if (!!searchItems) {
                 setSearchItems(null);
+                setReRender(!reRender);
+            }
         };
 
         handleItemsSearch(searchQuery);
     }, [searchQuery]);
+
+    useEffect(() => forceVisible(), [reRender]);
 
     const hideItems = () => {
         setMyItems([]);
@@ -141,6 +151,13 @@ export default function Profile({ history, match: { params: { address } } }) {
         setOnSaleItems([...onSaleItems, { ...item, price, status_msg: SALE_STATUS }]);
     };
 
+    const removeTransferredItemFromMyItems = () => {
+        setSearchQuery('');
+        setSearchItems(null);
+        setMyItems(myItems.filter(({ item_id }) => item.item_id !== item_id));
+        setReRender(true);
+    };
+
     const renderItems = () => {
         let itemsToRender = [];
 
@@ -155,6 +172,10 @@ export default function Profile({ history, match: { params: { address } } }) {
                         showSellModal={() => {
                             setItem(item);
                             showSellModal(true)
+                        }}
+                        showTransferModal={() => {
+                            setItem(item);
+                            showTransferModal(true);
                         }}
                         userOwner={userOwnProfile}
                         hideButtons={!userOwnProfile}
@@ -261,6 +282,7 @@ export default function Profile({ history, match: { params: { address } } }) {
                     </div>
                 </div>
             </div>
+
             <ItemSellModal
                 visible={ sellModal }
                 onClose={ () => showSellModal(false) }
@@ -268,6 +290,15 @@ export default function Profile({ history, match: { params: { address } } }) {
                 mediaUrl={ item && item.data && item.data.mediaUrl ? item.data.mediaUrl : '' }
                 itemId={item ? item.item_id : null}
                 moveItemToOnSaleBlock={moveItemToOnSaleBlock}
+            />
+
+            <TransferModal
+                visible={transferModal}
+                onClose={() => showTransferModal(false)}
+                ipfs={ item && item.data && item.data.ipfs ? item.data.ipfs : '' }
+                mediaUrl={ item && item.data && item.data.mediaUrl ? item.data.mediaUrl : '' }
+                itemId={item ? item.item_id : null}
+                removeTransferredItemFromMyItems={removeTransferredItemFromMyItems}
             />
         </>
     );

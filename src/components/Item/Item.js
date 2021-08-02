@@ -1,15 +1,20 @@
 import React, { Link, useHistory } from "react-router-dom";
 import LazyLoad from "react-lazyload";
 
+import { IconButton, Tooltip, Fade } from '@material-ui/core';
+
 import './Item.scss'
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
 
 import { renderDarkCountryItemImageOrVideo } from '../../helpers';
 
+import ArrowUpLeft from "../../resources/svg/arrow-up-left";
+
 export default function Item({
     item: { item_id, price, collection, data: { name, ipfs, mediaUrl } },
     showSellModal = null,
+    showTransferModal = null,
     processing = false,
     userOwner = false,
     hideButtons = false
@@ -52,10 +57,25 @@ export default function Item({
                         </div>
                     }
                     { !hideButtons && !price && !!showSellModal &&
-                        <CustomButton
-                            text={'SELL'}
-                            onClick={ showSellModal }
-                        />
+                        <div className={'sell-action'}>
+                            <CustomButton
+                                text={'SELL'}
+                                onClick={ showSellModal }
+                            />
+                            <Tooltip
+                                TransitionComponent={Fade}
+                                TransitionProps={{ timeout: 600 }}
+                                title={ <p>Transfer</p> }
+                            >
+                                <IconButton
+                                    aria-label="transfer"
+                                    className="transfer-icon"
+                                    onClick={showTransferModal}
+                                >
+                                    <ArrowUpLeft />
+                                </IconButton>
+                            </Tooltip>
+                        </div>
                     }
                 </div>
             </div>

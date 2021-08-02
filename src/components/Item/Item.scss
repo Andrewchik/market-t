@@ -124,6 +124,21 @@
         margin-top: 0;
       }
     }
+
+    .sell-action {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      position: relative;
+    }
+
+    .transfer-icon {
+      width: max-content;
+      margin-left: 0;
+      margin-right: 0;
+      position: absolute;
+      right: 0;
+    }
   }
 
   .item-price {
