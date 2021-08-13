@@ -1,0 +1,47 @@
+.bought-sold-item {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+  border-bottom: 1px solid grey;
+  justify-content: space-evenly;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.bought-sold-item-img {
+  width: 300px;
+  display: flex;
+  height: 400px;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    object-fit: contain;
+    max-height: 100%;
+  }
+}
+
+.bought-sold-item-info {
+  padding-top: 20px;
+  font-weight: 600;
+
+  span {
+    font-weight: 600;
+  }
+  .collection-name {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .item-id {
+    font-size: 14px;
+    color: grey;
+    font-weight: 500;
+    margin-top: 7px;
+    padding-bottom: 50px;
+  }
+}
