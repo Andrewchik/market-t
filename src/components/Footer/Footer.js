@@ -5,9 +5,9 @@ import * as fcl from "@onflow/fcl";
 
 import './Footer.scss'
 
-import logo from "../../resources/images/TopExpo_LOGO1_2.png";
+import logo from "../../resources/images/logos/TopExpo_LOGO1_2.png";
 
-function Footer() {
+export default function Footer() {
     const history = useHistory();
     const user = useSelector(({ auth }) => auth.auth);
 
@@ -31,6 +31,10 @@ function Footer() {
                         : () => fcl.authenticate()
                     }>My Inventory</p>
                 </div>
+                <div className={'footer-follow'}>
+                    <h3>Follow us</h3>
+                    <p><a href="https://twitter.com/NFTTopExpo" target="_blank" rel="noreferrer">Twitter</a></p>
+                </div>
                 <div className={'footer-contact'}>
                     <h3>Follow us</h3>
                     <p><a href="https://twitter.com/NFTTopExpo" target={'_blank'}>Twitter</a></p>
@@ -43,5 +47,3 @@ function Footer() {
         </div>
     )
 }
-
-export default Footer

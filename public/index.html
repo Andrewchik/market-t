@@ -25,6 +25,8 @@
       name="description"
       content="TopExpo.io - Flow NFT marketplace"
     />
+    <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'none'">
+
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/TopExpo_LOGO.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -63,4 +65,9 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script>
+    const headers = new Headers();
+    headers.set('X-Frame-Options', 'DENY');
+    headers.set('Content-Security-Policy', 'DENY');
+  </script>
 </html>

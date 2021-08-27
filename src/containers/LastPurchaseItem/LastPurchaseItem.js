@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ReactPlayer from "react-player/lazy";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -7,13 +7,14 @@ import { MARKET_PURCHASE_API } from "../../constants";
 
 import ListedItemLoadingPlaceholder from "../../components/LoadingPlaceholders/ListedItemLoadingPlaceholder/ListedItemLoadingPlaceholder";
 
-import DcLogo2 from "../../resources/images/dc-logo2.png";
+import DcLogo2 from "../../resources/images/logos/dc-logo2.png";
 
 import './LastPurchaseItem.scss';
-import '../ListedItemContainer/ListedItemContainer.scss';
-import { Link } from "react-router-dom";
+import '../ListedItem/ListedItem.scss';
 
-function LastPurchaseItem({ history, match: { params: { id } } }) {
+import { renderDarkCountryItemImageOrVideo } from "../../helpers";
+
+export default function LastPurchaseItem({ history, match: { params: { id } } }) {
     const [item, setItem] = useState({});
     const [loading, setLoading] = useState(true);
 
@@ -34,20 +35,25 @@ function LastPurchaseItem({ history, match: { params: { id } } }) {
                 ? <ListedItemLoadingPlaceholder />
                 : <div className={'listed-item-container'}>
                     <div className={'listed-item-image'}>
-                        <ReactPlayer
-                            url={ item.data ?  `https://ipfs.io/ipfs/${item.data.ipfs}` : '' }
-                            playing={true}
-                            loop={true}
-                            width={'max-content'}
-                            height={'auto'}
-                        />
+                        { item.data && renderDarkCountryItemImageOrVideo(
+                            item.data.ipfs, item.data.mediaUrl, item.data.name, true,
+                            { width: 'max-content', height: 'auto', style: { display: 'flex', alignItems: 'center' } }
+                        ) }
                     </div>
                     <div className={'listed-item-info'}>
                         <p className={'item-description'}>{ item.data ? item.data.name : 'name' }</p>
                         <p className={'mint-info'}>ItemID - { item.item_id }</p>
                         <div className={'category'}>
                             <img src={DcLogo2} alt="category" />
-                            <p>{ item.data ? item.data.description : 'description' }</p>
+                            { item.data && item.data.description &&
+                                <p>{ item.data.description }</p>
+                            }
+                            { item.data && item.data.rarity && !item.data.description &&
+                                <p>Dark Country {item.data.rarity} Card</p>
+                            }
+                            { !item.data &&
+                                <p>description</p>
+                            }
                         </div>
                         <div className={'listed-item-info-buy'}>
                             <div className={'listed-item-owner'}>
@@ -74,5 +80,3 @@ function LastPurchaseItem({ history, match: { params: { id } } }) {
         </div>
     );
 }
-
-export default LastPurchaseItem;

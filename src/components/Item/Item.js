@@ -1,16 +1,20 @@
 import React, { Link, useHistory } from "react-router-dom";
 import LazyLoad from "react-lazyload";
-//import ReactPlayer from 'react-player/lazy';
+
+import { IconButton, Tooltip, Fade } from '@material-ui/core';
 
 import './Item.scss'
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
 
-import { getDarkCountryImage } from '../../helpers';
+import { renderDarkCountryItemImageOrVideo } from '../../helpers';
 
-function Item({
-    item: { item_id, price, collection, data: { name, ipfs } },
+import ArrowUpLeft from "../../resources/svg/arrow-up-left";
+
+export default function Item({
+    item: { item_id, price, collection, data: { name, ipfs, mediaUrl } },
     showSellModal = null,
+    showTransferModal = null,
     processing = false,
     userOwner = false,
     hideButtons = false
@@ -20,16 +24,21 @@ function Item({
     return (
         <LazyLoad height={'400px'} once>
             <div className={'item-wrapper'}>
-                {/*<ReactPlayer*/}
-                {/*    url={ ipfs ?  `https://ipfs.io/ipfs/${ipfs}` : '' }*/}
-                {/*    width={'90%'}*/}
-                {/*    height={'80%'}*/}
-                {/*    onClick={ () => price ? history.push(`/market/${item_id}`) : {} }*/}
-                {/*/>*/}
                 <div className={'image-wrapper'}>
-                    <Link to={price ? `/market/${item_id}` : ''}>
-                        <img src={getDarkCountryImage(ipfs)} alt="" />
-                    </Link>
+                    { price
+                        ? <Link to={`/market/${item_id}`}>
+                            { renderDarkCountryItemImageOrVideo(
+                                ipfs, mediaUrl, name, false,
+                                { width: '100%', height: 'auto' }
+                            ) }
+                        </Link>
+                        : <>
+                            { renderDarkCountryItemImageOrVideo(
+                                ipfs, mediaUrl, name, false,
+                                { width: '100%', height: 'auto' }
+                            ) }
+                        </>
+                    }
                 </div>
                 <div className={ `item-description ${hideButtons ? 'block-center' : ''}` }>
                     <p className={'collection'}>{ collection }</p>
@@ -48,15 +57,28 @@ function Item({
                         </div>
                     }
                     { !hideButtons && !price && !!showSellModal &&
-                        <CustomButton
-                            text={'SELL'}
-                            onClick={ showSellModal }
-                        />
+                        <div className={'sell-action'}>
+                            <CustomButton
+                                text={'SELL'}
+                                onClick={ showSellModal }
+                            />
+                            <Tooltip
+                                TransitionComponent={Fade}
+                                TransitionProps={{ timeout: 600 }}
+                                title={ <p>Transfer</p> }
+                            >
+                                <IconButton
+                                    aria-label="transfer"
+                                    className="transfer-icon"
+                                    onClick={showTransferModal}
+                                >
+                                    <ArrowUpLeft />
+                                </IconButton>
+                            </Tooltip>
+                        </div>
                     }
                 </div>
             </div>
         </LazyLoad>
     )
 }
-
-export default Item

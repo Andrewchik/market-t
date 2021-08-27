@@ -6,6 +6,8 @@ import {
     NOT_ENOUGH_BALANCE
 } from "../constants";
 
+//test for commit
+
 //TODO: add more custom errors here
 export const showErrorMessage = (e) => {
     if (e && e.toString().includes(NO_ITEM_WITH_THAT_ID))

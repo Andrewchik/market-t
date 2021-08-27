@@ -6,18 +6,18 @@ import axios from "axios";
 
 import { TextField } from "@material-ui/core";
 
-import './ProfileSettingsContainer.scss';
+import './ProfileSettings.scss';
 
 import CustomButton from '../../generics/CustomButton/CustomButton';
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
 import Loader from "../../components/Loader/Loader";
 
-import AvatarPlaceholder from '../../resources/images/avatar_placeholder.png';
+import AvatarPlaceholder from '../../resources/images/placeholders/avatar_placeholder.png';
 
 import { MARKET_USER_API } from '../../constants';
 import { showErrorMessage } from "../../helpers";
 
-function ProfileSettingsContainer() {
+export default function ProfileSettings() {
     const [settingChosen, chooseSetting] = useState(0);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -134,5 +134,3 @@ function ProfileSettingsContainer() {
         </div>
     )
 }
-
-export default ProfileSettingsContainer

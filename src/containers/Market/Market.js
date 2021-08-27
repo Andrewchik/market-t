@@ -5,7 +5,7 @@ import { forceVisible } from "react-lazyload";
 
 import axios from "axios";
 
-import './MarketContainer.scss';
+import './Market.scss';
 
 import MarketFilters from "../../components/MarketFilters/MarketFilters";
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
@@ -14,7 +14,7 @@ import CustomSelect from "../../generics/CustomSelect/CustomSelect";
 import Item from "../../components/Item/Item";
 import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
 
-import SearchIcon from "../../resources/images/search_icon.png";
+import SearchIcon from "../../resources/images/icons/search_icon.png";
 
 import {
     SALE_ORDERS_API,
@@ -25,7 +25,7 @@ import {
     DARKCOUNTRY_COLLECTION
 } from "../../constants";
 
-function MarketContainer() {
+export default function Market() {
     //5 rows
     const INITIAL_LIMIT = 20;
     const allCollections = [DARKCOUNTRY_COLLECTION];
@@ -104,7 +104,16 @@ function MarketContainer() {
     useEffect(() => forceVisible(), [reRender]);
 
     useEffect(() => {
-        setItemsToShow(selectedTemplate ? allItems.filter(({ data: { name } }) => name === selectedTemplate) : allItems);
+        if (!selectedTemplate) {
+            setItemsToShow(allItems);
+        } else if (selectedTemplate && selectedTemplate.includes('Card')) {
+            const cardRarity = selectedTemplate.replace('Card', '').trim();
+
+            setItemsToShow(allItems.filter(({ data: { rarity } }) => rarity === cardRarity));
+        } else {
+            setItemsToShow(allItems.filter(({ data: { name } }) => name === selectedTemplate));
+        }
+
         setReRender(!reRender);
     }, [selectedTemplate]);
 
@@ -200,7 +209,7 @@ function MarketContainer() {
                                     .map(i => <Item
                                         item={i}
                                         userOwner={userItems.includes(i.item_id)}
-                                        key={i.item_id}
+                                        key={i.id}
                                     /> )
                             }
 
@@ -210,7 +219,7 @@ function MarketContainer() {
                                     .map(i => <Item
                                         item={i}
                                         userOwner={userItems.includes(i.item_id)}
-                                        key={i.item_id}
+                                        key={i.id}
                                     /> )
                             }
                         </>
@@ -221,5 +230,3 @@ function MarketContainer() {
         </div>
     )
 }
-
-export default MarketContainer

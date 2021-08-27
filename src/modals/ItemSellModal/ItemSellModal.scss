@@ -44,7 +44,9 @@
     }
 
     video, img {
-      width: 300px;
+      width: 250px;
+      height: auto;
+      max-height: 250px;
       border-radius: 20px;
 
       @media screen and (max-width: 600px) {

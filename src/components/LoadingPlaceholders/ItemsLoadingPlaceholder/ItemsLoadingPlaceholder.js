@@ -2,7 +2,7 @@ import './ItemsLoadingPlaceholder.js.scss';
 
 import ItemLoadingPlaceholder from "./ItemLoadingPlaceholder/ItemLoadingPlaceholder";
 
-function ItemsLoadingPlaceholder({ amount }) {
+export default function ItemsLoadingPlaceholder({ amount }) {
     return (
         <div className={'placeholder-loading-items-wrapper'}>
             { Array.from(Array(amount ? amount : 8).keys())
@@ -11,5 +11,3 @@ function ItemsLoadingPlaceholder({ amount }) {
         </div>
     );
 }
-
-export default ItemsLoadingPlaceholder;

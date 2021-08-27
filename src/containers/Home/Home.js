@@ -6,11 +6,11 @@ import AliceCarousel from "react-alice-carousel";
 import 'react-alice-carousel/lib/alice-carousel.css';
 
 import UpcomingDrop1Image from "../../resources/images/Drop Cards.png";
-import CommonLandImage from "../../resources/images/Common__xvid.b6df2fac.jpg";
-import EpicLandImage from "../../resources/images/Epic__xvid.d15929ea.jpg";
-import LegendaryLandImage from "../../resources/images/Legendary__xvid.d534466a.jpg";
-import MythicalLandImage from "../../resources/images/Mithycal__xvid.b7d97282.jpg";
-import RareLandImage from "../../resources/images/Rare__xvid.b478551e.jpg";
+import CommonLandImage from "../../resources/images/lands/Common__xvid.b6df2fac.jpg";
+import EpicLandImage from "../../resources/images/lands/Epic__xvid.d15929ea.jpg";
+import LegendaryLandImage from "../../resources/images/lands/Legendary__xvid.d534466a.jpg";
+import MythicalLandImage from "../../resources/images/lands/Mithycal__xvid.b7d97282.jpg";
+import RareLandImage from "../../resources/images/lands/Rare__xvid.b478551e.jpg";
 
 import CommonLandVideo from "../../resources/videos/Common__xvid.mp4";
 import EpicLandVideo from "../../resources/videos/Epic__xvid.mp4";
@@ -18,7 +18,7 @@ import LegendaryLandVideo from "../../resources/videos/Legendary__xvid.mp4";
 import MythicalLandVideo from "../../resources/videos/Mithycal__xvid.mp4"
 import RareLandVideo from "../../resources/videos/Rare__xvid.mp4";
 
-import './HomeContainer.scss';
+import './Home.scss';
 import '../../components/HomeItem/HomeItem.scss';
 
 import HomeItem from "../../components/HomeItem/HomeItem";
@@ -26,7 +26,7 @@ import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsL
 
 import { SALE_ORDERS_API, MARKET_PURCHASE_API } from "../../constants";
 
-function HomeContainer() {
+export default function Home() {
     const [lastPurchases, setLastPurchases] = useState([]);
     const [lastPurchasesLoading, setLastPurchasesLoading] = useState(true);
     const [newListings, setNewListings] = useState([]);
@@ -64,9 +64,10 @@ function HomeContainer() {
 
     const mapNewListings = (items) => {
         return items
-            .map(({ data: { name, ipfs }, price, item_id, collection }) => {
+            .map(({ data: { name, ipfs, mediaUrl }, price, item_id, collection }) => {
                 return <HomeItem
-                    image={ipfs}
+                    ipfs={ipfs}
+                    mediaUrl={mediaUrl}
                     name={name}
                     price={price}
                     item_id={item_id}
@@ -77,10 +78,11 @@ function HomeContainer() {
 
     const mapLastPurchases = (items) => {
         return items
-            .map(({ id, price, collection, data: { name, ipfs } }) => {
+            .map(({ id, price, collection, data: { name, ipfs, mediaUrl } }) => {
                 return <HomeItem
                     purchaseId={id}
-                    image={ipfs}
+                    ipfs={ipfs}
+                    mediaUrl={mediaUrl}
                     name={name}
                     price={price}
                     collection={collection}
@@ -128,7 +130,7 @@ function HomeContainer() {
         <div className={'home-container'}>
             <div className={'home-container-head'}>
                 <div className={'home-container-heading'}>
-                    <h1>Upcoming Events</h1>
+                    <h1>New Events</h1>
                     <div className={'home-head-line'} />
                 </div>
 
@@ -138,9 +140,9 @@ function HomeContainer() {
                         <div className={'head-single-info'}>
                             <h2>Dark Country</h2>
                             <h2>Lands Unpacking</h2>
-                            <p>Coming soon!</p>
+                            <p>Launched!</p>
                         </div>
-                        <a href="https://darkcountry.io/about-lands" target="_blank" rel="noreferrer">
+                        <a href="https://flow.darkcountry.io/unpacker/land" target="_blank" rel="noreferrer">
                             { isMobile
                                 ? <img src={landImage} alt="dc-land" />
                                 : <video
@@ -218,5 +220,3 @@ function HomeContainer() {
         </div>
     )
 }
-
-export default HomeContainer

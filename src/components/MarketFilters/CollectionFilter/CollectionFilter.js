@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import SearchIcon from "../../../resources/images/search_icon.png";
+import SearchIcon from "../../../resources/images/icons/search_icon.png";
 import DotsMenu from "../../../resources/images/dots_menu_filter.png";
 
 import './CollectionFilter.scss'
@@ -11,7 +11,7 @@ import './CollectionFilter.scss'
 import CustomTextField from "../../../generics/CustomTextField/CustomTextField";
 
 function CollectionFilter({ collections, handleFilter, handleCollectionsSearch, handleTemplateFilter, selectedTemplate }) {
-    const [expanded, setExpanded] = useState(true);
+    const [expanded, setExpanded] = useState(window.innerWidth >= 1024);
     const [selectedCollections, setSelectedCollections] = useState([]);
 
     const handleSelectCollection = (selectedCollection) => {
@@ -55,7 +55,18 @@ function CollectionFilter({ collections, handleFilter, handleCollectionsSearch, 
                                             onClick={() => handleTemplateFilter(templateName)}
                                             key={templateName}
                                         >
-                                            <p className={'template-image'} />
+                                            { templateName.toString().includes('Land') &&
+                                                <p className={'template-image template-image-land-color'} />
+                                            }
+
+                                            { templateName.toString().includes('Card') &&
+                                                <p className={'template-image template-image-card-color'} />
+                                            }
+
+                                            { templateName.toString().includes('Pack') &&
+                                                <p className={'template-image template-image-pack-color'} />
+                                            }
+
                                             <p>{ templateName }</p>
                                             { selectedTemplate === templateName &&
                                                 <span onClick={() => handleTemplateFilter(templateName)}>x</span>

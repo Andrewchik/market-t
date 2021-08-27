@@ -8,9 +8,9 @@ import './Navigation.scss'
 
 import Auth from "../Auth/Auth";
 
-import logo from '../../resources/images/TopExpo_LOGO1_2.png'
+import logo from '../../resources/images/logos/TopExpo_LOGO1_2.png'
 
-function Navigation() {
+export default function Navigation() {
     const history = useHistory();
 
     const [menuOpened, openMenu] = useState(false);
@@ -49,5 +49,3 @@ function Navigation() {
         </div>
     )
 }
-
-export default Navigation

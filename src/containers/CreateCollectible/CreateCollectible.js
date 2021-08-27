@@ -11,12 +11,12 @@ import {
 
 import './CreateCollectible.scss';
 
-import ImagePlaceholder from "../../resources/images/image-placeholder.svg.png";
+import ImagePlaceholder from "../../resources/images/placeholders/image-placeholder.svg.png";
 import ProfileIcon from '../../resources/images/profile-icon.jpg'
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
 
-function CreateCollectible() {
+export default function CreateCollectible() {
     const [putOnSaleChecked, handlePutOnSaleChange] = useState(true);
     const [instantSalePrice, handleChangeInstantSalePrice] = useState(false);
     const [currency, setCurrency] = useState('FLOW');
@@ -195,5 +195,3 @@ function CreateCollectible() {
         </div>
     );
 }
-
-export default CreateCollectible;
