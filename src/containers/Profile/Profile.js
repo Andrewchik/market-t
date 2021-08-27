@@ -137,18 +137,25 @@ export default function Profile({ history, match: { params: { address } } }) {
     }, [user, authUser]);
 
     useEffect(() => {
-        //TODO: add BAS items
         const handleItemsSearch = (value) => {
             if (value && value.length > 2) {
+                let itemsToFilter = [];
+
                 if (currentItemsBlock === MY_ITEMS_BLOCK)
-                    setSearchItems(myItems.filter(({ data: { name } }) => {
-                        return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
-                    }));
+                    itemsToFilter = myItems;
 
                 if (currentItemsBlock === ON_SALE_BLOCK)
-                    setSearchItems(onSaleItems.filter(({ data: { name } }) => {
-                        return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
-                    }));
+                    itemsToFilter = onSaleItems;
+
+                if (currentItemsBlock === BOUGHT_ITEMS)
+                    itemsToFilter = boughtItems;
+
+                if (currentItemsBlock === SOLD_ITEMS)
+                    itemsToFilter = soldItems;
+
+                setSearchItems(itemsToFilter.filter(({ data: { name } }) => {
+                    return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
+                }));
 
                 return setReRender(!reRender);
             }
@@ -189,7 +196,6 @@ export default function Profile({ history, match: { params: { address } } }) {
         setReRender(true);
     };
 
-    //TODO: add BAS items
     const renderItems = () => {
         let itemsToRender = [];
 
@@ -212,7 +218,8 @@ export default function Profile({ history, match: { params: { address } } }) {
                         userOwner={userOwnProfile}
                         hideButtons={!userOwnProfile}
                         key={item.item_id}
-                    />);
+                    />
+                );
 
             case ON_SALE_BLOCK:
                 itemsToRender = searchItems ? searchItems : onSaleItems;
@@ -223,25 +230,30 @@ export default function Profile({ history, match: { params: { address } } }) {
                         userOwner={userOwnProfile}
                         hideButtons={!userOwnProfile}
                         key={item.item_id}
-                    />);
+                    />
+                );
 
             case BOUGHT_ITEMS:
                 itemsToRender = searchItems ? searchItems : boughtItems;
 
                 return itemsToRender.map(item =>
                     <BoughtSoldItem
-                        item={ item }
-                        key={ item.item_id }
-                    />);
+                        item={item}
+                        userOwnProfile={userOwnProfile}
+                        key={ item.bought_timestamp }
+                    />
+                );
 
             case SOLD_ITEMS:
                 itemsToRender = searchItems ? searchItems : soldItems;
 
                 return itemsToRender.map(item =>
                     <BoughtSoldItem
-                        item={ item }
-                        key={ item.item_id }
-                    />);
+                        item={item}
+                        userOwnProfile={userOwnProfile}
+                        key={item.bought_timestamp}
+                    />
+                );
 
             default:
                 return <></>;
