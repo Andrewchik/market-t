@@ -36,10 +36,6 @@ export default function Footer() {
                     <p><a href="https://twitter.com/NFTTopExpo" target="_blank" rel="noreferrer">Twitter</a></p>
                 </div>
                 <div className={'footer-contact'}>
-                    <h3>Follow us</h3>
-                    <p><a href="https://twitter.com/NFTTopExpo" target={'_blank'}>Twitter</a></p>
-                </div>
-                <div className={'footer-contact'}>
                     <h3>Contact</h3>
                     <p><a href="mailto:contact@topexpo.io">Email</a></p>
                 </div>

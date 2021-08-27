@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Bar, ComposedChart, Line, Tooltip, XAxis, YAxis } from "recharts";
 import moment from 'moment';
@@ -8,6 +8,7 @@ import axios from "axios";
 
 import './ItemPriceGrid.scss'
 
+import { HISTORY_STATS_API } from "../../constants";
 import useWindowDimensions from "../../helpers/windowResizeHook";
 
 const CustomizedAxisTick = ({ x, y, payload }) => {
@@ -48,21 +49,22 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 export default function ItemPriceGrid({ templateId, collection }) {
     const [data, setData] = useState([]);
-    const { height, width } = useWindowDimensions();
+
+    const { width } = useWindowDimensions();
 
     const getChartWidth = () => {
         return width >= 1920 ? 1200 : Math.ceil(width * 3 / 4);
     }
 
     const getChartInterval = () => {
-        if (width < 1024) return data.length / 3;
+        if (width < 1024)
+            return data.length / 3;
 
         return data.length <= 21 ? 3 : Math.ceil(data.length / 7);
     }
 
     useEffect(() => {
-        //TODO: remove hardcode aws link
-        axios.get(`https://14h17m8a0h.execute-api.us-east-1.amazonaws.com/dev/price-history?template_id=${templateId}&collection=${collection}`)
+        axios.get(`${HISTORY_STATS_API}/price-history?template_id=${templateId}&collection=${collection}`)
             .then(({ data }) => {
                 const parsedData = data.map(d => {
                     return {
@@ -75,7 +77,7 @@ export default function ItemPriceGrid({ templateId, collection }) {
                 setData(parsedData)
             })
             .catch(e => console.log(e))
-    }, []);
+    }, [collection, templateId]);
 
     return (
         <>
@@ -130,7 +132,7 @@ export default function ItemPriceGrid({ templateId, collection }) {
                     </ComposedChart>
                 </div>
                 : <div className="loader">
-                    <Loader type="ThreeDots" color="black" height={ 50 } width={ 50 }/>
+                    <Loader type="ThreeDots" color="black" height={ 50 } width={ 50 } />
                 </div>
             }
         </>

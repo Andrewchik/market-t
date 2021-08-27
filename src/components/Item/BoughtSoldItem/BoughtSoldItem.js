@@ -1,19 +1,24 @@
 import React, { Link } from "react-router-dom";
 
-import { getDarkCountryImage } from "../../../helpers";
+import { renderDarkCountryItemImageOrVideo } from "../../../helpers";
 
 import './BoughtSoldItem.scss'
 
 export default function BoughtSoldItem({item}) {
-    const {item_id, collection, description, price, seller, buyer, data: {ipfs, name}} = item;
-    const date = new Date(parseInt(item.bought_timestamp));
+    const {
+        item_id, collection, description, price, seller, buyer, bought_timestamp,
+        data: { ipfs, mediaUrl, name }
+    } = item;
+
+    const date = new Date(parseInt(bought_timestamp));
 
     return (
         <div className={'bought-sold-item'}>
             <div className={'bought-sold-item-img'}>
-                <Link to={`/market/${item_id}`}>
-                    <img src={getDarkCountryImage(ipfs)} alt=""/>
-                </Link>
+                { renderDarkCountryItemImageOrVideo(
+                    ipfs, mediaUrl, name, false,
+                    { width: '100%', height: 'auto' }
+                ) }
             </div>
             <div className={'bought-sold-item-info'}>
                 <p className={'collection-name'}>{collection}</p>

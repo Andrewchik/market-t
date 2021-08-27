@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ReactPlayer from 'react-player/lazy';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import ReactPlayer from 'react-player/lazy';
 import { toast } from "react-toastify";
 
 import axios from "axios";
