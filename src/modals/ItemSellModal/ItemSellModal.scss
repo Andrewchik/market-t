@@ -4,6 +4,7 @@
   .rodal-dialog {
     width: 600px!important;
     height: max-content!important;
+    border-radius: 20px;
 
     @media screen and (max-width: 600px) {
       width: 100%!important;
@@ -16,7 +17,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
 
   h3 {
     font-size: 27px;

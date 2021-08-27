@@ -53,7 +53,12 @@ export default function ItemPriceGrid({ templateId, collection }) {
     const { width } = useWindowDimensions();
 
     const getChartWidth = () => {
-        return width >= 1920 ? 1200 : Math.ceil(width * 3 / 4);
+        if (width >= 1920)
+            return 1024;
+
+        const gridWidth = Math.ceil(width * 3 / 3);
+
+        return gridWidth >= 1024 ? 1024 : gridWidth;
     }
 
     const getChartInterval = () => {
@@ -74,9 +79,9 @@ export default function ItemPriceGrid({ templateId, collection }) {
                     }
                 });
 
-                setData(parsedData)
+                setData(parsedData);
             })
-            .catch(e => console.log(e))
+            .catch(e => console.log(e));
     }, [collection, templateId]);
 
     return (

@@ -104,46 +104,47 @@ export default function ListedItem({ history, match: { params: { id } } }) {
         <div className={'listed-item-wrapper'}>
             { loading
                 ? <ListedItemLoadingPlaceholder />
-                : <div className={'listed-item-container'}>
-                    <div className={'listed-item-image'}>
-                        { item.data && renderDarkCountryItemImageOrVideo(
-                            item.data.ipfs, item.data.mediaUrl, item.data.name, true,
-                            { width: 'max-content', height: 'auto', style: { display: 'flex', alignItems: 'center' } }
-                        ) }
-                    </div>
-                    <div className={'listed-item-info'}>
-                        <p className={'item-description'}>{ item.data ? item.data.name : '' }</p>
-                        <p className={'mint-info'}>ItemID - { item.item_id }</p>
-                        <div className={'category'}>
-                            <img src={DcLogo2} alt="category" />
-                            { item.data && item.data.description &&
-                                <p>{ item.data.description }</p>
-                            }
-
-                            { item.data && item.data.rarity && !item.data.description &&
-                                <p>Dark Country {item.data.rarity} Card</p>
-                            }
-
-                            { !item.data &&
-                                <p>description</p>
-                            }
+                : <>
+                    <div className={'listed-item-container'}>
+                        <div className={'listed-item-image'}>
+                            { item.data && renderDarkCountryItemImageOrVideo(
+                                item.data.ipfs, item.data.mediaUrl, item.data.name, true,
+                                { width: 'max-content', height: 'auto', style: { display: 'flex', alignItems: 'center' } }
+                            ) }
                         </div>
-                        <div className={'listed-item-info-buy'}>
-                            <div className={'listed-item-owner'}>
-                                <div className={'name-icon bg-seller'}>O</div>
-                                <Link to={ item.seller ? `/profile/${item.seller}` : ''}>
-                                    <p>@owner - { item.seller ? item.seller : '' }</p>
-                                </Link>
-                            </div>
-                            <div className={'listed-item-owner'}>
-                                <div className={'name-icon bg-creator'}>C</div>
-                                <p>@creator - { item.collection ? item.collection : '' }</p>
-                            </div>
-                            <p className={'price'}>Price: { item.price } FLOW</p>
-                            <div className={'listed-item-actions'}>
-                                { processing && <Loader /> }
+                        <div className={'listed-item-info'}>
+                            <p className={'item-description'}>{ item.data ? item.data.name : '' }</p>
+                            <p className={'mint-info'}>ItemID - { item.item_id }</p>
+                            <div className={'category'}>
+                                <img src={DcLogo2} alt="category" />
+                                { item.data && item.data.description &&
+                                <p>{ item.data.description }</p>
+                                }
 
-                                { !processing && !!item && itemStatus === BUY_ITEM_STATUS &&
+                                { item.data && item.data.rarity && !item.data.description &&
+                                <p>Dark Country {item.data.rarity} Card</p>
+                                }
+
+                                { !item.data &&
+                                <p>description</p>
+                                }
+                            </div>
+                            <div className={'listed-item-info-buy'}>
+                                <div className={'listed-item-owner'}>
+                                    <div className={'name-icon bg-seller'}>O</div>
+                                    <Link to={ item.seller ? `/profile/${item.seller}` : ''}>
+                                        <p>@owner - { item.seller ? item.seller : '' }</p>
+                                    </Link>
+                                </div>
+                                <div className={'listed-item-owner'}>
+                                    <div className={'name-icon bg-creator'}>C</div>
+                                    <p>@creator - { item.collection ? item.collection : '' }</p>
+                                </div>
+                                <p className={'price'}>Price: { item.price } FLOW</p>
+                                <div className={'listed-item-actions'}>
+                                    { processing && <Loader /> }
+
+                                    { !processing && !!item && itemStatus === BUY_ITEM_STATUS &&
                                     <>
                                         <CustomButton
                                             text={'Buy'}
@@ -155,15 +156,16 @@ export default function ListedItem({ history, match: { params: { id } } }) {
                                             <p>Market fee: 2.5%</p>
                                         </div>
                                     </>
-                                }
+                                    }
 
-                                { !processing && !!item && itemStatus === CANCEL_ITEM_STATUS &&
+                                    { !processing && !!item && itemStatus === CANCEL_ITEM_STATUS &&
                                     <CustomButton
                                         text={'Cancel'}
                                         onClick={ () => removeItemFromSale(item.item_id) }
                                         disabled={processing}
                                     />
-                                }
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -171,7 +173,7 @@ export default function ListedItem({ history, match: { params: { id } } }) {
                         templateId={ item.item_template_id }
                         collection={ item.collection }
                     />
-                </div>
+                </>
             }
         </div>
     );
