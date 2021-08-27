@@ -1,11 +1,12 @@
-import {getDarkCountryImage} from "../../../helpers";
-import React, {Link} from "react-router-dom";
+import React, { Link } from "react-router-dom";
+
+import { getDarkCountryImage } from "../../../helpers";
 
 import './BoughtSoldItem.scss'
 
 export default function BoughtSoldItem({item}) {
     const {item_id, collection, description, price, seller, buyer, data: {ipfs, name}} = item;
-    const date = new Date(parseInt(item.bought_timestamp))
+    const date = new Date(parseInt(item.bought_timestamp));
 
     return (
         <div className={'bought-sold-item'}>

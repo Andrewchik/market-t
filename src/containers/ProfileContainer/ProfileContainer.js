@@ -1,10 +1,10 @@
-import {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
-import {CopyToClipboard} from "react-copy-to-clipboard";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import axios from "axios";
 
-import {Button} from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 import CheckIcon from '../../resources/images/check_icon.png'
 import CopyIcon from '../../resources/images/copy_icon.png';
@@ -15,15 +15,15 @@ import './ProfileContainer.scss'
 
 import Item from "../../components/Item/Item";
 import BoughtSoldItem from "../../components/Item/BoughtSoldItem/BoughtSoldItem";
+import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
+//import ItemPriceGrid from "../../components/ItemPriceGrid/ItemPriceGrid";
+
 import ItemSellModal from "../../modals/ItemSellModal/ItemSellModal";
+
 //import CustomButton from "../../generics/CustomButton/CustomButton";
 
-import ItemsLoadingPlaceholder
-    from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
-
-import {MARKET_NFT_API, SALE_STATUS, MARKET_USER_API, VERIFICATION_LEVEL_1} from "../../constants";
-import {readCollectionIds} from "../../flow";
-import ItemPriceGrid from "../../components/ItemPriceGrid/ItemPriceGrid";
+import { MARKET_NFT_API, SALE_STATUS, MARKET_USER_API, VERIFICATION_LEVEL_1 } from "../../constants";
+import { readCollectionIds } from "../../flow";
 
 const MY_ITEMS_BLOCK = 'My items';
 const ITEMS = 'Items';
@@ -38,7 +38,7 @@ const ITEMS_BLOCKS = [
     BOUGHT_ITEMS
 ];
 
-function ProfileContainer({history, match: {params: {address}}}) {
+function ProfileContainer({ history, match: { params: { address } } }) {
     const [currentItemsBlock, setCurrentItemsBlock] = useState(ITEMS_BLOCKS[0]);
     const [sellModal, showSellModal] = useState(false);
     const [item, setItem] = useState(null);
@@ -53,7 +53,7 @@ function ProfileContainer({history, match: {params: {address}}}) {
     const [userOwnProfile, setUserOwnProfile] = useState(false);
     const [currentAddress, setCurrentAddress] = useState('');
 
-    const authUser = useSelector(({auth}) => auth.auth);
+    const authUser = useSelector(({ auth }) => auth.auth);
 
     useEffect(() => {
         const fetchUser = () => {
@@ -72,7 +72,7 @@ function ProfileContainer({history, match: {params: {address}}}) {
         const getUserItems = (address) => {
             setLoading(true);
 
-            readCollectionIds({address})
+            readCollectionIds({ address })
                 .then(ids => fetchUserItems(ids))
                 .catch(error => {
                     setLoading(false);
@@ -83,7 +83,7 @@ function ProfileContainer({history, match: {params: {address}}}) {
 
         const fetchUserItems = (ids) => {
             axios.get(`${MARKET_NFT_API}/user-nfts?itemIds=${ids.join(',')}`)
-                .then(({data}) => groupItems(data))
+                .then(({ data }) => groupItems(data))
                 .catch(error => {
                     hideItems();
                     console.log(error);
@@ -92,9 +92,11 @@ function ProfileContainer({history, match: {params: {address}}}) {
         };
 
         const fetchBoughtAndSoldItems = (address) => {
-            setLoadingBASItems(true)
+            setLoadingBASItems(true);
+
+            //TODO: remove hardcode aws link
             axios.get(`https://14h17m8a0h.execute-api.us-east-1.amazonaws.com/dev/bought-sold-items/${address}`)
-                .then(({data: {boughtItems, soldItems}}) => {
+                .then(({ data: { boughtItems, soldItems } }) => {
                     setBoughtItems(boughtItems);
                     setSoldItems(soldItems)
                 })
@@ -129,8 +131,8 @@ function ProfileContainer({history, match: {params: {address}}}) {
     };
 
     const moveItemToOnSaleBlock = (price) => {
-        setMyItems(myItems.filter(({item_id}) => item.item_id !== item_id));
-        setOnSaleItems([...onSaleItems, {...item, price, status_msg: SALE_STATUS}]);
+        setMyItems(myItems.filter(({ item_id }) => item.item_id !== item_id));
+        setOnSaleItems([...onSaleItems, { ...item, price, status_msg: SALE_STATUS }]);
     };
 
     return (
@@ -139,120 +141,119 @@ function ProfileContainer({history, match: {params: {address}}}) {
                 <div className={'profile-bg'}>
                     <div className={'profile-icon'}>
                         <img src={AvatarPlaceholder} alt=""/>
-                        {user && user.verification_level === VERIFICATION_LEVEL_1 &&
-                        <div className={'check-icon'}>
-                            <img src={CheckIcon} alt=""/>
-                        </div>
+                        { user && user.verification_level === VERIFICATION_LEVEL_1 &&
+                            <div className={'check-icon'}>
+                                <img src={CheckIcon} alt=""/>
+                            </div>
                         }
                     </div>
                 </div>
-                <div className={'profile-content'}>
-                    <div className={'profile-info'}>
-                        {/*<p className={'text-center username-title'}>Username</p>*/}
+                <div className={ 'profile-content' }>
+                    <div className={ 'profile-info' }>
+                        {/*<p className={'text-center username-title'}>Username</p>*/ }
                         <CopyToClipboard
-                            text={user ? user.address : ''}
-                            onCopy={() => setCopiedAddress(true)}
+                            text={ user ? user.address : '' }
+                            onCopy={ () => setCopiedAddress(true) }
                         >
-                            <div className={'wallet-name'}>
-                                <p className={'text-center'}>{user ? user.address : 'address'}</p>
-                                {copiedAddress
+                            <div className={ 'wallet-name' }>
+                                <p className={ 'text-center' }>{ user ? user.address : 'address' }</p>
+                                { copiedAddress
                                     ? <Copied/>
-                                    : <img src={CopyIcon} alt=""/>
+                                    : <img src={ CopyIcon } alt=""/>
                                 }
                             </div>
                         </CopyToClipboard>
-                        <div className={'follow-share-container'}>
-                            {/*{ userOwnProfile*/}
-                            {/*    ? <CustomButton*/}
-                            {/*        text={'Edit Profile'}*/}
-                            {/*        onClick={ () => history.push('/settings') }*/}
-                            {/*    />*/}
-                            {/*    :  <CustomButton*/}
-                            {/*        text={'Follow'}*/}
-                            {/*        onClick={ () => {} }*/}
-                            {/*    />*/}
-                            {/*}*/}
+                        <div className={ 'follow-share-container' }>
+                            {/*{ userOwnProfile*/ }
+                            {/*    ? <CustomButton*/ }
+                            {/*        text={'Edit Profile'}*/ }
+                            {/*        onClick={ () => history.push('/settings') }*/ }
+                            {/*    />*/ }
+                            {/*    :  <CustomButton*/ }
+                            {/*        text={'Follow'}*/ }
+                            {/*        onClick={ () => {} }*/ }
+                            {/*    />*/ }
+                            {/*}*/ }
 
-                            {/*<CustomButton*/}
-                            {/*    text={'Share'}*/}
-                            {/*    onClick={ () => {} }*/}
-                            {/*    borderButton={ true }*/}
-                            {/*/>*/}
+                            {/*<CustomButton*/ }
+                            {/*    text={'Share'}*/ }
+                            {/*    onClick={ () => {} }*/ }
+                            {/*    borderButton={ true }*/ }
+                            {/*/>*/ }
                         </div>
                     </div>
 
-                    <div className={'profile-assets'}>
-                        <div className={'asset-status-switch'}>
-                            {ITEMS_BLOCKS.map(itemBlock =>
+                    <div className={ 'profile-assets' }>
+                        <div className={ 'asset-status-switch' }>
+                            { ITEMS_BLOCKS.map(itemBlock =>
                                 <Button
-                                    className={currentItemsBlock === itemBlock ? 'selected-button' : ''}
-                                    onClick={() => setCurrentItemsBlock(itemBlock)}
-                                    key={itemBlock}
+                                    className={ currentItemsBlock === itemBlock ? 'selected-button' : '' }
+                                    onClick={ () => setCurrentItemsBlock(itemBlock) }
+                                    key={ itemBlock }
                                 >
-                                    {itemBlock === MY_ITEMS_BLOCK && !userOwnProfile ? ITEMS : itemBlock}
+                                    { itemBlock === MY_ITEMS_BLOCK && !userOwnProfile ? ITEMS : itemBlock }
                                 </Button>
                             )
                             }
                         </div>
 
-                        {loading
+                        { loading
                             ? <ItemsLoadingPlaceholder/>
-                            : <div className={'items-wrapper'}>
-                                {currentItemsBlock === MY_ITEMS_BLOCK &&
-                                myItems.map(item =>
-                                    <Item
-                                        item={item}
-                                        showSellButton={true}
-                                        showSellModal={() => {
-                                            setItem(item);
-                                            showSellModal(true)
-                                        }}
-                                        userOwner={userOwnProfile}
-                                        hideButtons={!userOwnProfile}
-                                        key={item.item_id}
-                                    />)
+                            : <div className={ 'items-wrapper' }>
+                                { currentItemsBlock === MY_ITEMS_BLOCK &&
+                                    myItems.map(item =>
+                                        <Item
+                                            item={ item }
+                                            showSellButton={ true }
+                                            showSellModal={ () => {
+                                                setItem(item);
+                                                showSellModal(true)
+                                            } }
+                                            userOwner={ userOwnProfile }
+                                            hideButtons={ !userOwnProfile }
+                                            key={ item.item_id }
+                                        />)
                                 }
-                                {/*TODO: mb remove*/}
-                                {currentItemsBlock === MY_ITEMS_BLOCK &&
-                                onSaleItems.map(item =>
-                                    <Item
-                                        item={item}
-                                        userOwner={userOwnProfile}
-                                        hideButtons={!userOwnProfile}
-                                        key={item.item_id}
-                                    />
-                                )
-                                }
-
-                                {currentItemsBlock === ON_SALE_BLOCK &&
-                                onSaleItems.map(item =>
-                                    <Item
-                                        item={item}
-                                        userOwner={userOwnProfile}
-                                        hideButtons={!userOwnProfile}
-                                        key={item.item_id}
-                                    />
-                                )
+                                {/*TODO: mb remove*/ }
+                                { currentItemsBlock === MY_ITEMS_BLOCK &&
+                                    onSaleItems.map(item =>
+                                        <Item
+                                            item={ item }
+                                            userOwner={ userOwnProfile }
+                                            hideButtons={ !userOwnProfile }
+                                            key={ item.item_id }
+                                        />
+                                    )
                                 }
 
-                                {currentItemsBlock === BOUGHT_ITEMS && !loadingBASItems ?
-                                boughtItems.map(item =>
-                                    <BoughtSoldItem
-                                        item={item}
-                                        key={item.item_id}
-                                    />
-                                ) : currentItemsBlock === BOUGHT_ITEMS ? <ItemsLoadingPlaceholder/> : ''
+                                { currentItemsBlock === ON_SALE_BLOCK &&
+                                    onSaleItems.map(item =>
+                                        <Item
+                                            item={ item }
+                                            userOwner={ userOwnProfile }
+                                            hideButtons={ !userOwnProfile }
+                                            key={ item.item_id }
+                                        />
+                                    )
                                 }
 
-                                {currentItemsBlock === SOLD_ITEMS && !loadingBASItems ?
+                                { currentItemsBlock === BOUGHT_ITEMS && !loadingBASItems ?
+                                    boughtItems.map(item =>
+                                        <BoughtSoldItem
+                                            item={ item }
+                                            key={ item.item_id }
+                                        />
+                                    ) : currentItemsBlock === BOUGHT_ITEMS ? <ItemsLoadingPlaceholder/> : ''
+                                }
+
+                                { currentItemsBlock === SOLD_ITEMS && !loadingBASItems ?
                                     soldItems.map(item =>
                                         <BoughtSoldItem
-                                            item={item}
-                                            key={item.item_id}
+                                            item={ item }
+                                            key={ item.item_id }
                                         />
                                     ) : currentItemsBlock === SOLD_ITEMS ? <ItemsLoadingPlaceholder/> : ''
                                 }
-
                             </div>
                         }
                     </div>
