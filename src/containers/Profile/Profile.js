@@ -13,7 +13,12 @@ import AvatarPlaceholder from '../../resources/images/placeholders/avatar_placeh
 import Copied from '../../resources/svg/checkIcon';
 import SearchIcon from "../../resources/images/icons/search_icon.png";
 
-import './Profile.scss'
+import './Profile.scss';
+
+import Item from "../../components/Item/Item";
+import BoughtSoldItem from "../../components/Item/BoughtSoldItem/BoughtSoldItem";
+import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
+//import ItemPriceGrid from "../../components/ItemPriceGrid/ItemPriceGrid";
 
 import ItemSellModal from "../../modals/ItemSellModal/ItemSellModal";
 import TransferModal from "../../modals/TransferModal/TransferModal";
@@ -21,19 +26,27 @@ import TransferModal from "../../modals/TransferModal/TransferModal";
 //import CustomButton from "../../generics/CustomButton/CustomButton";
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
 
-import Item from "../../components/Item/Item";
-import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
+import {
+    MARKET_NFT_API,
+    SALE_STATUS,
+    MARKET_USER_API,
+    VERIFICATION_LEVEL_1,
+    HISTORY_STATS_API
+} from "../../constants";
 
-import { MARKET_NFT_API, SALE_STATUS, MARKET_USER_API, VERIFICATION_LEVEL_1 } from "../../constants";
 import { readCollectionIds } from "../../flow";
 
 const MY_ITEMS_BLOCK = 'My items';
 const ITEMS = 'Items';
-const ON_SALE_BLOCK = 'On sale'
+const ON_SALE_BLOCK = 'On sale';
+const SOLD_ITEMS = 'Sold items';
+const BOUGHT_ITEMS = 'Bought items';
 
 const ITEMS_BLOCKS = [
     MY_ITEMS_BLOCK,
-    ON_SALE_BLOCK
+    ON_SALE_BLOCK,
+    SOLD_ITEMS,
+    BOUGHT_ITEMS
 ];
 
 export default function Profile({ history, match: { params: { address } } }) {
@@ -42,6 +55,9 @@ export default function Profile({ history, match: { params: { address } } }) {
     const [transferModal, showTransferModal] = useState(false);
     const [item, setItem] = useState(null);
     const [myItems, setMyItems] = useState([]);
+    const [boughtItems, setBoughtItems] = useState([]);
+    const [soldItems, setSoldItems] = useState([]);
+    const [loadingBASItems, setLoadingBASItems] = useState(false); // BAS - bought and sold
     const [searchItems, setSearchItems] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [onSaleItems, setOnSaleItems] = useState([]);
@@ -95,8 +111,22 @@ export default function Profile({ history, match: { params: { address } } }) {
             }
         };
 
-        if (user && user.address)
+        const fetchBoughtAndSoldItems = (address) => {
+            setLoadingBASItems(true);
+
+            axios.get(`${HISTORY_STATS_API}/bought-sold-items/${address}`)
+                .then(({ data: { boughtItems, soldItems } }) => {
+                    setBoughtItems(boughtItems);
+                    setSoldItems(soldItems)
+                })
+                .catch(e => console.log(e))
+                .finally(() => setLoadingBASItems(false))
+        };
+
+        if (user && user.address) {
             getUserItems(user.address);
+            fetchBoughtAndSoldItems(user.address);
+        }
 
     }, [user]);
 
@@ -109,15 +139,23 @@ export default function Profile({ history, match: { params: { address } } }) {
     useEffect(() => {
         const handleItemsSearch = (value) => {
             if (value && value.length > 2) {
+                let itemsToFilter = [];
+
                 if (currentItemsBlock === MY_ITEMS_BLOCK)
-                    setSearchItems(myItems.filter(({ data: { name } }) => {
-                        return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
-                    }));
+                    itemsToFilter = myItems;
 
                 if (currentItemsBlock === ON_SALE_BLOCK)
-                    setSearchItems(onSaleItems.filter(({ data: { name } }) => {
-                        return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
-                    }));
+                    itemsToFilter = onSaleItems;
+
+                if (currentItemsBlock === BOUGHT_ITEMS)
+                    itemsToFilter = boughtItems;
+
+                if (currentItemsBlock === SOLD_ITEMS)
+                    itemsToFilter = soldItems;
+
+                setSearchItems(itemsToFilter.filter(({ data: { name } }) => {
+                    return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
+                }));
 
                 return setReRender(!reRender);
             }
@@ -180,7 +218,8 @@ export default function Profile({ history, match: { params: { address } } }) {
                         userOwner={userOwnProfile}
                         hideButtons={!userOwnProfile}
                         key={item.item_id}
-                    />);
+                    />
+                );
 
             case ON_SALE_BLOCK:
                 itemsToRender = searchItems ? searchItems : onSaleItems;
@@ -191,7 +230,30 @@ export default function Profile({ history, match: { params: { address } } }) {
                         userOwner={userOwnProfile}
                         hideButtons={!userOwnProfile}
                         key={item.item_id}
-                    />);
+                    />
+                );
+
+            case BOUGHT_ITEMS:
+                itemsToRender = searchItems ? searchItems : boughtItems;
+
+                return itemsToRender.map(item =>
+                    <BoughtSoldItem
+                        item={item}
+                        userOwnProfile={userOwnProfile}
+                        key={ item.bought_timestamp }
+                    />
+                );
+
+            case SOLD_ITEMS:
+                itemsToRender = searchItems ? searchItems : soldItems;
+
+                return itemsToRender.map(item =>
+                    <BoughtSoldItem
+                        item={item}
+                        userOwnProfile={userOwnProfile}
+                        key={item.bought_timestamp}
+                    />
+                );
 
             default:
                 return <></>;
@@ -249,19 +311,18 @@ export default function Profile({ history, match: { params: { address } } }) {
                     <div className={'profile-assets'}>
                         <div className={'asset-status-switch'}>
                             { ITEMS_BLOCKS.map(itemBlock =>
-                                    <Button
-                                        className={ currentItemsBlock === itemBlock ? 'selected-button' : '' }
-                                        onClick={ () => {
-                                            setCurrentItemsBlock(itemBlock);
-                                            setSearchQuery('');
-                                            setSearchItems(null);
-                                        } }
-                                        key={itemBlock}
-                                    >
-                                        { itemBlock === MY_ITEMS_BLOCK && !userOwnProfile ? ITEMS : itemBlock }
-                                    </Button>
-                                )
-                            }
+                                <Button
+                                    className={ currentItemsBlock === itemBlock ? 'selected-button' : '' }
+                                    onClick={ () => {
+                                        setCurrentItemsBlock(itemBlock);
+                                        setSearchQuery('');
+                                        setSearchItems(null);
+                                    } }
+                                    key={itemBlock}
+                                >
+                                    { itemBlock === MY_ITEMS_BLOCK && !userOwnProfile ? ITEMS : itemBlock }
+                                </Button>
+                            ) }
                         </div>
 
                         <div className={'profile-search'}>
@@ -273,7 +334,7 @@ export default function Profile({ history, match: { params: { address } } }) {
                             />
                         </div>
 
-                        { loading
+                        { loading || loadingBASItems
                             ? <ItemsLoadingPlaceholder />
                             : <div className={'items-wrapper'}>
                                 { renderItems() }

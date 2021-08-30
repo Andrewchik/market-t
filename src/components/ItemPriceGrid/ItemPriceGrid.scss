@@ -1,0 +1,50 @@
+@import '../../styles/_variables';
+
+.recharts-wrapper {
+  margin: auto;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  min-height: 200px;
+  align-items: center;
+  width: 100%;
+}
+
+.custom-tooltip {
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 2px solid #c3c3c3;
+  border-radius: 10px;
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.recharts-cartesian-axis-ticks {
+  font-weight: 600;
+
+  .recharts-cartesian-axis-tick {
+    font-family: $main-font-family !important;
+  }
+}
+
+.xAxis .recharts-cartesian-axis-tick{
+  text {
+    font-family: $main-font-family;
+  }
+}
+
+.recharts-bar-rectangle {
+  transform: scale(1);
+}
+
+.chart-header {
+  text-align: center;
+}
+
+.chart-container {
+  padding: 30px 0;
+}

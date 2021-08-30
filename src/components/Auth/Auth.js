@@ -27,6 +27,25 @@ export default function Auth({ handleRedirect }) {
     const [processing, setProcessing] = useState(false);
 
     useEffect(() => {
+        const loginUser = (user) => {
+            dispatch({
+                type: AUTH_LOGIN_SUCCESS,
+                payload: user
+            });
+
+            dispatch({
+                type: USER_ITEMS_IDS_REQUEST,
+                payload: { address: user.address }
+            });
+        };
+
+        const registerUser = (address) => {
+            axios.post(MARKET_USER_API, { address })
+                .then(({ data }) => loginUser(data))
+                .catch(e => console.log(e))
+                .finally(() => setProcessing(false));
+        };
+
         fcl.currentUser().subscribe(currentUser => {
             if (currentUser.loggedIn && !user.address && !processing) {
                 setProcessing(true);
@@ -39,26 +58,7 @@ export default function Auth({ handleRedirect }) {
                     });
             }
         });
-    }, []);
-
-    const loginUser = (user) => {
-        dispatch({
-            type: AUTH_LOGIN_SUCCESS,
-            payload: user
-        });
-
-        dispatch({
-            type: USER_ITEMS_IDS_REQUEST,
-            payload: { address: user.address }
-        });
-    };
-
-    const registerUser = (address) => {
-        axios.post(MARKET_USER_API, { address })
-            .then(({ data }) => loginUser(data))
-            .catch(e => console.log(e))
-            .finally(() => setProcessing(false));
-    };
+    }, [user.address, processing, dispatch]);
 
     const signIn = () => fcl.authenticate();
 

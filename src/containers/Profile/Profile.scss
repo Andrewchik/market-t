@@ -116,10 +116,17 @@
     .profile-assets {
       .asset-status-switch {
         display: flex;
-        overflow: auto;
+        flex-wrap: wrap;
+        //overflow: auto;
         padding-bottom: 15px;
 
+        @media screen and (max-width: 768px) {
+          //flex-direction: column;
+          align-items: flex-start;
+        }
+
         @media screen and (max-width: 600px) {
+          justify-content: center;
           padding-bottom: 30px;
         }
 
@@ -131,6 +138,10 @@
           transition: 0.1s ease-out;
           border-radius: 0;
           min-width: 100px;
+
+          @media screen and (max-width: 768px) {
+            min-width: max-content;
+          }
 
           &:hover {
             border-bottom: 2px solid $main-light-color;

@@ -78,6 +78,10 @@
 
       p {
         margin-left: 15px;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }

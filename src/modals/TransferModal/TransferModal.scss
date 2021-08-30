@@ -4,6 +4,7 @@
   .rodal-dialog {
     width: 350px!important;
     height: max-content!important;
+    border-radius: 20px;
 
     @media screen and (max-width: 350px) {
       width: 100%!important;
