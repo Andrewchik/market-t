@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { forceVisible } from "react-lazyload";
 
 import axios from "axios";
 
+import { toast } from "react-toastify";
 import { Button } from "@material-ui/core";
 
 import CheckIcon from '../../resources/images/icons/check_icon.png'
@@ -23,7 +24,7 @@ import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsL
 import ItemSellModal from "../../modals/ItemSellModal/ItemSellModal";
 import TransferModal from "../../modals/TransferModal/TransferModal";
 
-//import CustomButton from "../../generics/CustomButton/CustomButton";
+import CustomButton from "../../generics/CustomButton/CustomButton";
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
 
 import {
@@ -34,7 +35,9 @@ import {
     HISTORY_STATS_API
 } from "../../constants";
 
-import { readCollectionIds } from "../../flow";
+import { readCollectionIds, setup } from "../../flow";
+import { showErrorMessage } from "../../helpers";
+import Loader from "../../components/Loader/Loader";
 
 const MY_ITEMS_BLOCK = 'My items';
 const ITEMS = 'Items';
@@ -62,6 +65,7 @@ export default function Profile({ history, match: { params: { address } } }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [onSaleItems, setOnSaleItems] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [processing, setProcessing] = useState(false);
     const [copiedAddress, setCopiedAddress] = useState(false);
     const [user, setUser] = useState(null);
     const [userOwnProfile, setUserOwnProfile] = useState(false);
@@ -260,6 +264,15 @@ export default function Profile({ history, match: { params: { address } } }) {
         }
     };
 
+    const handleSetup = () => {
+        setProcessing(true);
+
+        setup()
+            .then(() => toast.success('Success'))
+            .catch(error => showErrorMessage(error))
+            .finally(() => setProcessing(false));
+    }
+
     return (
         <>
             <div className={'profile-wrapper'}>
@@ -299,6 +312,21 @@ export default function Profile({ history, match: { params: { address } } }) {
                             {/*        onClick={ () => {} }*/}
                             {/*    />*/}
                             {/*}*/}
+
+
+
+                            { userOwnProfile &&
+                                <>
+                                    { processing
+                                        ? <Loader />
+                                        :  <CustomButton
+                                            text={'Setup'}
+                                            onClick={handleSetup}
+                                            disabled={processing}
+                                        />
+                                    }
+                                </>
+                            }
 
                             {/*<CustomButton*/}
                             {/*    text={'Share'}*/}
