@@ -12,7 +12,7 @@ import CustomButton from '../../generics/CustomButton/CustomButton';
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
 import Loader from "../../components/Loader/Loader";
 
-import AvatarPlaceholder from '../../resources/images/placeholders/avatar_placeholder.png';
+import AvatarPlaceholder from '../../resources/images/placeholders/avatar_placeholder.webp';
 
 import { MARKET_USER_API } from '../../constants';
 import { showErrorMessage } from "../../helpers";

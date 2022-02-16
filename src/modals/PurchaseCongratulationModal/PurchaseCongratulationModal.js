@@ -8,7 +8,7 @@ import CustomButton from "../../generics/CustomButton/CustomButton";
 
 import './PurchaseCongratulationModal.scss';
 
-import SuccessIcon from '../../resources/images/Purchase_Success.png';
+import SuccessIcon from '../../resources/images/Purchase_Success.webp';
 
 export default function PurchaseCongratulationModal({ visible, onClose }) {
     const history = useHistory();

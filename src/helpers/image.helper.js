@@ -1,10 +1,10 @@
 import React from "react";
 import ReactPlayer from 'react-player/lazy';
 
-import RanchoPackImage from '../resources/images/packs/Rancho.png';
-import GovernorsPackImage from '../resources/images/packs/Governor.png';
-import MayorsPackImage from '../resources/images/packs/Mayor.png';
-import BonusPackImage from '../resources/images/packs/Bonus.png';
+import RanchoPackImage from '../resources/images/packs/Rancho.webp';
+import GovernorsPackImage from '../resources/images/packs/Governor.webp';
+import MayorsPackImage from '../resources/images/packs/Mayor.webp';
+import BonusPackImage from '../resources/images/packs/Bonus.webp';
 
 import CommonLandVideo from "../resources/videos/Common__xvid.mp4";
 import EpicLandVideo from "../resources/videos/Epic__xvid.mp4";
@@ -12,11 +12,11 @@ import LegendaryLandVideo from "../resources/videos/Legendary__xvid.mp4";
 import MythicalLandVideo from "../resources/videos/Mithycal__xvid.mp4"
 import RareLandVideo from "../resources/videos/Rare__xvid.mp4";
 
-import CommonLandImage from "../resources/images/lands/Common__xvid.b6df2fac.jpg";
-import EpicLandImage from "../resources/images/lands/Epic__xvid.d15929ea.jpg";
-import LegendaryLandImage from "../resources/images/lands/Legendary__xvid.d534466a.jpg";
-import MythicalLandImage from "../resources/images/lands/Mithycal__xvid.b7d97282.jpg";
-import RareLandImage from "../resources/images/lands/Rare__xvid.b478551e.jpg";
+import CommonLandImage from "../resources/images/lands/Common__xvid.b6df2fac.webp";
+import EpicLandImage from "../resources/images/lands/Epic__xvid.d15929ea.webp";
+import LegendaryLandImage from "../resources/images/lands/Legendary__xvid.d534466a.webp";
+import MythicalLandImage from "../resources/images/lands/Mithycal__xvid.b7d97282.webp";
+import RareLandImage from "../resources/images/lands/Rare__xvid.b478551e.webp";
 
 import {
     RANCHO_PACK_IPFS,

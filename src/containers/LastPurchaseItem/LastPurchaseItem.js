@@ -6,14 +6,14 @@ import axios from "axios";
 import { MARKET_PURCHASE_API } from "../../constants";
 
 import ListedItemLoadingPlaceholder from "../../components/LoadingPlaceholders/ListedItemLoadingPlaceholder/ListedItemLoadingPlaceholder";
+import ItemPriceGrid from "../../components/ItemPriceGrid/ItemPriceGrid";
 
-import DcLogo2 from "../../resources/images/logos/dc-logo2.png";
+import DcLogo2 from "../../resources/images/logos/dc-logo2.webp";
 
 import './LastPurchaseItem.scss';
 import '../ListedItem/ListedItem.scss';
 
 import { renderDarkCountryItemImageOrVideo } from "../../helpers";
-import ItemPriceGrid from "../../components/ItemPriceGrid/ItemPriceGrid";
 
 export default function LastPurchaseItem({ history, match: { params: { id } } }) {
     const [item, setItem] = useState({});
@@ -39,24 +39,34 @@ export default function LastPurchaseItem({ history, match: { params: { id } } })
                         <div className={'listed-item-image'}>
                             { item.data && renderDarkCountryItemImageOrVideo(
                                 item.data.ipfs, item.data.mediaUrl, item.data.name, true,
-                                { width: 'max-content', height: 'auto', style: { display: 'flex', alignItems: 'center' } }
+                                {
+                                    width: 'max-content',
+                                    height: 'auto',
+                                    style: { display: 'flex', alignItems: 'center' }
+                                }
                             ) }
                         </div>
+
                         <div className={'listed-item-info'}>
                             <p className={'item-description'}>{ item.data ? item.data.name : 'name' }</p>
                             <p className={'mint-info'}>ItemID - { item.item_id }</p>
+
                             <div className={'category'}>
                                 <img src={DcLogo2} alt="category" />
+
                                 { item.data && item.data.description &&
-                                <p>{ item.data.description }</p>
+                                    <p>{ item.data.description }</p>
                                 }
+
                                 { item.data && item.data.rarity && !item.data.description &&
-                                <p>Dark Country {item.data.rarity} Card</p>
+                                    <p>Dark Country {item.data.rarity} Card</p>
                                 }
+
                                 { !item.data &&
-                                <p>description</p>
+                                    <p>description</p>
                                 }
                             </div>
+
                             <div className={'listed-item-info-buy'}>
                                 <div className={'listed-item-owner'}>
                                     <div className={'name-icon bg-seller'}>S</div>
@@ -64,20 +74,24 @@ export default function LastPurchaseItem({ history, match: { params: { id } } })
                                         <p>@seller - { item.seller ? item.seller : 'seller' }</p>
                                     </Link>
                                 </div>
+
                                 <div className={'listed-item-owner'}>
                                     <div className={'name-icon bg-buyer'}>B</div>
                                     <Link to={ item.buyer ? `/profile/${item.buyer}` : ''}>
                                         <p>@buyer - { item.buyer ? item.buyer : 'buyer' }</p>
                                     </Link>
                                 </div>
+
                                 <div className={'listed-item-owner'}>
                                     <div className={'name-icon bg-creator'}>C</div>
                                     <p>@creator - { item.collection ? item.collection : 'creator' }</p>
                                 </div>
+
                                 <p className={'price'}>Price: { item.price } FLOW</p>
                             </div>
                         </div>
                     </div>
+
                     <ItemPriceGrid
                         templateId={ item.item_template_id }
                         collection={ item.collection }

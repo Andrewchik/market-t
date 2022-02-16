@@ -11,8 +11,8 @@ import {
 
 import './CreateCollectible.scss';
 
-import ImagePlaceholder from "../../resources/images/placeholders/image-placeholder.svg.png";
-import ProfileIcon from '../../resources/images/profile-icon.jpg'
+import ImagePlaceholder from "../../resources/images/placeholders/image-placeholder.svg.webp";
+import ProfileIcon from '../../resources/images/profile-icon.webp'
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
 
@@ -25,11 +25,13 @@ export default function CreateCollectible() {
         <div className={'create-collectible-wrapper'}>
             <div className={'create-collectible-content-wrapper'}>
                 <h1>Create Collectible</h1>
+
                 <div className={'create-collectible-content'}>
                     <div className={'create-collectible-content-left'}>
                         <div className={'upload-file'}>
                             <h3>Upload File</h3>
                             <img src={ImagePlaceholder} alt="" />
+
                             <Button
                                 variant="contained"
                                 component="label"
@@ -40,13 +42,16 @@ export default function CreateCollectible() {
                                     hidden
                                 />
                             </Button>
+
                             <p>WEBP, PNG, GIF, FBX, max 20MB</p>
                         </div>
+
                         <div className={'collectible-switch'}>
                             <div className={'collectible-switch-info'}>
                                 <p>Put on sale</p>
                                 <p>Bidding will be instantly available</p>
                             </div>
+
                             <Switch
                                 checked={putOnSaleChecked}
                                 onChange={() => handlePutOnSaleChange(!putOnSaleChecked)}
@@ -55,11 +60,13 @@ export default function CreateCollectible() {
                                 className={ putOnSaleChecked ? 'switch-checked' : '' }
                             />
                         </div>
+
                         <div className={'collectible-switch'}>
                             <div className={'collectible-switch-info'}>
                                 <p>Instant sale price</p>
                                 <p>Asset can be bought out with that price</p>
                             </div>
+
                             <Switch
                                 checked={instantSalePrice}
                                 onChange={() => handleChangeInstantSalePrice(!instantSalePrice)}
@@ -68,6 +75,7 @@ export default function CreateCollectible() {
                                 className={ instantSalePrice ? 'switch-checked' : '' }
                             />
                         </div>
+
                         <div className={'collectible-price'}>
                             <div className={'collectible-price-actions'}>
                                 <TextField
@@ -87,9 +95,11 @@ export default function CreateCollectible() {
                                     </Select>
                                 </FormControl>
                             </div>
+
                             <p>Market fee 2.5%</p>
                             <p>You will receive 0.00 FLOW</p>
                         </div>
+
                         <div className={'collectible-name'}>
                             <p>Name</p>
                             <TextField
@@ -100,6 +110,7 @@ export default function CreateCollectible() {
                                 variant="outlined"
                             />
                         </div>
+
                         <div className={'collectible-description'}>
                             <p>Description</p>
                             <TextField
@@ -111,6 +122,7 @@ export default function CreateCollectible() {
                                 multiline
                             />
                         </div>
+
                         <div className={'collectible-additional-settings'}>
                             <div className={'collectible-additional-settings-inputs'}>
                                 <div className={'collectible-additional-settings-input'}>
@@ -123,6 +135,7 @@ export default function CreateCollectible() {
                                         variant="outlined"
                                     />
                                 </div>
+
                                 <div className={'collectible-additional-settings-input'}>
                                     <p>Number of copies</p>
                                     <TextField
@@ -134,6 +147,7 @@ export default function CreateCollectible() {
                                     />
                                 </div>
                             </div>
+
                             <div className={'collectible-additional-settings-inputs'}>
                                 <div className={'collectible-additional-settings-input'}>
                                     <p>Properties</p>
@@ -145,6 +159,7 @@ export default function CreateCollectible() {
                                         variant="outlined"
                                     />
                                 </div>
+
                                 <div className={'collectible-additional-settings-input'}>
                                     <p />
                                     <TextField
@@ -156,6 +171,7 @@ export default function CreateCollectible() {
                                     />
                                 </div>
                             </div>
+
                             <div className={'collectible-additional-settings-inputs'}>
                                 <div className={'collectible-additional-settings-input'}>
                                     <TextField
@@ -166,6 +182,7 @@ export default function CreateCollectible() {
                                         variant="outlined"
                                     />
                                 </div>
+
                                 <div className={'collectible-additional-settings-input'}>
                                     <TextField
                                         id="outlined-price-input"
@@ -177,6 +194,7 @@ export default function CreateCollectible() {
                                 </div>
                             </div>
                         </div>
+
                         <div className={'collectible-create'}>
                             <CustomButton
                                 text={'Create'}
@@ -184,6 +202,7 @@ export default function CreateCollectible() {
                             />
                         </div>
                     </div>
+
                     <div className={'create-collectible-content-right'}>
                         <h3>Preview</h3>
                         <div className={'listed-item-image'}>

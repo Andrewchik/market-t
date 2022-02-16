@@ -1,7 +1,7 @@
 import './Drop.scss';
 
-import HeaderLine from "../../resources/images/header_line.png";
-import RanchoPack from "../../resources/images/packs/Rancho.png";
+import HeaderLine from "../../resources/images/header_line.webp";
+import RanchoPack from "../../resources/images/packs/Rancho.webp";
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
 
@@ -14,6 +14,7 @@ export default function Drop() {
                 <div className={'drop'}>
                     <img src={RanchoPack} alt="drop" />
                 </div>
+
                 <div className={'drop-info'}>
                     <div className={'drop-info-row'}>
                         <p>Author</p>

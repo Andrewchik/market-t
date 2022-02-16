@@ -1,4 +1,4 @@
-import DcLogo2 from "../resources/images/logos/dc-logo2.png";
+import DcLogo2 from "../resources/images/logos/dc-logo2.webp";
 
 export const DARKCOUNTRY_COLLECTION = {
     image: DcLogo2,

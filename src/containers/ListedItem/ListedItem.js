@@ -8,7 +8,7 @@ import axios from "axios";
 
 import './ListedItem.scss';
 
-import DcLogo2 from "../../resources/images/logos/dc-logo2.png";
+import DcLogo2 from "../../resources/images/logos/dc-logo2.webp";
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
 
@@ -16,18 +16,9 @@ import Loader from "../../components/Loader/Loader";
 import ListedItemLoadingPlaceholder from "../../components/LoadingPlaceholders/ListedItemLoadingPlaceholder/ListedItemLoadingPlaceholder";
 import ItemPriceGrid from "../../components/ItemPriceGrid/ItemPriceGrid";
 
-import {
-    SALE_ORDERS_API,
-    OPEN_SUCCESS_PURCHASE_POPUP
-} from "../../constants";
-import {
-    buyMarketItem,
-    removeMarketItem
-} from "../../flow";
-import {
-    renderDarkCountryItemImageOrVideo,
-    showErrorMessage
-} from "../../helpers";
+import { SALE_ORDERS_API, OPEN_SUCCESS_PURCHASE_POPUP } from "../../constants";
+import { buyMarketItem, removeMarketItem } from "../../flow";
+import { renderDarkCountryItemImageOrVideo, showErrorMessage } from "../../helpers";
 
 const INITIAL_ITEM_STATUS = 'INITIAL_ITEM_STATUS';
 const BUY_ITEM_STATUS = 'BUY_ITEM_STATUS';
@@ -109,26 +100,33 @@ export default function ListedItem({ history, match: { params: { id } } }) {
                         <div className={'listed-item-image'}>
                             { item.data && renderDarkCountryItemImageOrVideo(
                                 item.data.ipfs, item.data.mediaUrl, item.data.name, true,
-                                { width: 'max-content', height: 'auto', style: { display: 'flex', alignItems: 'center' } }
+                                {
+                                    width: 'max-content',
+                                    height: 'auto',
+                                    style: { display: 'flex', alignItems: 'center' }
+                                }
                             ) }
                         </div>
+
                         <div className={'listed-item-info'}>
                             <p className={'item-description'}>{ item.data ? item.data.name : '' }</p>
                             <p className={'mint-info'}>ItemID - { item.item_id }</p>
+
                             <div className={'category'}>
                                 <img src={DcLogo2} alt="category" />
                                 { item.data && item.data.description &&
-                                <p>{ item.data.description }</p>
+                                    <p>{ item.data.description }</p>
                                 }
 
                                 { item.data && item.data.rarity && !item.data.description &&
-                                <p>Dark Country {item.data.rarity} Card</p>
+                                    <p>Dark Country {item.data.rarity} Card</p>
                                 }
 
                                 { !item.data &&
-                                <p>description</p>
+                                    <p>description</p>
                                 }
                             </div>
+
                             <div className={'listed-item-info-buy'}>
                                 <div className={'listed-item-owner'}>
                                     <div className={'name-icon bg-seller'}>O</div>
@@ -136,39 +134,42 @@ export default function ListedItem({ history, match: { params: { id } } }) {
                                         <p>@owner - { item.seller ? item.seller : '' }</p>
                                     </Link>
                                 </div>
+
                                 <div className={'listed-item-owner'}>
                                     <div className={'name-icon bg-creator'}>C</div>
                                     <p>@creator - { item.collection ? item.collection : '' }</p>
                                 </div>
+
                                 <p className={'price'}>Price: { item.price } FLOW</p>
                                 <div className={'listed-item-actions'}>
                                     { processing && <Loader /> }
 
                                     { !processing && !!item && itemStatus === BUY_ITEM_STATUS &&
-                                    <>
-                                        <CustomButton
-                                            text={'Buy'}
-                                            onClick={() => handleBuyMarketItem()}
-                                            disabled={processing}
-                                        />
-                                        <div>
-                                            <p>Collection fee: 2.5%</p>
-                                            <p>Market fee: 2.5%</p>
-                                        </div>
-                                    </>
+                                        <>
+                                            <CustomButton
+                                                text={'Buy'}
+                                                onClick={() => handleBuyMarketItem()}
+                                                disabled={processing}
+                                            />
+                                            <div>
+                                                <p>Collection fee: 2.5%</p>
+                                                <p>Market fee: 2.5%</p>
+                                            </div>
+                                        </>
                                     }
 
                                     { !processing && !!item && itemStatus === CANCEL_ITEM_STATUS &&
-                                    <CustomButton
-                                        text={'Cancel'}
-                                        onClick={ () => removeItemFromSale(item.item_id) }
-                                        disabled={processing}
-                                    />
+                                        <CustomButton
+                                            text={'Cancel'}
+                                            onClick={ () => removeItemFromSale(item.item_id) }
+                                            disabled={processing}
+                                        />
                                     }
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <ItemPriceGrid
                         templateId={ item.item_template_id }
                         collection={ item.collection }

@@ -19,9 +19,11 @@ export default function HomeItem({ purchaseId, item_id, ipfs, mediaUrl, name, pr
                         { width: '100%', height: 'auto' }
                     ) }
                 </div>
+
                 <div className={ 'item-description' }>
                     <p className={ 'collection' }>{ collection }</p>
                     <p>{ name }</p>
+
                     <div className={ 'item-action' }>
                         <CustomButton
                             text={ 'Details' }
@@ -30,6 +32,7 @@ export default function HomeItem({ purchaseId, item_id, ipfs, mediaUrl, name, pr
                                 : history.push(`/market/${ item_id }`)
                             }
                         />
+
                         <div className={ 'item-price' }>
                             <p>Price:</p>
                             <p>{ price } FLOW</p>

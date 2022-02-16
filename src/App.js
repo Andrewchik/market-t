@@ -73,6 +73,7 @@ function App() {
           onClose={ () => dispatch({ type: HIDE_SUCCESS_PURCHASE_POPUP }) }
           visible={openSuccessPurchasePopup}
       />
+
       <TermsAndConditionModal
           handleClose={() => dispatch({ type: HIDE_TERMS_AND_CONDITION_POPUP })}
           visible={openTermsAndConditionModal}

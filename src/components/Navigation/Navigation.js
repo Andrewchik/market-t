@@ -8,7 +8,7 @@ import './Navigation.scss'
 
 import Auth from "../Auth/Auth";
 
-import logo from '../../resources/images/logos/TopExpo_LOGO1_2.png'
+import logo from '../../resources/images/logos/TopExpo_LOGO1_2.webp'
 
 export default function Navigation() {
     const history = useHistory();
@@ -28,22 +28,27 @@ export default function Navigation() {
                 className={'mobile-nav-icon'}
                 onClick={() => openMenu(!menuOpened)}
             />
-            <div
-                className={`navigation-menu  ${menuOpened ? 'menu-opened' : 'menu-closed'}`}>
+
+            <div className={`navigation-menu  ${menuOpened ? 'menu-opened' : 'menu-closed'}`}>
                 <div className={'navigation-logo'}>
                     <Link to={'/'}>
                         <img src={logo} alt="logo" onClick={() => handleRedirect('/')}/>
                     </Link>
                 </div>
+
                 <div className={'navigation-options'}>
                     <Link to={'/market'}>
                         <p onClick={ () => handleRedirect('/market') }>Market</p>
                     </Link>
+
                     <p onClick={ user && user.address
                         ? () => handleRedirect(`/profile/${user.address}`)
                         : () => fcl.authenticate()
-                    }>My Inventory</p>
+                    }>
+                        My Inventory
+                    </p>
                 </div>
+
                 <Auth handleRedirect={handleRedirect} />
             </div>
         </div>

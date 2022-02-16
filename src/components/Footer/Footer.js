@@ -5,7 +5,7 @@ import * as fcl from "@onflow/fcl";
 
 import './Footer.scss'
 
-import logo from "../../resources/images/logos/TopExpo_LOGO1_2.png";
+import logo from "../../resources/images/logos/TopExpo_LOGO1_2.webp";
 
 export default function Footer() {
     const history = useHistory();
@@ -17,10 +17,9 @@ export default function Footer() {
                 <div className={'footer-description'}>
                     <img src={logo} alt="logo" />
                     <h3>NFT Marketplace</h3>
-                    <p>
-                        TopExpo.io is a marketplace for NFTs based on Flow blockchain.
-                    </p>
+                    <p>TopExpo.io is a marketplace for NFTs based on Flow blockchain.</p>
                 </div>
+
                 <div className={'footer-explore'}>
                     <h3>Explore</h3>
                     <Link to={'/market'}>
@@ -29,12 +28,16 @@ export default function Footer() {
                     <p onClick={ user && user.address
                         ? () => history.push(`/profile/${user.address}`)
                         : () => fcl.authenticate()
-                    }>My Inventory</p>
+                    }>
+                        My Inventory
+                    </p>
                 </div>
+
                 <div className={'footer-follow'}>
                     <h3>Follow us</h3>
                     <p><a href="https://twitter.com/NFTTopExpo" target="_blank" rel="noreferrer">Twitter</a></p>
                 </div>
+
                 <div className={'footer-contact'}>
                     <h3>Contact</h3>
                     <p><a href="mailto:contact@topexpo.io">Email</a></p>

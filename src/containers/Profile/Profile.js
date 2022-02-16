@@ -8,15 +8,16 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Button } from "@material-ui/core";
 
-import CheckIcon from '../../resources/images/icons/check_icon.png'
-import CopyIcon from '../../resources/images/icons/copy_icon.png';
-import AvatarPlaceholder from '../../resources/images/placeholders/avatar_placeholder.png';
+import CheckIcon from '../../resources/images/icons/check_icon.webp'
+import CopyIcon from '../../resources/images/icons/copy_icon.webp';
+import AvatarPlaceholder from '../../resources/images/placeholders/avatar_placeholder.webp';
+import SearchIcon from "../../resources/images/icons/search_icon.webp";
 import Copied from '../../resources/svg/checkIcon';
-import SearchIcon from "../../resources/images/icons/search_icon.png";
 
 import './Profile.scss';
 
 import Item from "../../components/Item/Item";
+import Loader from "../../components/Loader/Loader";
 import BoughtSoldItem from "../../components/Item/BoughtSoldItem/BoughtSoldItem";
 import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
 //import ItemPriceGrid from "../../components/ItemPriceGrid/ItemPriceGrid";
@@ -37,7 +38,6 @@ import {
 
 import { readCollectionIds, setup } from "../../flow";
 import { showErrorMessage } from "../../helpers";
-import Loader from "../../components/Loader/Loader";
 
 const MY_ITEMS_BLOCK = 'My items';
 const ITEMS = 'Items';
@@ -286,6 +286,7 @@ export default function Profile({ history, match: { params: { address } } }) {
                         }
                     </div>
                 </div>
+
                 <div className={'profile-content'}>
                     <div className={'profile-info'}>
                         {/*<p className={'text-center username-title'}>Username</p>*/}
@@ -301,6 +302,7 @@ export default function Profile({ history, match: { params: { address } } }) {
                                 }
                             </div>
                         </CopyToClipboard>
+
                         <div className={'follow-share-container'}>
                             {/*{ userOwnProfile*/}
                             {/*    ? <CustomButton*/}
@@ -312,8 +314,6 @@ export default function Profile({ history, match: { params: { address } } }) {
                             {/*        onClick={ () => {} }*/}
                             {/*    />*/}
                             {/*}*/}
-
-
 
                             { userOwnProfile &&
                                 <>

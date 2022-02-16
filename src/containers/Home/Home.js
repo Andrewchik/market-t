@@ -5,12 +5,12 @@ import axios from "axios";
 import AliceCarousel from "react-alice-carousel";
 import 'react-alice-carousel/lib/alice-carousel.css';
 
-import UpcomingDrop1Image from "../../resources/images/Drop Cards.png";
-import CommonLandImage from "../../resources/images/lands/Common__xvid.b6df2fac.jpg";
-import EpicLandImage from "../../resources/images/lands/Epic__xvid.d15929ea.jpg";
-import LegendaryLandImage from "../../resources/images/lands/Legendary__xvid.d534466a.jpg";
-import MythicalLandImage from "../../resources/images/lands/Mithycal__xvid.b7d97282.jpg";
-import RareLandImage from "../../resources/images/lands/Rare__xvid.b478551e.jpg";
+import UpcomingDrop1Image from "../../resources/images/Drop Cards.webp";
+import CommonLandImage from "../../resources/images/lands/Common__xvid.b6df2fac.webp";
+import EpicLandImage from "../../resources/images/lands/Epic__xvid.d15929ea.webp";
+import LegendaryLandImage from "../../resources/images/lands/Legendary__xvid.d534466a.webp";
+import MythicalLandImage from "../../resources/images/lands/Mithycal__xvid.b7d97282.webp";
+import RareLandImage from "../../resources/images/lands/Rare__xvid.b478551e.webp";
 
 import CommonLandVideo from "../../resources/videos/Common__xvid.mp4";
 import EpicLandVideo from "../../resources/videos/Epic__xvid.mp4";
@@ -142,6 +142,7 @@ export default function Home() {
                             <h2>Lands Unpacking</h2>
                             <p>Launched!</p>
                         </div>
+
                         <a href="https://flow.darkcountry.io/unpacker/land" target="_blank" rel="noreferrer">
                             { isMobile
                                 ? <img src={landImage} alt="dc-land" />
@@ -161,7 +162,7 @@ export default function Home() {
                             <h2>Cards & Heroes Drop</h2>
                             <p>Coming soon!</p>
                         </div>
-                        <a href="https://darkcountry.io" target="_blank" rel="noreferrer">
+                        <a href="https://darkcountry.io" target="_blank" rel="noreferrer" aria-label="drop">
                             <img src={UpcomingDrop1Image} alt="" />
                         </a>
                     </div>

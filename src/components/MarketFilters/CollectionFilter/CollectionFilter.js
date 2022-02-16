@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import SearchIcon from "../../../resources/images/icons/search_icon.png";
-import DotsMenu from "../../../resources/images/dots_menu_filter.png";
+import SearchIcon from "../../../resources/images/icons/search_icon.webp";
+import DotsMenu from "../../../resources/images/dots_menu_filter.webp";
 
 import './CollectionFilter.scss'
 
@@ -38,16 +38,19 @@ function CollectionFilter({ collections, handleFilter, handleCollectionsSearch, 
                         img={SearchIcon}
                         onChange={handleCollectionsSearch}
                     />
+
                     <div className={'filter-collections'}>
                         {collections.map(({ image, name, templates }) =>
                             <div className={'filter-collection-wrapper'} key={name}>
                                 <div className={'filter-collection'} onClick={() => handleSelectCollection(name)} key={name}>
                                     <img src={ image } alt="" />
                                     <p>{ name }</p>
+
                                     { selectedCollections.includes(name) &&
                                         <span onClick={() => handleSelectCollection(name)}>x</span>
                                     }
                                 </div>
+
                                 <div className={'filter-collection-templates'}>
                                     { templates.map(templateName =>
                                         <div

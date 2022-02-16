@@ -40,9 +40,11 @@ export default function Item({
                         </>
                     }
                 </div>
+
                 <div className={ `item-description ${hideButtons ? 'block-center' : ''}` }>
                     <p className={'collection'}>{ collection }</p>
                     <p>{name}</p>
+
                     { !hideButtons && price && !!!showSellModal &&
                         <div className={'item-action'}>
                             <CustomButton
@@ -50,18 +52,21 @@ export default function Item({
                                 onClick={ () => history.push(`/market/${item_id}`) }
                                 disabled={processing}
                             />
+
                             <div className={'item-price'}>
                                 <p>Price:</p>
                                 <p>{price} FLOW</p>
                             </div>
                         </div>
                     }
+
                     { !hideButtons && !price && !!showSellModal &&
                         <div className={'sell-action'}>
                             <CustomButton
                                 text={'SELL'}
                                 onClick={ showSellModal }
                             />
+
                             <Tooltip
                                 TransitionComponent={Fade}
                                 TransitionProps={{ timeout: 600 }}

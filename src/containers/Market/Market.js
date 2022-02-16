@@ -14,7 +14,7 @@ import CustomSelect from "../../generics/CustomSelect/CustomSelect";
 import Item from "../../components/Item/Item";
 import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
 
-import SearchIcon from "../../resources/images/icons/search_icon.png";
+import SearchIcon from "../../resources/images/icons/search_icon.webp";
 
 import {
     SALE_ORDERS_API,
@@ -119,6 +119,7 @@ export default function Market() {
 
     useEffect(() => {
         window.addEventListener('scroll', onScroll);
+
         return () => window.removeEventListener('scroll', onScroll);
     });
 
@@ -182,12 +183,14 @@ export default function Market() {
                 handleTemplateFilter={handleTemplateFilter}
                 selectedTemplate={selectedTemplate}
             />
+
             <div className={'items-container'}>
                 <CustomTextField
                     placeholder={'Search items'}
                     img={SearchIcon}
                     onChange={handleItemsSearch}
                 />
+
                 <CustomSelect
                     options={[
                         LISTINGS_DESC,

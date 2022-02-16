@@ -7,6 +7,7 @@ export default function ListedItemLoadingPlaceholder() {
               <div className={'ph-col-6'}>
                   <div className={'ph-picture'} />
               </div>
+
               <div className={'ph-row-wrapper'}>
                   <div className={'ph-row'}>
                       <div className={'ph-col-8 big'} />
