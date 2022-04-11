@@ -32,7 +32,7 @@ export default function TransferModal({ visible, onClose, itemId, ipfs, mediaUrl
             })
             .catch(e => {
                 console.log(e);
-                toast.error(e.message);
+                toast.error(e);
             })
             .finally(() => setProcessing(false));
     };

@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { reducers } from './reducers';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { logger } from 'redux-logger';
 import { Provider } from 'react-redux';
-import { sagas } from './sagas';
 import createSagaMiddleware from "redux-saga";
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { QueryParamProvider } from 'use-query-params';
+
+import { reducers } from './reducers';
+import { sagas } from './sagas';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -44,7 +46,9 @@ ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <Router>
-                <App />
+                <QueryParamProvider ReactRouterRoute={Route}>
+                    <App />
+                </QueryParamProvider>
             </Router>
         </Provider>
     </React.StrictMode>,

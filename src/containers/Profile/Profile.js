@@ -20,7 +20,6 @@ import Item from "../../components/Item/Item";
 import Loader from "../../components/Loader/Loader";
 import BoughtSoldItem from "../../components/Item/BoughtSoldItem/BoughtSoldItem";
 import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
-//import ItemPriceGrid from "../../components/ItemPriceGrid/ItemPriceGrid";
 
 import ItemSellModal from "../../modals/ItemSellModal/ItemSellModal";
 import TransferModal from "../../modals/TransferModal/TransferModal";
@@ -158,7 +157,7 @@ export default function Profile({ history, match: { params: { address } } }) {
                     itemsToFilter = soldItems;
 
                 setSearchItems(itemsToFilter.filter(({ data: { name } }) => {
-                    return name.toString().toLowerCase().startsWith(value.toString().toLowerCase());
+                    return name.toString().toLowerCase().includes(value.toString().toLowerCase());
                 }));
 
                 return setReRender(!reRender);
