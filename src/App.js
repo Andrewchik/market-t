@@ -26,6 +26,7 @@ import {
     CONFIRMED_TERMS_AND_CONDITIONS
 } from "./constants";
 
+//test
 function App() {
   const dispatch = useDispatch();
   const { openSuccessPurchasePopup, openTermsAndConditionModal } = useSelector(({ modal }) => modal);
