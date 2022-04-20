@@ -199,6 +199,10 @@ export default function Profile({ history, match: { params: { address } } }) {
         setReRender(true);
     };
 
+    const handleUnpackClick = () => {
+        window.open("https://flow.darkcountry.io/unpacker/land", '_blank', 'noopener,noreferrer');
+    };
+
     const renderItems = () => {
         let itemsToRender = [];
 
@@ -221,6 +225,8 @@ export default function Profile({ history, match: { params: { address } } }) {
                         userOwner={userOwnProfile}
                         hideButtons={!userOwnProfile}
                         key={item.item_id}
+                        handleUnpackClick={handleUnpackClick}
+                        isLandPack={item.data.type.toLowerCase() === 'pack'}
                     />
                 );
 

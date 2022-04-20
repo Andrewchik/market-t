@@ -157,6 +157,7 @@ export default function Market() {
                     ]}
                     initialOption={sortOption}
                     handleChange={handleSetSortOption}
+                    showUnboxButton={true}
                 />
 
                 <div className={'items-wrapper'}>

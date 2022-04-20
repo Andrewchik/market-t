@@ -2,9 +2,29 @@ import { FormControl, Select } from "@material-ui/core";
 
 import './CustomSelect.scss'
 
-function CustomSelect({text = 'Sort by', initialOption, options = [], handleChange = () => {} }) {
+import CustomButton from "../CustomButton/CustomButton";
+
+function CustomSelect({
+    text = 'Sort by',
+    initialOption,
+    options = [],
+    handleChange = () => {},
+    showUnboxButton = false
+}) {
+
+    const handleUnboxPackClick = () => {
+        window.open("https://flow.darkcountry.io/unpacker/land", '_blank', 'noopener,noreferrer');
+    };
+
     return (
         <div className={'custom-select-container'}>
+            { showUnboxButton &&
+                <CustomButton
+                    text={'Unbox Pack'}
+                    onClick={handleUnboxPackClick}
+                />
+            }
+
             <FormControl variant="outlined">
                 <Select
                     native

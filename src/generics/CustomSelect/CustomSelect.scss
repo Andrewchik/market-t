@@ -3,6 +3,23 @@
 .custom-select-container {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 400px) {
+    justify-content: center;
+  }
+
+  .custom-button {
+      border-radius: 20px;
+      margin-right: 20px;
+      height: 35px !important;
+
+    @media screen and (max-width: 400px) {
+      margin-bottom: 20px;
+      margin-right: 0;
+      width: 200px;
+    }
+  }
 
   .MuiFormControl-root {
     width: 200px;

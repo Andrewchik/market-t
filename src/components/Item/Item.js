@@ -1,5 +1,6 @@
 import React, { Link, useHistory } from "react-router-dom";
 import LazyLoad from "react-lazyload";
+import { GiBoxUnpacking } from 'react-icons/gi';
 
 import { IconButton, Tooltip, Fade } from '@material-ui/core';
 
@@ -17,7 +18,9 @@ export default function Item({
     showTransferModal = null,
     processing = false,
     userOwner = false,
-    hideButtons = false
+    hideButtons = false,
+    handleUnpackClick,
+    isLandPack = false
 }) {
     const history = useHistory();
 
@@ -62,6 +65,25 @@ export default function Item({
 
                     { !hideButtons && !price && !!showSellModal &&
                         <div className={'sell-action'}>
+                            { isLandPack &&
+                                <Tooltip
+                                    TransitionComponent={Fade}
+                                    TransitionProps={{ timeout: 600 }}
+                                    title={ <p>Unpack</p> }
+                                >
+                                    <IconButton
+                                        aria-label="unpack"
+                                        className="unpack-icon"
+                                        onClick={handleUnpackClick}
+                                    >
+                                        <GiBoxUnpacking
+                                            size={20}
+                                            color={'#D69700'}
+                                        />
+                                    </IconButton>
+                                </Tooltip>
+                            }
+
                             <CustomButton
                                 text={'SELL'}
                                 onClick={ showSellModal }
