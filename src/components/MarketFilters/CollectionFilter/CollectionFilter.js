@@ -66,6 +66,10 @@ function CollectionFilter({ collections, handleFilter, handleCollectionsSearch, 
                                                 <p className={'template-image template-image-card-color'} />
                                             }
 
+                                            { templateName.toString().includes('Hero') &&
+                                                <p className={'template-image template-image-hero-color'} />
+                                            }
+
                                             { templateName.toString().includes('Pack') &&
                                                 <p className={'template-image template-image-pack-color'} />
                                             }

@@ -94,16 +94,16 @@ export default function Market() {
 
     const itemsToShow = useMemo(() => {
         return allItems
-            .filter((({ collection, data: { name, rarity } }) => {
+            .filter((({ collection, data: { name, rarity, type } }) => {
                 return (selectedCollections.length ? selectedCollections.includes(collection) : true) &&
                     (searchString && searchString.length > 2
                         ? name.toString().toLowerCase().includes(searchString.toString().toLowerCase())
                         : true
                     ) &&
                     (selectedTemplate
-                        ? (selectedTemplate.includes('Card')
-                            ? rarity === selectedTemplate.replace('Card', '').trim()
-                            : name === selectedTemplate
+                        ? (selectedTemplate.includes('Card') || selectedTemplate.includes('Hero')
+                            ? selectedTemplate.includes(rarity) && selectedTemplate.includes(type)
+                            : selectedTemplate.includes(name)
                         )
                         : true
                     )
@@ -123,7 +123,7 @@ export default function Market() {
                         return item2.price - item1.price;
 
                     default:
-                        return item1.order_timestamp - item2.order_timestamp;
+                        return item2.order_timestamp - item1.order_timestamp;
                 }
             });
     }, [allItems, selectedCollections, selectedTemplate, sortOption, searchString]);
