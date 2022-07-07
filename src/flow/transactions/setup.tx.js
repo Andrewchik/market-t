@@ -40,6 +40,26 @@ const CODE = fcl.cdc`
                 // create a public capability for the collection
                 signer.link<&DarkCountryMarket.Collection{DarkCountryMarket.CollectionPublic}>(DarkCountryMarket.CollectionPublicPath, target: DarkCountryMarket.CollectionStoragePath)
             }
+            
+            // It's OK if the account already has a Vault, but we don't want to replace it
+            if (signer.borrow<&SdmToken.Vault>(from: /storage/sdmTokenVault) == nil) {
+                // Create a new SdmToken Vault and put it in storage
+                signer.save(<-SdmToken.createEmptyVault(), to: /storage/sdmTokenVault)
+            
+                // Create a public capability to the Vault that only exposes
+                // the deposit function through the Receiver interface
+                signer.link<&SdmToken.Vault{FungibleToken.Receiver}>(
+                  /public/sdmTokenReceiver,
+                  target: /storage/sdmTokenVault
+                )
+            
+                // Create a public capability to the Vault that only exposes
+                // the balance field through the Balance interface
+                signer.link<&SdmToken.Vault{FungibleToken.Balance}>(
+                  /public/sdmTokenBalance,
+                  target: /storage/sdmTokenVault
+                )  
+            }
         }
     }
 `;
