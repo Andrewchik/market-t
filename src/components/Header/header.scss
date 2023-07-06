@@ -1,0 +1,52 @@
+.header {
+  width: 790px;
+  height: 81px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(5px);
+  border-radius: 0 0 40px 40px;
+  margin: 0 auto;
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 725px;
+    height: 81px;
+    margin: 0 auto;
+
+    @media screen and (max-width: 1699px) {
+      width: 660px;
+      height: 65px;
+    }
+  }
+
+  .nav__item {
+    color: #000;
+    font-size: 1rem;
+    font-weight: 700;
+    width: 145px;
+    height: 81px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    @media screen and (max-width: 1699px) {
+      width: 115px;
+      height: 65px;
+    }
+
+
+
+    &:hover{
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.79) 0%, rgba(255, 255, 255, 0.08) 100%);
+
+    }
+  }
+
+
+  @media screen and (max-width: 1699px) {
+    width: 750px;
+    height: 65px;
+  }
+}

@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import {useDispatch ,useSelector} from "react-redux";
 
-import * as fcl from "@onflow/fcl";
 
 import './Navigation.scss'
 
 import Auth from "../Auth/Auth";
 
 import logo from '../../resources/images/logos/TopExpo_LOGO1_2.webp'
+import {OPEN_CONNECTION_WALLET_POPUP} from "../../constants";
+import {UALContext} from "ual-reactjs-renderer";
 
-export default function Navigation() {
+export default function Navigation({loggedIn, setLoggedIn, metamask, setMetamask}) {
+    const { activeUser } = useContext(UALContext);
     const history = useHistory();
+    const dispatch = useDispatch()
 
     const [menuOpened, openMenu] = useState(false);
 
@@ -41,15 +44,23 @@ export default function Navigation() {
                         <p onClick={ () => handleRedirect('/market') }>Market</p>
                     </Link>
 
-                    <p onClick={ user && user.address
-                        ? () => handleRedirect(`/profile/${user.address}`)
-                        : () => fcl.authenticate()
-                    }>
-                        My Inventory
-                    </p>
+                    <p onClick={ (user && user.address) || (metamask && metamask.address) || (activeUser && activeUser.accountName)
+                        ? () =>{
+                            if (user && user.address)
+                                handleRedirect( `/profile/${user.address}`)
+
+                            if (metamask && metamask.address)
+                                handleRedirect( `/profile/${metamask.address}`)
+
+                            if (activeUser && activeUser.accountName)
+                                handleRedirect( `/profile/${activeUser.accountName}`)
+                        }
+                        : () => dispatch({type: OPEN_CONNECTION_WALLET_POPUP})
+                    }>My Inventory</p>
+
                 </div>
 
-                <Auth handleRedirect={handleRedirect} />
+                <Auth handleRedirect={handleRedirect} loggedIn={loggedIn} setLoggedIn={setLoggedIn} metamask={metamask} setMetamask={setMetamask}/>
             </div>
         </div>
     )

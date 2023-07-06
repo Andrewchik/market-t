@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useSelector } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { forceVisible } from "react-lazyload";
@@ -17,6 +17,8 @@ import Copied from '../../resources/svg/checkIcon';
 import './Profile.scss';
 
 import Item from "../../components/Item/Item";
+import IMXItem from "../../components/IMXItem/IMXItem";
+import IMXOrderItem from "../../components/IMXItem/IMXOrderItem/IMXOrderItem";
 import Loader from "../../components/Loader/Loader";
 import BoughtSoldItem from "../../components/Item/BoughtSoldItem/BoughtSoldItem";
 import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
@@ -32,11 +34,18 @@ import {
     SALE_STATUS,
     MARKET_USER_API,
     VERIFICATION_LEVEL_1,
-    HISTORY_STATS_API
+    HISTORY_STATS_API, IMMUTABLE_SANDBOX_API
 } from "../../constants";
 
 import { readCollectionIds, setup } from "../../flow";
 import { showErrorMessage } from "../../helpers";
+import {Link} from "@imtbl/imx-sdk";
+import {UALContext} from "ual-reactjs-renderer";
+import WaxItem from "../../components/WaxItem/WaxItem";
+import {cancelSale, getBuyOffers, getMyItems, getSales, getSalesTableData} from "../../services/wax.service";
+
+import BoughtSoldWaxItem from "../../components/WaxItem/BoughtSoldIWaxtem/BoughtSoldIWaxtem";
+import BuyRamModal from "../../modals/BuyRamModal/BuyRamModal";
 
 const MY_ITEMS_BLOCK = 'My items';
 const ITEMS = 'Items';
@@ -51,18 +60,27 @@ const ITEMS_BLOCKS = [
     BOUGHT_ITEMS
 ];
 
-export default function Profile({ history, match: { params: { address } } }) {
+export default function  Profile({ history, match: { params: { address } } }) {
+    const { activeUser } = useContext(UALContext);
     const [currentItemsBlock, setCurrentItemsBlock] = useState(ITEMS_BLOCKS[0]);
     const [sellModal, showSellModal] = useState(false);
     const [transferModal, showTransferModal] = useState(false);
+    const [buyRamModal, showBuyRamModal] = useState(false);
     const [item, setItem] = useState(null);
     const [myItems, setMyItems] = useState([]);
+    const [waxItemsToSale, setWaxItemsToSale] = useState([]);
+    const [waxItemsSoldBuy, setWaxItemsSoldBuy] = useState([]);
+    const [myImxItems, setMyImxItems] = useState([]);
+    const [myWaxItems, setMyWaxItems] = useState([]);
     const [boughtItems, setBoughtItems] = useState([]);
+    const [imxActive, setImxActive] = useState([]);
+    const [imxFilled, setImxFilled] = useState([]);
     const [soldItems, setSoldItems] = useState([]);
     const [loadingBASItems, setLoadingBASItems] = useState(false); // BAS - bought and sold
     const [searchItems, setSearchItems] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [onSaleItems, setOnSaleItems] = useState([]);
+    const [onSaleWaxItems, setOnWaxSaleItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const [processing, setProcessing] = useState(false);
     const [copiedAddress, setCopiedAddress] = useState(false);
@@ -70,72 +88,240 @@ export default function Profile({ history, match: { params: { address } } }) {
     const [userOwnProfile, setUserOwnProfile] = useState(false);
     const [currentAddress, setCurrentAddress] = useState('');
     const [reRender, setReRender] = useState(false);
+    const [selling, setSelling] = useState(false);
+
+    const [saleId, setSaleId] = useState(false);
 
     const authUser = useSelector(({ auth }) => auth.auth);
 
-    useEffect(() => {
-        const fetchUser = () => {
-            axios.get(`${MARKET_USER_API}?address=${address}`)
-                .then(({ data }) => !!data ? setUser(data) : history.push('/'))
-                .catch(e => console.log(e));
-        };
+    const link = new Link(process.env.SANDBOX_LINK_URL)
 
-        if (address !== currentAddress) {
-            setCurrentAddress(address);
-            fetchUser();
+
+    useEffect(() => {
+        if (!localStorage.getItem('metamask') && !activeUser){
+            const fetchUser = () => {
+                axios.get(`${MARKET_USER_API}?address=${address}`)
+                    .then(({ data }) => !!data ? setUser(data) : history.push('/'))
+                    .catch(e => console.log(e));
+            };
+
+            if (address !== currentAddress) {
+                setCurrentAddress(address);
+                fetchUser();
+            }
         }
-    }, [address, currentAddress, history]);
 
-    useEffect(() => {
-        const getUserItems = (address) => {
-            setLoading(true);
-
-            readCollectionIds({ address })
-                .then(ids => fetchUserItems(ids))
-                .catch(error => {
-                    setLoading(false);
-                    hideItems();
-                    console.log(error);
+        if (localStorage.getItem('metamask') && !activeUser){
+            const fetchUserMetaMask = () => {
+                axios.get(`${IMMUTABLE_SANDBOX_API}/users/${address}`)
+                    .then(data => setUser({address}))
+                    .catch(err => {
+                    if (err.response) {
+                        history.push('/')
+                    }else {
+                        console.log(err)
+                    }
                 });
-        };
+            };
 
-        const fetchUserItems = (ids) => {
-            if (ids && ids.length) {
-                axios.get(`${MARKET_NFT_API}/user-nfts?itemIds=${ids.join(',')}`)
-                    .then(({ data }) => groupItems(data))
-                    .catch(error => {
-                        hideItems();
-                        console.log(error);
-                    })
-                    .finally(() => setLoading(false));
-            } else {
-                hideItems();
-                setLoading(false);
+            if (address !== currentAddress) {
+                setCurrentAddress(address);
+                fetchUserMetaMask();
+            }
+        }
+
+        if (activeUser){
+            const fetchUserWax = () => {
+                try {
+                    setUser(activeUser.accountName)
+                }catch (err) {
+                    if (err.response) {
+                        history.push('/')
+                    } else {
+                        console.log(err)
+                    }
+                }
+            }
+
+            if (address !== currentAddress) {
+                setCurrentAddress(address);
+                fetchUserWax();
             }
         };
 
-        const fetchBoughtAndSoldItems = (address) => {
-            setLoadingBASItems(true);
+    }, [address, currentAddress, history, activeUser]);
 
-            axios.get(`${HISTORY_STATS_API}/bought-sold-items/${address}`)
-                .then(({ data: { boughtItems, soldItems } }) => {
-                    setBoughtItems(boughtItems);
-                    setSoldItems(soldItems)
-                })
-                .catch(e => console.log(e))
-                .finally(() => setLoadingBASItems(false))
-        };
+    useEffect(() => {
+        if (!localStorage.getItem('metamask')){
+            const getUserItems = (address) => {
+                setLoading(true);
 
-        if (user && user.address) {
-            getUserItems(user.address);
-            fetchBoughtAndSoldItems(user.address);
+                readCollectionIds({ address })
+                    .then(ids => fetchUserItems(ids))
+                    .catch(error => {
+                        setLoading(false);
+                        hideItems();
+                        console.log(error);
+                    });
+            };
+
+            const fetchUserItems = (ids) => {
+                if (ids && ids.length) {
+                    axios.get(`${MARKET_NFT_API}/user-nfts?itemIds=${ids.join(',')}`)
+                        .then(({ data }) => groupItems(data))
+                        .catch(error => {
+                            hideItems();
+                            console.log(error);
+                        })
+                        .finally(() => setLoading(false));
+                } else {
+                    hideItems();
+                    setLoading(false);
+                }
+            };
+
+            const fetchBoughtAndSoldItems = (address) => {
+                setLoadingBASItems(true);
+
+                axios.get(`${HISTORY_STATS_API}/bought-sold-items/${address}`)
+                    .then(({ data: { boughtItems, soldItems } }) => {
+                        setBoughtItems(boughtItems);
+                        setSoldItems(soldItems)
+                    })
+                    .catch(e => console.log(e))
+                    .finally(() => setLoadingBASItems(false))
+            };
+
+            if (user && user.address) {
+                getUserItems(user.address);
+                fetchBoughtAndSoldItems(user.address);
+            }
         }
+
+        if (localStorage.getItem('metamask')){
+            const fetchUserImxItems = (address) => {
+                setLoading(true);
+                if (address && address.length) {
+                    axios.get(`${IMMUTABLE_SANDBOX_API}/assets?user=${address}`)
+                        .then(({data: {result}}) => setMyImxItems(result))
+                        .catch(error => {
+                            hideItems();
+                            console.log(error);
+                        })
+                        .finally(() => setLoading(false));
+                } else {
+                    hideItems();
+                    setLoading(false);
+                }
+            };
+
+            const groupImxOrderItems = (imxOrderItems) => {
+                let imxActive = imxOrderItems.filter((item) => {
+                    return item.status === 'active'
+                })
+
+                let imxFilled = imxOrderItems.filter((item) => {
+                    return item.status === 'filled'
+                })
+
+                setImxActive(imxActive)
+                setImxFilled(imxFilled)
+            }
+
+            const fetchImxOrderItems = (address) => {
+                setLoadingBASItems(true);
+
+                axios.get(`${IMMUTABLE_SANDBOX_API}/orders?user=${address}`)
+                    .then(({ data: { result } }) => {
+                        groupImxOrderItems(result)
+                    })
+                    .catch(e => console.log(e))
+                    .finally(() => setLoadingBASItems(false))
+            }
+
+
+            if (user && user.address) {
+                fetchUserImxItems(user.address);
+                fetchImxOrderItems(user.address);
+            }
+        }
+
 
     }, [user]);
 
     useEffect(() => {
-        if (user && user.address && authUser.address)
+        const myItems = () => {
+            getMyItems({activeUser})
+                .then((data) => {
+                    setMyWaxItems(data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
+
+        if (activeUser)
+            myItems()
+
+    }, [activeUser])
+
+    useEffect(() => {
+        const getBuyOffersWax = () => {
+            getBuyOffers()
+                .then((data) => {
+                    setWaxItemsSoldBuy(data)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+
+        if (activeUser)
+            getBuyOffersWax()
+
+    }, [activeUser])
+
+    useEffect(() => {
+        const getOnSaleWaxItem = () => {
+            getSales()
+                .then((data) => {
+                    const filteredData = data
+                        .filter(item => item.seller === activeUser?.accountName)
+                        // .map(item => {
+                        //     console.log(data)
+                        //     setSaleId(item.sale_id)
+                        //     return item.asset_ids
+                        // })
+                        .flat();
+
+
+                    setWaxItemsToSale(filteredData);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        };
+
+        if (activeUser)
+            getOnSaleWaxItem();
+
+    }, [activeUser]);
+
+    useEffect(() => {
+        if (user && user.address && authUser.address){
             setUserOwnProfile(user.address === authUser.address);
+        }
+
+        if (user && user.address && localStorage.getItem('metamask')){
+            let metamask = localStorage.getItem('metamask')
+            let metamaskParse = JSON.parse(metamask)
+
+            setUserOwnProfile(user.address === metamaskParse.address);
+        }
+
+        if(activeUser){
+            setUserOwnProfile(user)
+        }
 
     }, [user, authUser]);
 
@@ -179,6 +365,37 @@ export default function Profile({ history, match: { params: { address } } }) {
         setOnSaleItems([]);
     };
 
+    const handlerCanselItemFromListing = (orderId) => {
+        link.cancel({
+            orderId: orderId,
+        })
+            .then(() => {
+                toast.success('Item canceled success');
+
+            })
+            .catch(e => {
+                showErrorMessage(e);
+                showBuyRamModal(true)
+                console.log(e);
+            })
+            .finally(() => setSelling(false));
+    }
+
+    const handlerCanselWaxItemFromListing = (sale_id) => {
+        cancelSale({ activeUser, sale_id }).then(() => {
+            toast.success('Item canceled successfully');
+            getSalesTableData();
+
+            let updWaxItemsToSale = waxItemsToSale.filter(item => item.sale_id !== sale_id);
+            setWaxItemsToSale(updWaxItemsToSale);
+        })
+            .catch(e => {
+                showErrorMessage(e);
+                console.log(e);
+            })
+            .finally(() => setSelling(false));
+    }
+
     const groupItems = (items) => {
         const userOnSaleItems = items.filter(item => item.status_msg && item.status_msg === SALE_STATUS);
         const userItems = items.filter(item => !item.status_msg || item.status_msg !== SALE_STATUS);
@@ -189,6 +406,11 @@ export default function Profile({ history, match: { params: { address } } }) {
 
     const moveItemToOnSaleBlock = (price) => {
         setMyItems(myItems.filter(({ item_id }) => item.item_id !== item_id));
+        setOnSaleItems([...onSaleItems, { ...item, price, status_msg: SALE_STATUS }]);
+    };
+
+    const moveWaxItemToOnSaleBlock = (price) => {
+        setMyWaxItems(myWaxItems.filter(({ asset_id }) => item.asset_id !== asset_id));
         setOnSaleItems([...onSaleItems, { ...item, price, status_msg: SALE_STATUS }]);
     };
 
@@ -211,24 +433,24 @@ export default function Profile({ history, match: { params: { address } } }) {
                 itemsToRender = searchItems ? searchItems : myItems;
 
                 return itemsToRender.map(item =>
-                    <Item
-                        item={item}
-                        showSellButton={true}
-                        showSellModal={() => {
-                            setItem(item);
-                            showSellModal(true)
-                        }}
-                        showTransferModal={() => {
-                            setItem(item);
-                            showTransferModal(true);
-                        }}
-                        userOwner={userOwnProfile}
-                        hideButtons={!userOwnProfile}
-                        key={item.item_id}
-                        handleUnpackClick={handleUnpackClick}
-                        isLandPack={item.data.type.toLowerCase() === 'pack'}
-                    />
-                );
+                            <Item
+                                item={item}
+                                showSellButton={true}
+                                showSellModal={() => {
+                                    setItem(item);
+                                    showSellModal(true)
+                                }}
+                                showTransferModal={() => {
+                                    setItem(item);
+                                    showTransferModal(true);
+                                }}
+                                userOwner={userOwnProfile}
+                                hideButtons={!userOwnProfile}
+                                key={item.item_id}
+                                handleUnpackClick={handleUnpackClick}
+                                isLandPack={item.data.type.toLowerCase() === 'pack'}
+                            />
+                )
 
             case ON_SALE_BLOCK:
                 itemsToRender = searchItems ? searchItems : onSaleItems;
@@ -269,6 +491,149 @@ export default function Profile({ history, match: { params: { address } } }) {
         }
     };
 
+    const renderImxItems = () => {
+        let itemsToRender = [];
+
+        switch (currentItemsBlock) {
+            case MY_ITEMS_BLOCK:
+                itemsToRender = searchItems ? searchItems : myImxItems;
+
+                return itemsToRender.map((item) =>
+                    <IMXItem
+                        item={item}
+                        showSellButton={true}
+                        showSellModal={() => {
+                            setItem(item);
+                            showSellModal(true)
+                        }}
+                        showTransferModal={() => {
+                            setItem(item);
+                            showTransferModal(true);
+                        }}
+                        userOwner={userOwnProfile}
+                        hideButtons={!userOwnProfile}
+                        // handleUnpackClick={handleUnpackClick}
+                        // isLandPack={item.data.type.toLowerCase() === 'pack'}
+                    />
+                )
+
+            case ON_SALE_BLOCK:
+                itemsToRender = searchItems ? searchItems : imxActive;
+
+                return itemsToRender.map((item) =>
+                    <IMXItem
+                        item={ item.sell.data.properties }
+                        userOwner={userOwnProfile}
+                        hideButtons={!userOwnProfile}
+                        itemOnSale={userOwnProfile}
+                        handlerCanselItemFromListing={handlerCanselItemFromListing}
+                        orderId={item.order_id}
+                    />
+                );
+
+            case BOUGHT_ITEMS:
+                itemsToRender = searchItems ? searchItems : imxFilled;
+
+                return itemsToRender.map((item, imx) =>
+                    <IMXOrderItem
+                        item={item}
+                        userOwnProfile={userOwnProfile}
+                        key={ imx }
+                    />
+                );
+
+
+            default:
+                return <></>;
+        }
+    };
+
+    const renderWaxItems = () => {
+        let itemsToRender = [];
+
+        switch (currentItemsBlock) {
+            case MY_ITEMS_BLOCK:
+                itemsToRender = searchItems ? searchItems : myWaxItems;
+
+
+                if (Array.isArray(itemsToRender)) {
+                    return itemsToRender.map(item =>
+                        <WaxItem
+                            item={item}
+                            showSellButton={true}
+                            showSellModal={() => {
+                                setItem(item);
+                                showSellModal(true)
+                            }}
+                            showTransferModal={() => {
+                                setItem(item);
+                                showTransferModal(true);
+                            }}
+                            showBuyRamModal={() => {
+                                setItem(item);
+                                showBuyRamModal(true);
+                            }}
+                            userOwner={userOwnProfile}
+                            hideButtons={!userOwnProfile}
+                            key={item.item_id}
+                            handleUnpackClick={handleUnpackClick}
+                        />
+                    );
+                }
+
+                break;
+
+            case ON_SALE_BLOCK:
+                itemsToRender = searchItems ? searchItems : waxItemsToSale;
+
+                if (Array.isArray(itemsToRender)) {
+                    return itemsToRender.map((item) => {
+                            return (
+                                <WaxItem
+                                    item={item.asset_ids[0]}
+                                    userOwner={userOwnProfile}
+                                    hideButtons={!userOwnProfile}
+                                    itemOnSale={userOwnProfile}
+                                    handlerCanselWaxItemFromListing={handlerCanselWaxItemFromListing}
+                                    sale_id={item.sale_id}
+                                />
+                            )
+                    }
+
+                    );
+                }
+
+                break;
+
+            case BOUGHT_ITEMS:
+                itemsToRender = searchItems ? searchItems : waxItemsSoldBuy.filter((item) => item.recipient === activeUser.accountName);
+
+                if (Array.isArray(itemsToRender)) {
+                    return itemsToRender.map(item =>
+                        <BoughtSoldWaxItem
+                            item={item}
+                            userOwnProfile={userOwnProfile}
+                        />
+                    );
+                }
+
+            case SOLD_ITEMS:
+                itemsToRender = searchItems ? searchItems : waxItemsSoldBuy.filter((item) => item.buyer === activeUser.accountName);
+
+                if (Array.isArray(itemsToRender)) {
+                    return itemsToRender.map(item =>
+                        <BoughtSoldWaxItem
+                            item={item}
+                            userOwnProfile={userOwnProfile}
+                        />
+                    );
+                }
+            default:
+                return <></>;
+        }
+
+    };
+
     const handleSetup = () => {
         setProcessing(true);
 
@@ -299,28 +664,45 @@ export default function Profile({ history, match: { params: { address } } }) {
                             text={user ? user.address : ''}
                             onCopy={() => setCopiedAddress(true)}
                         >
-                            <div className={'wallet-name'}>
-                                <p className={'text-center'}>{ user ? user.address : 'address' }</p>
-                                { copiedAddress
-                                    ? <Copied />
-                                    : <img src={CopyIcon} alt="" />
-                                }
-                            </div>
+
+                                <div className={'wallet-name'}>
+                                    {activeUser ?
+                                        <p>{activeUser.accountName}</p>
+                                        :
+                                        <p className={'text-center'}>{ user ? user.address : 'address' }</p>
+                                    }
+
+                                    { copiedAddress
+                                        ? <Copied />
+                                        : <img src={CopyIcon} alt="" />
+                                    }
+                                </div>
+
+                            {/*{localStorage.getItem('metamask') &&*/}
+                            {/*    <div className={'wallet-name'}>*/}
+                            {/*        <p className={'text-center'}>address</p>*/}
+                            {/*        { copiedAddress*/}
+                            {/*            ? <Copied />*/}
+                            {/*            : <img src={CopyIcon} alt="" />*/}
+                            {/*        }*/}
+                            {/*    </div>*/}
+                            {/*}*/}
+
                         </CopyToClipboard>
 
                         <div className={'follow-share-container'}>
                             {/*{ userOwnProfile*/}
-                            {/*    ? <CustomButton*/}
+                            {/*    ? <CustomSecondButton*/}
                             {/*        text={'Edit Profile'}*/}
                             {/*        onClick={ () => history.push('/settings') }*/}
                             {/*    />*/}
-                            {/*    :  <CustomButton*/}
+                            {/*    :  <CustomSecondButton*/}
                             {/*        text={'Follow'}*/}
                             {/*        onClick={ () => {} }*/}
                             {/*    />*/}
                             {/*}*/}
 
-                            { userOwnProfile &&
+                            { userOwnProfile && !activeUser &&
                                 <>
                                     { processing
                                         ? <Loader />
@@ -333,7 +715,7 @@ export default function Profile({ history, match: { params: { address } } }) {
                                 </>
                             }
 
-                            {/*<CustomButton*/}
+                            {/*<CustomSecondButton*/}
                             {/*    text={'Share'}*/}
                             {/*    onClick={ () => {} }*/}
                             {/*    borderButton={ true }*/}
@@ -370,7 +752,9 @@ export default function Profile({ history, match: { params: { address } } }) {
                         { loading || loadingBASItems
                             ? <ItemsLoadingPlaceholder />
                             : <div className={'items-wrapper'}>
-                                { renderItems() }
+                                {!localStorage.getItem('metamask') && !activeUser && renderItems() }
+                                {localStorage.getItem('metamask') && !activeUser && renderImxItems() }
+                                {activeUser && renderWaxItems()}
                             </div>
                         }
                     </div>
@@ -379,11 +763,19 @@ export default function Profile({ history, match: { params: { address } } }) {
 
             <ItemSellModal
                 visible={ sellModal }
+                showBuyRamModal={showBuyRamModal}
                 onClose={ () => showSellModal(false) }
                 ipfs={ item && item.data && item.data.ipfs ? item.data.ipfs : '' }
                 mediaUrl={ item && item.data && item.data.mediaUrl ? item.data.mediaUrl : '' }
                 itemId={item ? item.item_id : null}
                 moveItemToOnSaleBlock={moveItemToOnSaleBlock}
+                moveWaxItemToOnSaleBlock={moveWaxItemToOnSaleBlock}
+                imxItemUrl={item && item.image_url ? item.image_url : ''}
+                token_address={item && item.token_address ? item.token_address : ''}
+                token_id={item && item.token_id ? item.token_id : ''}
+                asset_ids={item && item.asset_id ? item.asset_id : ''}
+                mediaWaxUrl={ item && item.data ? item.data.img : '' }
+                setWaxItemsToSale={setWaxItemsToSale}
             />
 
             <TransferModal
@@ -393,6 +785,15 @@ export default function Profile({ history, match: { params: { address } } }) {
                 mediaUrl={ item && item.data && item.data.mediaUrl ? item.data.mediaUrl : '' }
                 itemId={item ? item.item_id : null}
                 removeTransferredItemFromMyItems={removeTransferredItemFromMyItems}
+                imxItemUrl={item && item.metadata && item.metadata.image_url ? item.metadata.image_url : ''}
+                token_address={item && item.token_address ? item.token_address : ''}
+                token_id={item && item.token_id ? item.token_id : ''}
+                asset_id={item && item.asset_id ? item.asset_id : ''}
+            />
+
+            <BuyRamModal
+                visible={buyRamModal}
+                onClose={() => showBuyRamModal(false)}
             />
         </>
     );

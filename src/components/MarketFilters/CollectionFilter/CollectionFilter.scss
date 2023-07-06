@@ -18,7 +18,7 @@
 
       span {
         margin-left: auto;
-        font-size: 20px;
+        font-size: 14px;
         font-weight: bold;
         margin-right: 5px;
       }
@@ -28,15 +28,49 @@
         flex-direction: row;
         align-items: center;
 
+        .accordoin-for-schemas{
+          width: 100%;
+        }
+
+        &-schemas{
+          width: 100%;
+          border: none;
+        }
+
+        .MuiAccordionDetails-root{
+          padding: 0;
+        }
+
+        .schema-item{
+          display: flex;
+          align-items: center;
+          padding: 0 21px;
+          margin-bottom: 16px;
+
+          p{
+            font-size: 14px;
+          }
+        }
+
+        &.active{
+          color: #D69700;
+        }
+
         img {
           width: 30px;
+          height: 30px;
           margin-right: 10px;
+          border-radius: 50%;
         }
 
         p {
           font-size: 18px;
           font-weight: 600;
           color: $heading-dark-color;
+        }
+
+        .available{
+          color: #D69700;
         }
 
         &:hover {
@@ -103,6 +137,76 @@
           }
         }
       }
+    }
+  }
+
+  .filter-collections.imx-collections{
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #b6b5b5 #b6b5b5;
+
+
+    .filter-collection-wrapper{
+      margin-bottom: 10px;
+    }
+  }
+
+  .filter-collections.imx-collections::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .filter-collections.imx-collections::-webkit-scrollbar-thumb {
+    background-color: #b6b5b5;
+    border-radius: 20px;
+  }
+
+
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    .filter-collections.imx-collections {
+      scrollbar-color: #C6BC9B transparent; /* встановлює колір скроллбару */
+      scrollbar-width: thin; /* встановлює ширину скроллбару */
+    }
+    .filter-collections.imx-collections::-webkit-scrollbar-thumb {
+      background-color: #C6BC9B;
+      border-radius: 20px;
+      border: none; /* встановлює відсутність рамки */
+    }
+  }
+
+  .filter-collections.wax{
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #b6b5b5 #b6b5b5;
+
+
+    .filter-collection-wrapper{
+      margin-bottom: 10px;
+    }
+  }
+
+  .filter-collections.wax::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .filter-collections.wax::-webkit-scrollbar-thumb {
+    background-color: #b6b5b5;
+    border-radius: 20px;
+  }
+
+
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    .filter-collections.wax {
+      scrollbar-color: #C6BC9B transparent; /* встановлює колір скроллбару */
+      scrollbar-width: thin; /* встановлює ширину скроллбару */
+    }
+    .filter-collections.wax::-webkit-scrollbar-thumb {
+      background-color: #C6BC9B;
+      border-radius: 20px;
+      border: none; /* встановлює відсутність рамки */
     }
   }
 }

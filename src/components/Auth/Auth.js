@@ -1,66 +1,78 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, {useContext, useEffect} from "react";
+import {useHistory} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {UALContext} from "ual-reactjs-renderer";
+
 
 import * as fcl from "@onflow/fcl";
 
-import axios from "axios";
+
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
 
 import './Auth.scss';
 
 import {
-    AUTH_LOGIN_SUCCESS,
     AUTH_LOGOUT_SUCCESS,
-    USER_ITEMS_IDS_REQUEST,
     USER_ITEMS_IDS_SUCCESS,
-    MARKET_USER_API
+    OPEN_CONNECTION_WALLET_POPUP,
+    OPEN_BALANCES_POPUP,
 } from "../../constants";
 
-export default function Auth({ handleRedirect }) {
+
+export default function Auth({ handleRedirect, setLoggedIn, metamask, setMetamask }) {
     const history = useHistory();
     const dispatch = useDispatch();
+    const { activeUser, logout } = useContext(UALContext);
 
     const user = useSelector(({ auth }) => auth.auth);
 
-    const [processing, setProcessing] = useState(false);
+
+
+    //
+    // const shortEthAddres = () => {
+    //     let address = metamask.address
+    //
+    //     if (typeof address === "string")
+    //         return "0x" + address.substring(0, 4) + "..." + address.substring(36);
+    // }
 
     useEffect(() => {
-        const loginUser = (user) => {
-            dispatch({
-                type: AUTH_LOGIN_SUCCESS,
-                payload: user
-            });
+        const metamaskFromStorage = localStorage.getItem('metamask');
+        if (metamaskFromStorage) {
+            const parsedMetamask = JSON.parse(metamaskFromStorage);
+            const address = parsedMetamask;
+            setMetamask(address);
 
-            dispatch({
-                type: USER_ITEMS_IDS_REQUEST,
-                payload: { address: user.address }
-            });
-        };
+            setLoggedIn(true)
+        }
+    }, []);
 
-        const registerUser = (address) => {
-            axios.post(MARKET_USER_API, { address })
-                .then(({ data }) => loginUser(data))
-                .catch(e => console.log(e))
-                .finally(() => setProcessing(false));
-        };
+    // const sighOutFromMetamask = () => {
+    //     localStorage.removeItem('metamask');
+    //     setLoggedIn(false);
+    //     setMetamask({})
+    //
+    //     history.push('/');
+    // }
 
-        fcl.currentUser().subscribe(currentUser => {
-            if (currentUser.loggedIn && !user.address && !processing) {
-                setProcessing(true);
+    const sighOutFromWAX = () => {
+        logout();
 
-                axios.get(`${MARKET_USER_API}?address=${currentUser.addr}`)
-                    .then(({ data }) => !!!data ? registerUser(currentUser.addr) : loginUser(data))
-                    .catch(e => {
-                        console.log(e);
-                        setProcessing(false);
-                    });
-            }
+        history.push('/');
+    }
+
+    const openSignInModal = () => {
+        dispatch({
+            type: OPEN_CONNECTION_WALLET_POPUP
         });
-    }, [user.address, processing, dispatch]);
+    }
 
-    const signIn = () => fcl.authenticate();
+    const openBalancesModal = () => {
+        dispatch({
+            type: OPEN_BALANCES_POPUP
+        });
+    }
 
     const sighOut = () => {
         fcl.unauthenticate();
@@ -89,11 +101,38 @@ export default function Auth({ handleRedirect }) {
         );
     }
 
+    // if (loggedIn) {
+    //     return (
+    //         <div className="user-info">
+    //             <IconButton color="primary" component="label">
+    //                 <AccountBalanceWalletOutlined onClick={openBalancesModal}/>
+    //             </IconButton>
+    //             <p onClick={() => handleRedirect(`/profile/${metamask.address}`)}>{ shortEthAddres() }</p>
+    //             <CustomButton
+    //                 text={'Sign Out'}
+    //                 onClick={ sighOutFromMetamask }
+    //             />
+    //         </div>
+    //     );
+    // }
+
+    if (activeUser) {
+        return (
+            <div className="user-info">
+                <p onClick={() => handleRedirect(`/profile/${activeUser.accountName}`)}>{ activeUser.accountName }</p>
+                <CustomButton
+                    text={'Sign Out'}
+                    onClick={ sighOutFromWAX }
+                />
+            </div>
+        );
+    }
+
     return (
         <div className="sign-in">
             <CustomButton
                 text={'Connect wallet'}
-                onClick={ signIn }
+                onClick={ openSignInModal }
             />
         </div>
     );

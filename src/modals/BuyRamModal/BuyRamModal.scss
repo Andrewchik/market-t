@@ -1,0 +1,64 @@
+@import "../../styles/_variables";
+
+.transfer-modal-box {
+  .rodal-dialog {
+    width: 350px!important;
+    height: max-content!important;
+    border-radius: 20px;
+
+    @media screen and (max-width: 350px) {
+      width: 100%!important;
+    }
+  }
+}
+
+.transfer-modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h3 {
+    font-size: 27px;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .item-id {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: gray;
+    font-weight: 600;
+  }
+
+  video, img {
+    width: 250px;
+    height: auto;
+    max-height: 250px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+
+    @media screen and (max-width: 600px) {
+      width: 250px!important;
+      max-height: 250px!important;
+      margin: 0 auto 40px;
+    }
+  }
+
+  .alert {
+    color: gray;
+    font-size: 15px;
+    margin-bottom: 20px;
+    width: 290px;
+    text-align: center;
+  }
+
+  .custom-text-field {
+    margin-bottom: 20px;
+  }
+
+  .custom-text-field, button {
+    width: 290px;
+    border-radius: 20px;
+  }
+}

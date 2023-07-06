@@ -107,6 +107,23 @@
     color: $border-color;
     text-decoration: underline;
   }
+
+
+  .blockchain-buttons{
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+
+    button:first-child{
+      margin-right: 15px;
+      background: #FFFFFF;
+      color: #000000;
+    }
+
+    @media screen and (max-width: 1200px){
+      margin-top: 15px;
+    }
+  }
 }
 
 .home-block-content {

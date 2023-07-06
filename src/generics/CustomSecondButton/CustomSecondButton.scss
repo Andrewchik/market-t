@@ -1,0 +1,33 @@
+@import "../../styles/_variables";
+
+.custom-button-home, .border-custom-button-home {
+  display: flex!important;
+  align-items: center!important;
+  letter-spacing: 0.04em!important;
+  font-weight: 600!important;
+  padding: 15px 15px!important;
+  box-sizing: border-box!important;
+  transition: all 500ms ease!important;
+  height: 40px!important;
+}
+
+.custom-button-home {
+  background-color: $main-light-color!important;
+  color: $button-text-color!important;
+
+  &:hover {
+    color: $main-light-color!important;
+    background-color: $light-white-color!important;
+    border: 1px solid $main-light-color!important;
+  }
+}
+
+.border-custom-button-home {
+  background-color: $light-white-color!important;
+  color: $main-light-color!important;
+
+  &:hover {
+    color: $main-light-color!important;
+    border: 1px solid $main-light-color!important;
+  }
+}

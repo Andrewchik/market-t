@@ -34,7 +34,7 @@
   .item-sell-image-price {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
 
     @media screen and (max-width: 600px) {
@@ -44,7 +44,7 @@
     }
 
     video, img {
-      width: 250px;
+      width: 160px;
       height: auto;
       max-height: 250px;
       border-radius: 20px;

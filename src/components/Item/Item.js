@@ -1,5 +1,5 @@
 import React, { Link, useHistory } from "react-router-dom";
-import LazyLoad from "react-lazyload";
+import LazyLoad  from "react-lazyload";
 import { GiBoxUnpacking } from 'react-icons/gi';
 
 import { IconButton, Tooltip, Fade } from '@material-ui/core';

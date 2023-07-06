@@ -2,28 +2,43 @@ import { FormControl, Select } from "@material-ui/core";
 
 import './CustomSelect.scss'
 
-import CustomButton from "../CustomButton/CustomButton";
 
 function CustomSelect({
     text = 'Sort by',
     initialOption,
     options = [],
     handleChange = () => {},
-    showUnboxButton = false
+    showUnboxButton = false,
+    items,
+    itemImxToShow,
+    blockchainSelected,
+    waxItemsToShow
 }) {
 
-    const handleUnboxPackClick = () => {
-        window.open("https://flow.darkcountry.io/unpacker/land", '_blank', 'noopener,noreferrer');
-    };
+    // const handleUnboxPackClick = () => {
+    //     window.open("https://flow.darkcountry.io/unpacker/land", '_blank', 'noopener,noreferrer');
+    // };
 
     return (
         <div className={'custom-select-container'}>
-            { showUnboxButton &&
-                <CustomButton
-                    text={'Unbox Pack'}
-                    onClick={handleUnboxPackClick}
-                />
+            {/*{ showUnboxButton &&*/}
+            {/*    <CustomSecondButton*/}
+            {/*        text={'Unbox Pack'}*/}
+            {/*        onClick={handleUnboxPackClick}*/}
+            {/*    />*/}
+            {/*}*/}
+            {blockchainSelected === 'Flow' &&
+                <p>{items?.length} results</p>
             }
+
+            {blockchainSelected === 'Immutable' &&
+                <p>{itemImxToShow?.length} results</p>
+            }
+
+            {blockchainSelected === 'WAX' &&
+                <p>{waxItemsToShow?.length} results</p>
+            }
+
 
             <FormControl variant="outlined">
                 <Select

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 
 import axios from "axios";
 
@@ -24,25 +24,74 @@ import '../../components/HomeItem/HomeItem.scss';
 import HomeItem from "../../components/HomeItem/HomeItem";
 import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
 
-import { SALE_ORDERS_API, MARKET_PURCHASE_API } from "../../constants";
+import {SALE_ORDERS_API, MARKET_PURCHASE_API} from "../../constants";
+import HomeIMXItem from "../../components/HomeIMXItem/HomeIMXItem";
+
+import {UALContext} from "ual-reactjs-renderer";
 
 export default function Home() {
+    const { activeUser } = useContext(UALContext);
     const [lastPurchases, setLastPurchases] = useState([]);
+    const [newListingsPurchases, setNewListingsPurchases] = useState([]);
+    const [lastPurchasesIMX, setLastPurchasesIMX] = useState([]);
     const [lastPurchasesLoading, setLastPurchasesLoading] = useState(true);
     const [newListings, setNewListings] = useState([]);
     const [newListingsLoading, setNewListingsLoading] = useState(true);
     const [landVideo, setLandVideo] = useState('');
     const [landImage, setLandImage] = useState('');
     const [isMobile, setIsMobile] = useState(false);
+    const [selectedBlockchain, setSelectedBlockchain] = useState('Flow');
 
     const responsive = {
         0: { items: 1 },
         1024: { items: 4 }
     };
 
+    const weiToEth = (wei) => {
+        return parseFloat(wei / 1e18);
+    };
+
+    console.log(lastPurchasesIMX)
+
     useEffect(() => setRandomLandVideoOrImage(), []);
+    // useEffect(() => {
+    //     const fetchLastPurchasesIMX = () => {
+    //         axios.get(`${IMMUTABLE_SANDBOX_API}/orders?page_size=10&status=filled&&sell_token_type=ETH`)
+    //             .then(({ data: {result} }) => setLastPurchasesIMX(mapLastPurchasesIMX(result)))
+    //             .catch(error => console.log(error))
+    //             .finally(() => setLastPurchasesLoading(false));
+    //     };
+    //
+    //     if (!activeUser)
+    //     fetchLastPurchasesIMX();
+    //
+    // }, []);
+    // useEffect(() => {
+    //     const fetchNewListingsPurchasesIMX = () => {
+    //         axios.get(`${IMMUTABLE_SANDBOX_API}/orders?page_size=10&status=active&&buy_token_type=ETH&&order_by="created_at"`)
+    //             .then(({ data: {result} }) => setNewListingsPurchases(mapLastPurchasesIMX(result)))
+    //             .catch(error => console.log(error))
+    //             .finally(() => setNewListingsPurchasesLoading(false));
+    //     };
+    //
+    //     if (!activeUser)
+    //         fetchNewListingsPurchasesIMX();
+    //
+    // }, []);
+
     useEffect(() => {
-        const fetchLastPurchases = () => {
+        const fetchNewListingsPurchasesWAX = () => {
+
+        };
+
+        if (activeUser)
+            fetchNewListingsPurchasesWAX();
+
+    }, []);
+
+
+    useEffect(() => {
+        const fetchLastPurchases= () => {
             axios.get(`${MARKET_PURCHASE_API}/purchases`)
                 .then(({ data }) => setLastPurchases(mapLastPurchases(data)))
                 .catch(error => console.log(error))
@@ -87,6 +136,46 @@ export default function Home() {
                     price={price}
                     collection={collection}
                 />
+            });
+    };
+
+    const shortenString = (str) => {
+        if (!str) {
+            return '';
+        }
+        const words = str.split(' ');
+        if (words.length <= 2) {
+            return str;
+        } else {
+            return words.slice(0, 2).join(' ');
+        }
+    }
+
+
+    const mapLastPurchasesIMX = (items) => {
+        return items
+            .map(({ order_id, sell, buy, status }) => {
+                const mediaUrl = sell?.data?.properties?.image_url || buy?.data?.properties?.image_url;
+                const name = shortenString(sell?.data?.properties?.name) || shortenString(buy?.data?.properties?.name);
+                const collection = sell?.data?.properties?.collection?.name || buy?.data?.properties?.collection?.name;
+                const price = sell?.data?.properties && weiToEth(buy?.data?.quantity) || buy?.data?.properties && weiToEth(sell?.data?.quantity);
+                const symbol = sell?.data?.symbol || buy?.data?.symbol;
+
+                if (price === 1) {
+                    return null;
+                }
+
+                return (
+                    <HomeIMXItem
+                        purchaseId={order_id}
+                        symbol={symbol}
+                        mediaUrl={mediaUrl}
+                        name={name}
+                        price={price}
+                        collection={collection}
+                        status={status}
+                    />
+                );
             });
     };
 
@@ -173,6 +262,23 @@ export default function Home() {
                 <div className={'home-block-heading'}>
                     <h1>New Listings</h1>
                     <div className={'home-head-line'} />
+                    <div className="blockchain-buttons">
+                        {/*<CustomSecondButton*/}
+                        {/*    text={'Flow'}*/}
+                        {/*    onClick={ () => {setSelectedBlockchain('Flow')} }*/}
+                        {/*    borderButton={selectedBlockchain !== 'Flow'}*/}
+                        {/*/>*/}
+                        {/*<CustomSecondButton*/}
+                        {/*    text={'ImmutableX'}*/}
+                        {/*    onClick={ () => {setSelectedBlockchain('Immutable')} }*/}
+                        {/*    borderButton={selectedBlockchain !== 'Immutable'}*/}
+                        {/*/>*/}
+                        {/*<CustomSecondButton*/}
+                        {/*    text={'WAX'}*/}
+                        {/*    onClick={ () => {setSelectedBlockchain('WAX')} }*/}
+                        {/*    borderButton={selectedBlockchain !== 'WAX'}*/}
+                        {/*/>*/}
+                    </div>
                     {/*<p>View All</p>*/}
                 </div>
 
@@ -183,7 +289,7 @@ export default function Home() {
                             ? <div className={'home-block-content'}>
                                 <AliceCarousel
                                     mouseTracking
-                                    items={newListings}
+                                    items={selectedBlockchain === 'Flow' ? newListings : newListingsPurchases}
                                     responsive={responsive}
                                     infinite={true}
                                     autoPlay={true}
@@ -200,6 +306,18 @@ export default function Home() {
                 <div className={'home-block-heading'}>
                     <h1>Last Purchases</h1>
                     <div className={'home-head-line'} />
+                    <div className="blockchain-buttons">
+                        {/*<CustomSecondButton*/}
+                        {/*    text={'Flow'}*/}
+                        {/*    onClick={ () => {setSelectedBlockchain('Flow')} }*/}
+                        {/*    borderButton={selectedBlockchain !== 'Flow'}*/}
+                        {/*/>*/}
+                        {/*<CustomSecondButton*/}
+                        {/*    text={'ImmutableX'}*/}
+                        {/*    onClick={ () => {setSelectedBlockchain('Immutable')} }*/}
+                        {/*    borderButton={selectedBlockchain !== 'Immutable'}*/}
+                        {/*/>*/}
+                    </div>
                     {/*<p>View All</p>*/}
                 </div>
 
@@ -207,11 +325,11 @@ export default function Home() {
                     ? <ItemsLoadingPlaceholder amount={isMobile ? 1 : 4} />
                     : <div className={'home-block-content'}>
                         <AliceCarousel
-                            items={lastPurchases}
+                            items={selectedBlockchain === 'Flow' ? lastPurchases : lastPurchasesIMX}
                             responsive={responsive}
                             infinite={true}
                             autoPlay={true}
-                            autoPlayStrategy={'action'}
+                            // autoPlayStrategy={'action'}
                             autoPlayInterval={3000}
                         />
                     </div>

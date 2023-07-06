@@ -7,9 +7,11 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { QueryParamProvider } from 'use-query-params';
+import { UALProvider } from "ual-reactjs-renderer";
 
 import { reducers } from './reducers';
 import { sagas } from './sagas';
+import {waxAuthenticators, waxChain} from "./config/wax.config";
 
 import reportWebVitals from './reportWebVitals';
 
@@ -20,6 +22,7 @@ import App from './App';
 import './styles/index.scss'
 import './styles/fonts/Saira_SemiExpanded-Regular.ttf';
 import './styles/fonts/Saira_SemiExpanded-SemiBold.ttf';
+
 
 //TESTNET
 // fcl.config()
@@ -45,11 +48,17 @@ saga.run(sagas);
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <Router>
-                <QueryParamProvider ReactRouterRoute={Route}>
-                    <App />
-                </QueryParamProvider>
-            </Router>
+            <UALProvider
+                chains={[waxChain]}
+                authenticators={waxAuthenticators}
+                appName={'TopExpo'}
+            >
+                <Router>
+                    <QueryParamProvider ReactRouterRoute={Route}>
+                        <App />
+                    </QueryParamProvider>
+                </Router>
+            </UALProvider>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')

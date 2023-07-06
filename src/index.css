@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'Exo';
+  src: url('./fonts/Exo-Medium.ttf') format('truetype'),
+  url('./fonts/Exo-SemiBold.ttf') format('truetype'),
+  url('./fonts/Exo-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  font-family: 'Exo', sans-serif;
+  background: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Скрити скролл-бар */
+::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Скрити бекграунд скролл-бара */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+

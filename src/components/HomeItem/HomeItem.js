@@ -12,7 +12,7 @@ export default function HomeItem({ purchaseId, item_id, ipfs, mediaUrl, name, pr
 
     return (
         <Link to={ purchaseId ? `/purchase/${ purchaseId }` : `/market/${ item_id }` }>
-            <div className={ 'home-item-wrapper item-wrapper' }>
+            <div key={purchaseId} className={ 'home-item-wrapper item-wrapper' }>
                 <div className={ 'image-wrapper' }>
                     { renderDarkCountryItemImageOrVideo(
                         ipfs, mediaUrl, name, false,

@@ -3,3 +3,6 @@ export const SALE_ORDERS_API = 'https://68fqbt7itl.execute-api.us-east-1.amazona
 export const MARKET_USER_API = 'https://06b82xpamf.execute-api.us-east-1.amazonaws.com/prod';
 export const MARKET_PURCHASE_API = 'https://abvmxw0uu8.execute-api.us-east-1.amazonaws.com/prod';
 export const HISTORY_STATS_API = 'https://trizt84iyf.execute-api.us-east-1.amazonaws.com/dev';
+export const IMMUTABLE_SANDBOX_API = 'https://api.sandbox.x.immutable.com/v1'
+export const IMMUTABLE_SANDBOX_API_V3 = 'https://api.sandbox.x.immutable.com/v3'
+

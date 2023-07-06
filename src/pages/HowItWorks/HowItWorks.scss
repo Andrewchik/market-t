@@ -1,0 +1,165 @@
+section .how-it-works_container{
+  color: #FFFFFF;
+  height: 100vh;
+  display: flex;
+
+  &_list{
+    width: 100%;
+
+    h2{
+      font-size: 3.125rem;
+      text-align: center;
+      color: #FFFFFF;
+      margin-top: 52px;
+      margin-bottom: 28px;
+    }
+
+    .list_items{
+      display: flex;
+      justify-content: flex-start;
+      margin-left: 150px;
+      width: 100%;
+      height: 62%;
+
+      .alice-carousel__wrapper{
+        height: 670px;
+
+        .alice-carousel__stage{
+          cursor: grab;
+          &-item{
+            width: 18.8%!important;
+            margin-right: 18px;
+            user-select: none;
+          }
+        }
+
+        @media screen and (max-width: 1799px){
+          height: 580px!important;
+        }
+
+        @media screen and (max-width: 1699px){
+          height: 500px!important;
+        }
+      }
+    }
+}
+
+    &_item{
+      width: 100%;
+      height: 100%;
+      margin-right: 18px;
+      background: linear-gradient(180deg, rgba(81, 70, 100, 0) 0%, #514664 100%);
+      backdrop-filter: blur(2px);
+      border-radius: 0 0 40px 40px;
+
+      .img-block_1, .img-block_2, .img-block_3, .img-block_4, .img-block_5, .img-block_6{
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        width: 100%;
+        height: 70%;
+
+        @media screen and (max-width: 1699px){
+          height: 56%;
+        }
+      }
+
+      .img-block_1{
+        background-image: url("../../images/htw/1.png");
+      }
+
+      .img-block_2{
+        background-image: url("../../images/htw/2.png");
+      }
+
+      .img-block_3{
+        background-image: url("../../images/htw/3.png");
+      }
+
+      .img-block_4{
+        background-image: url("../../images/htw/4.png");
+      }
+
+      .img-block_5{
+        background-image: url("../../images/htw/5.png");
+      }
+
+      .img-block_6{
+        background-image: url("../../images/htw/6.png");
+      }
+
+      .hidden{
+        background-image: url("../../images/vectors/Rectangle_17.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        width: 100%;
+        height: 70%;
+      }
+
+      .item-content{
+        padding: 28px 16px 0 16px;
+        text-align: center;
+
+        h5{
+          font-size: 1rem;
+          font-weight: 600;
+          margin: 0 0 1.375rem 0;
+          color: #FF791D;
+        }
+
+        p{
+          font-weight: 500;
+          font-size: 0.875em;
+          line-height: 19px;
+          color: #FFFFFF;
+          margin: 0;
+        }
+      }
+    }
+
+.navigation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.navigation ul {
+width: 100%;
+list-style: none;
+margin: 0;
+padding: 0;
+display: flex;
+align-items: center;
+justify-content: space-evenly;
+flex-direction: column;
+height: 100%;
+}
+
+.navigation li {
+transform: rotate(-90deg);
+}
+
+
+.navigation a {
+font-size: 1rem;
+line-height: 21px;
+text-align: center;
+color: #ABABAB;
+text-decoration: none;
+transition: all 0.3s ease;
+}
+
+.navigation a:hover {
+color: #FFFFFF;
+}
+
+.navigation a.active {
+font-size: 20px;
+line-height: 27px;
+text-align: center;
+color: #D8C72C;
+}
+
+}
