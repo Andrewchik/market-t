@@ -7,3 +7,4 @@ export const TRANSACTION_EXPIRED  = 'expired transaction';
 export const BILLED_CPU  = 'billed CPU time';
 export const NO_RAM  = 'has insufficient ram';
 export const NO_BALANCE  = 'overdrawn balance'
+export const NO_BALANCE_SDM  = 'no balance object found'

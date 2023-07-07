@@ -34,7 +34,7 @@ import {
     SALE_STATUS,
     MARKET_USER_API,
     VERIFICATION_LEVEL_1,
-    HISTORY_STATS_API, IMMUTABLE_SANDBOX_API
+    HISTORY_STATS_API, IMMUTABLE_SANDBOX_API, NO_RAM, BILLED_CPU
 } from "../../constants";
 
 import { readCollectionIds, setup } from "../../flow";
@@ -46,6 +46,7 @@ import {cancelSale, getBuyOffers, getMyItems, getSales, getSalesTableData} from 
 
 import BoughtSoldWaxItem from "../../components/WaxItem/BoughtSoldIWaxtem/BoughtSoldIWaxtem";
 import BuyRamModal from "../../modals/BuyRamModal/BuyRamModal";
+import BuyCPUModal from "../../modals/BuyCPUModal/BuyCPUModal";
 
 const MY_ITEMS_BLOCK = 'My items';
 const ITEMS = 'Items';
@@ -66,6 +67,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
     const [sellModal, showSellModal] = useState(false);
     const [transferModal, showTransferModal] = useState(false);
     const [buyRamModal, showBuyRamModal] = useState(false);
+    const [buyCPUModal, showCPUModal] = useState(false);
     const [item, setItem] = useState(null);
     const [myItems, setMyItems] = useState([]);
     const [waxItemsToSale, setWaxItemsToSale] = useState([]);
@@ -90,7 +92,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
     const [reRender, setReRender] = useState(false);
     const [selling, setSelling] = useState(false);
 
-    const [saleId, setSaleId] = useState(false);
+    // const [saleId, setSaleId] = useState(false);
 
     const authUser = useSelector(({ auth }) => auth.auth);
 
@@ -371,11 +373,15 @@ export default function  Profile({ history, match: { params: { address } } }) {
         })
             .then(() => {
                 toast.success('Item canceled success');
-
             })
             .catch(e => {
+
                 showErrorMessage(e);
-                showBuyRamModal(true)
+
+                if (e && e.toString().includes(NO_RAM)){
+                    showBuyRamModal(true)
+                }
+
                 console.log(e);
             })
             .finally(() => setSelling(false));
@@ -392,6 +398,11 @@ export default function  Profile({ history, match: { params: { address } } }) {
             .catch(e => {
                 showErrorMessage(e);
                 console.log(e);
+
+                if (e && e.toString().includes(BILLED_CPU)) {
+                    showCPUModal(true)
+                }
+           
             })
             .finally(() => setSelling(false));
     }
@@ -794,6 +805,11 @@ export default function  Profile({ history, match: { params: { address } } }) {
             <BuyRamModal
                 visible={buyRamModal}
                 onClose={() => showBuyRamModal(false)}
+            />
+            
+            <BuyCPUModal
+             visible={buyCPUModal}
+             onClose={() => showCPUModal(false)}
             />
         </>
     );

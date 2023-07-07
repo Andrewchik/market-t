@@ -2,182 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0bd36b4d-3c4b-4f8c-b253-856dd497962d" name="Changes" comment="[ADD] project">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/src.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/App.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Header/Header.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Header/header.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/HomeIMXItem/HomeIMXItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/HomeIMXItem/HomeIMXItem.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/IMXItem/IMXItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/IMXItem/IMXItem.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/IMXItem/IMXOnSale/IMXOnSale.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/IMXItem/IMXOnSale/IMXOnSale.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/IMXItem/IMXOrderItem/IMXOrderItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/IMXItem/IMXOrderItem/IMXOrderItem.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/MarketFilters/BlockchainFilter/BlockchainFilter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/MarketFilters/BlockchainFilter/BlockchainFilter.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Modal/ConnectModal/ConnectModal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Modal/ConnectModal/ConnectModal.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Modal/DepositModal/DepositModal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Modal/DepositModal/DepositModal.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/NavBar/NavBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/NavBar/NavBar.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Slider/Slider.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Slider/Slider.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/WaxItem/BoughtSoldIWaxtem/BoughtSoldIWaxtem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/WaxItem/BoughtSoldIWaxtem/BoughtSoldIWaxtem.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/WaxItem/WaxItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/WaxItem/WaxItem.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/WaxItem/WaxItemSoldBought/WaxItemSoldBought.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/WaxItem/WaxItemSoldBought/WaxItemSoldBought.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/WaxItemToSell/WaxItemToSell.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/WaxItemToSell/WaxItemToSell.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/config/wax.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/constants/immutable-x.constants" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/constants/wax.constants.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/LastPurchaseIMXItem/LastPurchaseIMXItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/LastPurchaseIMXItem/LastPurchaseIMXItem.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/ListImxItem/ListedImxItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/ListImxItem/ListedImxItem.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/ListedWAXItem/ListedWAXItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/ListedWAXItem/ListedWAXItem.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fonts/Exo-Bold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fonts/Exo-Medium.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fonts/Exo-SemiBold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generics/CustomSecondButton/CustomSecondButton.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generics/CustomSecondButton/CustomSecondButton.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/helpers/AtomicAPI.helper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/helpers/chain.helper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/Features/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/Features/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/Features/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/Features/4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/Features/5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/Army_forge.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/Boats_mooring.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/Bone_hoe.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/Chopper_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/Farmer_hut.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/Hand_axe.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/Stonemason_wooden_hut.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/Woodcutter_house.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/Wooden_barracks.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/Wooden_stable.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/Wooden_tailor_house.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/Wooden_warehouse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/chopping_tools.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/farm_hut.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/forge_of_bronze_smelting.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/photo_2023-03-06_10-34-12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/pier_for_rafts.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/simple_sawmill.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/weaving_workshop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/wheelbarrow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/NFTs/wooden_raft.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/RUSH_footer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/RUSH_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/bg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/bg_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/bg_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/bg_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/bg_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/copyright.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/diagram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/htw/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/htw/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/htw/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/htw/4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/htw/5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/htw/6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/roadmap/drop_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/roadmap/farming.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/roadmap/launch.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/roadmap/pool.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/roadmap/trade.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/start_btn 1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/start_btn 2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/telegram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/twitter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/vectors/Rectangle_11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/vectors/Rectangle_12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/vectors/Rectangle_17.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/vectors/main-bottom-vector.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/vectors/main-bottom-vector2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/logo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modals/Balances/BalancesModal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modals/Balances/BalancesModal.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modals/BuyRamModal/BuyRamModal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modals/BuyRamModal/BuyRamModal.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Features/Features.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Features/Features.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/HowItWorks/HowItWorks.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/HowItWorks/HowItWorks.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Main/Main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Main/main.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/NFTs/NFTs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/NFTs/NFTs.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/RoadMap/RoadMap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/RoadMap/RoadMap.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Tokenomics/Tokenomics.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Tokenomics/Tokenomics.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/sectionsStyles.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/blockchain/flow_icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/blockchain/immutable_x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/blockchain/sdm_icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/blockchain/wax_icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/eth_icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/icons/blockto_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/icons/metamask_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/logos/Mycloudwallet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/logos/Mycloudwallet_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/next-black.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/next-white.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/images/no-photo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/svg/arrow-left.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/svg/arrow-right.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/wax.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Auth/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/Auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HomeItem/HomeItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HomeItem/HomeItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Item/BoughtSoldItem/BoughtSoldItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Item/BoughtSoldItem/BoughtSoldItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Item/Item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Item/Item.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Item/Item.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Item/Item.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MarketFilters/CollectionFilter/CollectionFilter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MarketFilters/CollectionFilter/CollectionFilter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MarketFilters/CollectionFilter/CollectionFilter.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MarketFilters/CollectionFilter/CollectionFilter.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MarketFilters/MarketFilters.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MarketFilters/MarketFilters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MarketFilters/MarketFilters.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MarketFilters/MarketFilters.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navigation/Navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navigation/Navigation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/aws.constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/aws.constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/blockchain.constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/blockchain.constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/constants/error.constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/error.constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/modal.constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/modal.constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/user.constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/user.constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Home/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Home/Home.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Home/Home.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Market/Market.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Market/Market.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Profile/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generics/CustomSelect/CustomSelect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/generics/CustomSelect/CustomSelect.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generics/CustomSelect/CustomSelect.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/generics/CustomSelect/CustomSelect.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/helpers/error.helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/error.helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modals/ItemSellModal/ItemSellModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modals/ItemSellModal/ItemSellModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modals/ItemSellModal/ItemSellModal.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/modals/ItemSellModal/ItemSellModal.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modals/TransferModal/TransferModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modals/TransferModal/TransferModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/modal.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/modal.reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/user.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/user.reducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,18 +25,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2022.1.3\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2022.1.3\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -217,8 +46,17 @@
       <option name="presentableId" value="Default" />
       <updated>1688678879443</updated>
       <workItem from="1688678882639" duration="1856000" />
-      <workItem from="1688681004441" duration="3516000" />
+      <workItem from="1688681004441" duration="4498000" />
+      <workItem from="1688715596576" duration="1683000" />
     </task>
+    <task id="LOCAL-00001" summary="[ADD] project">
+      <created>1688684978609</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1688684978609</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

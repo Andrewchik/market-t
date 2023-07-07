@@ -232,6 +232,28 @@ export const transferRAM = async ({ activeUser, amount }) => {
     });
 };
 
+export const transferCPU = async ({ activeUser, amount, amountCPU }) => {
+
+
+    const actions = [
+        {
+            account: EOSIO,
+            action: 'delegatebw',
+            data: {
+                from: activeUser.accountName,
+                receiver: activeUser.accountName,
+                stake_cpu_quantity: Number(amount).toFixed(8) + ' WAX',
+                stake_net_quantity: Number(amountCPU).toFixed(8) + ' WAX',
+                transfer: ''
+            }
+        },
+    ]
+    return await signTransactions({
+        activeUser,
+        actions
+    });
+};
+
 export const cancelSale = async ({ activeUser, sale_id }) => {
 
     const actions = [
