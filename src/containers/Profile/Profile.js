@@ -389,7 +389,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
 
     const handlerCanselWaxItemFromListing = (sale_id) => {
         cancelSale({ activeUser, sale_id }).then(() => {
-            toast.success('Item canceled successfully');
+            toast.success('Removed from sale');
             getSalesTableData();
 
             let updWaxItemsToSale = waxItemsToSale.filter(item => item.sale_id !== sale_id);

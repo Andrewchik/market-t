@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import {forceVisible} from "react-lazyload";
 import {StringParam, useQueryParam} from 'use-query-params';
@@ -29,9 +29,11 @@ import {
 
 import {getDCschemas, getSales} from "../../services/wax.service";
 import WaxItemToSell from "../../components/WaxItemToSell/WaxItemToSell";
+import { UALContext } from "ual-reactjs-renderer";
 
 
 export default function Market() {
+    const { activeUser } = useContext(UALContext);
     const { userItems } = useSelector(({ user }) => user);
 
     const [allItems, setAllItems] = useState([]);
@@ -210,7 +212,6 @@ export default function Market() {
     };
 
     const handleCollectionImxFilter = (collection) => {
-        console.log(collection)
         setSelectedCollectionsImx(collection)
     }
 
@@ -388,10 +389,11 @@ export default function Market() {
 
                             {blockchainSelected === 'WAX' &&
                                 waxItemsToShow
-                                    .slice(0, limit)
-                                    .map((i) => {
-                                        return <WaxItemToSell item={i} userOwner={false} />;
-                                    })
+                                .slice(0, limit)
+                                .map((i) => {
+                                    const userOwner = i.seller === activeUser.accountName ? true : false;
+                                    return <WaxItemToSell item={i} userOwner={userOwner} />;
+                                })
                             }
 
                         </>

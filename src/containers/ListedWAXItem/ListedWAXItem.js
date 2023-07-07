@@ -16,7 +16,7 @@ import ListedItemLoadingPlaceholder from "../../components/LoadingPlaceholders/L
 import { OPEN_SUCCESS_PURCHASE_POPUP } from "../../constants";
 import { removeMarketItem } from "../../flow";
 import { showErrorMessage } from "../../helpers";
-import {buyItem, getSalesTableData} from "../../services/wax.service";
+import {buyItem, cancelSale, getSalesTableData} from "../../services/wax.service";
 import Slider from "../../components/Slider/Slider";
 
 import {ATOMIC_ASSETS_API} from '../../constants'
@@ -35,8 +35,6 @@ export default function ListedWAXItem({ history, match: { params: { id } } }) {
     const [listedItems, setListedItems] = useState([])
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
-
-    const { userItems } = useSelector(({ user }) => user);
 
     useEffect(() => { document.documentElement.scrollTop = 0 }, []);
     useEffect(() => {
@@ -87,9 +85,11 @@ export default function ListedWAXItem({ history, match: { params: { id } } }) {
 
 
     useEffect(() => {
-        if (item && userItems)
-            setItemStatus(userItems.includes(item.item_id) ? CANCEL_ITEM_STATUS : BUY_ITEM_STATUS);
-    }, [item, userItems]);
+        if (item && activeUser){
+            const userOwner = item.seller === activeUser.accountName ? CANCEL_ITEM_STATUS : BUY_ITEM_STATUS;
+            setItemStatus(userOwner);
+        }
+    }, [item, activeUser]);
 
     const handleBuyMarketItem = () => {
         setProcessing(true);
@@ -110,16 +110,16 @@ export default function ListedWAXItem({ history, match: { params: { id } } }) {
             });
     };
 
-    const removeItemFromSale = (itemId) => {
+    const removeItemFromSale = (sale_id) => {
         setProcessing(true);
 
-        removeMarketItem({ itemId })
+        cancelSale({ activeUser, sale_id })
             .then(() => {
                 setTimeout(() => {
                     toast.success('Removed from sale');
                     setProcessing(false);
 
-                    history.push('/market');
+                    history.push('/market?blockchain=WAX');
                 }, 3000);
             })
             .catch(e => {
@@ -195,7 +195,7 @@ export default function ListedWAXItem({ history, match: { params: { id } } }) {
                                     { !processing && !!item && itemStatus === CANCEL_ITEM_STATUS &&
                                         <CustomButton
                                             text={'Cancel'}
-                                            onClick={ () => removeItemFromSale(item.item_id) }
+                                            onClick={ () => removeItemFromSale(item.sale_id) }
                                             disabled={processing}
                                         />
                                     }

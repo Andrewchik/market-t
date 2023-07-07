@@ -16,18 +16,6 @@ export default function WaxItemToSell({
     const history = useHistory();
 
 
-    // const shortenString = (str) => {
-    //     if (!str) {
-    //         return '';
-    //     }
-    //     const words = str.split(' ');
-    //     if (words.length <= 2) {
-    //         return str;
-    //     } else {
-    //         return words.slice(0, 2).join(' ');
-    //     }
-    // }
-
     return (
         <LazyLoad height={'400px'} once>
             <div key={sale_id} className={'imx-item-wrapper'}>
