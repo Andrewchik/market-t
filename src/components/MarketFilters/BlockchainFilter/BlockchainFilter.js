@@ -24,7 +24,7 @@ function BlockchainFilter({blockchainSelected, setBlockchainSelected, tokenSelec
         if (blockchain) {
             setBlockchainSelected(blockchain);
         }
-    }, []);
+    }, [history, setBlockchainSelected]);
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -48,9 +48,9 @@ function BlockchainFilter({blockchainSelected, setBlockchainSelected, tokenSelec
         {id: 2, name: 'Wax blockchain', img: WAXIcon, click: () => {handleSelectedBlockchain('WAX')}}
     ]
 
-    const tokens = [
-        {id: 1, name: 'SDM', img: SDMIcon, click: () => {handleSelectedToken('SDM')}},
-    ]
+    // const tokens = [
+    //     {id: 1, name: 'SDM', img: SDMIcon, click: () => {handleSelectedToken('SDM')}},
+    // ]
 
     const handleSelectedBlockchain = (blockchain) => {
         history.push(`?blockchain=${blockchain}`);
@@ -58,10 +58,10 @@ function BlockchainFilter({blockchainSelected, setBlockchainSelected, tokenSelec
         setExpanded(false)
     }
 
-    const handleSelectedToken = (token) => {
-      setTokenSelected(token)
-      setTokenExpanded(false)
-    }
+    // const handleSelectedToken = (token) => {
+    //   setTokenSelected(token)
+    //   setTokenExpanded(false)
+    // }
 
     // const handlerCloseModal = () => {
     //     setExpanded(!expanded);
@@ -79,8 +79,8 @@ function BlockchainFilter({blockchainSelected, setBlockchainSelected, tokenSelec
                 <div className="blockchain-filter_container">
                     <h4>Blockchains:</h4>
                     <div className="blockchain-list">
-                        {blockchains.map((item) =>
-                            <div className="blockchain-item" onClick={item.click}>
+                        {blockchains.map((item , index) =>
+                            <div key={index} className="blockchain-item" onClick={item.click}>
                                 <img src={item.img} alt=""/>
                                 <p>{item.name}</p>
                             </div>

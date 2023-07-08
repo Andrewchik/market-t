@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from "react";
+import React, { useEffect, useState, useContext }  from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 
@@ -31,9 +31,11 @@ import ListedImxItem from "./containers/ListImxItem/ListedImxItem";
 import BalancesModal from "./modals/Balances/BalancesModal";
 import LastPurchaseIMXItem from "./containers/LastPurchaseIMXItem/LastPurchaseIMXItem";
 import ListedWAXItem from "./containers/ListedWAXItem/ListedWAXItem";
+import { UALContext } from "ual-reactjs-renderer";
 
 //test
 function App() {
+  const { activeUser } = useContext(UALContext);
   const dispatch = useDispatch();
   const { openSuccessPurchasePopup, openTermsAndConditionModal, openConnectWalletModal, openBalancesModal } = useSelector(({ modal }) => modal);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -57,6 +59,7 @@ function App() {
       <Switch>
           <Route path={'/'} component={Home} exact />
           <Route path={'/market'} component={Market} exact />
+          <Route path={'/market?blockchain=WAX'} component={Market} exact />
           <Route path={'/market/:id'} component={ListedItem} />
           <Route path={'/imx-market/:id'} component={ListedImxItem} />
           <Route path={'/wax-market/:id'} component={ListedWAXItem} />

@@ -6,7 +6,7 @@ import './IMXOrderItem.scss'
 
 export default function IMXOrderItem({ item, userOwnProfile }) {
     const {
-        order_id, amount_sold, seller, user, updated_timestamp,
+        order_id, amount_sold, user, updated_timestamp,
         buy: { data: {properties: buyProperties = {}} },
         sell: {data:  {properties: sellProperties}}
     } = item;

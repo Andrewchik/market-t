@@ -160,8 +160,8 @@ function CollectionFilter({ collections, handleFilter, handleCollectionsSearch, 
                                             </AccordionSummary>
                                             <AccordionDetails>
                                                 <div className="schema-list">
-                                                    {dcSchemas && dcSchemas.map((item) =>
-                                                        <div className="schema-item" onClick={(event) => handleSelectSchemas(event, item.schema_name)}>
+                                                    {dcSchemas && dcSchemas.map((item, index) =>
+                                                        <div key={index} className="schema-item" onClick={(event) => handleSelectSchemas(event, item.schema_name)}>
                                                             <div
                                                                 style={{
                                                                     width: "20px",

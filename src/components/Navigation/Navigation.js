@@ -40,8 +40,8 @@ export default function Navigation({loggedIn, setLoggedIn, metamask, setMetamask
                 </div>
 
                 <div className={'navigation-options'}>
-                    <Link to={'/market'}>
-                        <p onClick={ () => handleRedirect('/market') }>Market</p>
+                    <Link to={activeUser ? '/market?blockchain=WAX' : '/market'}>
+                        <p onClick={ () => handleRedirect(activeUser ? '/market?blockchain=WAX' : '/market') }>Market</p>
                     </Link>
 
                     <p onClick={ (user && user.address) || (metamask && metamask.address) || (activeUser && activeUser.accountName)

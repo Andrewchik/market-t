@@ -51,7 +51,6 @@ export default function Home() {
         return parseFloat(wei / 1e18);
     };
 
-    console.log(lastPurchasesIMX)
 
     useEffect(() => setRandomLandVideoOrImage(), []);
     // useEffect(() => {

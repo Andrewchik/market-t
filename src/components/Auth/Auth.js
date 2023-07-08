@@ -16,7 +16,7 @@ import {
     AUTH_LOGOUT_SUCCESS,
     USER_ITEMS_IDS_SUCCESS,
     OPEN_CONNECTION_WALLET_POPUP,
-    OPEN_BALANCES_POPUP,
+    // OPEN_BALANCES_POPUP,
 } from "../../constants";
 
 
@@ -46,7 +46,7 @@ export default function Auth({ handleRedirect, setLoggedIn, metamask, setMetamas
 
             setLoggedIn(true)
         }
-    }, []);
+    }, [setLoggedIn, setMetamask]);
 
     // const sighOutFromMetamask = () => {
     //     localStorage.removeItem('metamask');
@@ -68,11 +68,11 @@ export default function Auth({ handleRedirect, setLoggedIn, metamask, setMetamas
         });
     }
 
-    const openBalancesModal = () => {
-        dispatch({
-            type: OPEN_BALANCES_POPUP
-        });
-    }
+    // const openBalancesModal = () => {
+    //     dispatch({
+    //         type: OPEN_BALANCES_POPUP
+    //     });
+    // }
 
     const sighOut = () => {
         fcl.unauthenticate();

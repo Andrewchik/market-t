@@ -24,7 +24,7 @@ export default function MarketFilters(
                 blockchainSelected={blockchainSelected}
                 allImxCollections={allImxCollections}
                 handleCollection={handleCollectionFilter}
-                handleCollectionImxFilter={handleCollectionImxFilter}
+                // handleCollectionImxFilter={handleCollectionImxFilter}
                 allImxCollectionsAsset={allImxCollectionsAsset}
                 dcSchemas={dcSchemas}
             />
