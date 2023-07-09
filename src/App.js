@@ -25,21 +25,25 @@ import {
     HIDE_TERMS_AND_CONDITION_POPUP,
     OPEN_TERMS_AND_CONDITION_POPUP,
     CONFIRMED_TERMS_AND_CONDITIONS,
-    HIDE_CONNECTION_WALLET_POPUP, HIDE_BALANCES_POPUP
+    HIDE_CONNECTION_WALLET_POPUP, HIDE_BALANCES_POPUP, CONFIG
 } from "./constants";
 import ListedImxItem from "./containers/ListImxItem/ListedImxItem";
 import BalancesModal from "./modals/Balances/BalancesModal";
 import LastPurchaseIMXItem from "./containers/LastPurchaseIMXItem/LastPurchaseIMXItem";
 import ListedWAXItem from "./containers/ListedWAXItem/ListedWAXItem";
 import { UALContext } from "ual-reactjs-renderer";
+import { getConfig } from "./services/wax.service";
+import { showErrorMessage } from "./helpers";
 
 //test
 function App() {
   const { activeUser } = useContext(UALContext);
   const dispatch = useDispatch();
+
   const { openSuccessPurchasePopup, openTermsAndConditionModal, openConnectWalletModal, openBalancesModal } = useSelector(({ modal }) => modal);
   const [loggedIn, setLoggedIn] = useState(false);
   const [metamask, setMetamask] = useState('')
+
 
   useEffect(() => {
       const checkConfirmed = () => {
@@ -51,6 +55,22 @@ function App() {
 
       checkConfirmed();
   }, [dispatch]);
+
+//   useEffect(() => {
+//     if(activeUser) {
+//     getConfig()
+//         .then((data) => {
+//             dispatch({
+//                         type: CONFIG,
+//                         payload: data
+//                     });
+//         })
+//         .catch((error) => {
+//             showErrorMessage(error)
+//             console.log(error);
+//         })
+//     }
+//   }, [activeUser, dispatch])
 
   return (
     <div className="App">

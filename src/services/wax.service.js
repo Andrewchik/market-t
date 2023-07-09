@@ -156,6 +156,18 @@ export const buyItem = async ({
     });
 };
 
+
+export const getConfig = async () => {
+    const { rows } = await fetchRows({
+        contract: NEWMARKETNEW_CONTRACT,
+        scope: NEWMARKETNEW_CONTRACT,
+        table: 'config',
+        limit: 100,
+    });
+
+    return rows[0];
+};
+
 export const sellItem = async ({
                                   activeUser,
                                    asset_ids,

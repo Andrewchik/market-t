@@ -30,3 +30,5 @@ export const EOSIO ='eosio';
 // Dolar
 // export const DELPHI_ORACLE = 'delphioracle';
 export const ATOMIC_ASSETS ='atomicassets';
+
+export const CONFIG = 'CONFIG';

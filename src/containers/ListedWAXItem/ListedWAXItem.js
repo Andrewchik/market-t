@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { toast } from "react-toastify";
@@ -14,7 +14,7 @@ import Loader from "../../components/Loader/Loader";
 import ListedItemLoadingPlaceholder from "../../components/LoadingPlaceholders/ListedItemLoadingPlaceholder/ListedItemLoadingPlaceholder";
 
 import { OPEN_SUCCESS_PURCHASE_POPUP } from "../../constants";
-import { removeMarketItem } from "../../flow";
+
 import { showErrorMessage } from "../../helpers";
 import {buyItem, cancelSale, getSalesTableData} from "../../services/wax.service";
 import Slider from "../../components/Slider/Slider";
@@ -28,6 +28,7 @@ const CANCEL_ITEM_STATUS = 'CANCEL_ITEM_STATUS';
 
 
 export default function ListedWAXItem({ history, match: { params: { id } } }) {
+
     const { activeUser } = useContext(UALContext);
     const [item, setItem] = useState({});
     const [processing, setProcessing] = useState(false);
@@ -186,8 +187,9 @@ export default function ListedWAXItem({ history, match: { params: { id } } }) {
                                                 disabled={processing}
                                             />
                                             <div>
-                                                <p>Collection fee: {(Number(item.collection_fee)).toFixed(2) + '%'}</p>
-                                                {/*<p>Market fee: 2.5%</p>*/}
+                                                <p>Collection fee: {(Number(item.collection_fee * 100)).toFixed(2) + '%'}</p>
+                                                {/* <p>Taker market fees: {(Number(config.taker_market_fee * 100)).toFixed(2) + '%'}</p>
+                                                <p>Maker market fees: {(Number(config.maker_market_fee * 100)).toFixed(2) + '%'}</p> */}
                                             </div>
                                         </>
                                     }

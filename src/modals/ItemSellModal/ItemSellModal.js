@@ -1,4 +1,5 @@
 import React, {useContext, useState} from "react";
+
 import { toast } from "react-toastify";
 
 import Rodal from "rodal";
@@ -20,6 +21,7 @@ import {UALContext} from "ual-reactjs-renderer";
 import {getSales, sellItem} from "../../services/wax.service";
 
 function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaUrl, moveItemToOnSaleBlock, moveWaxItemToOnSaleBlock, imxItemUrl, token_address, token_id, asset_ids, mediaWaxUrl, setWaxItemsToSale }) {
+
     const { activeUser } = useContext(UALContext);
     const [currency, setCurrency] = useState(FLOW);
     const [price, setPrice] = useState('');
@@ -48,7 +50,7 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
         }
 
         if (activeUser){
-            setReceivedMoney((parseFloat(value) * 0.995).toFixed(4));
+            setReceivedMoney((parseFloat(value) * 0.95).toFixed(4));
         }
 
     }
@@ -210,7 +212,9 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
 
                         {activeUser &&
                             <div className={'sale-info'}>
-                                <p>Collection fee 0.05%</p>
+                                <p>Collection fee 5%</p>
+                                {/* <p>Taker market fees: {(Number(config.taker_market_fee * 100)).toFixed(2) + '%'}</p>
+                                <p>Maker market fees: {(Number(config.maker_market_fee * 100)).toFixed(2) + '%'}</p> */}
                                 <p>You will receive <span>{ receivedMoney && parseFloat(receivedMoney) > 0 ? receivedMoney : 0 }</span> SDM</p>
                             </div>
                         }
