@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 
 import axios from "axios";
 
@@ -23,19 +24,25 @@ import '../../components/HomeItem/HomeItem.scss';
 
 import HomeItem from "../../components/HomeItem/HomeItem";
 import ItemsLoadingPlaceholder from "../../components/LoadingPlaceholders/ItemsLoadingPlaceholder/ItemsLoadingPlaceholder";
+import CustomSecondButton from "../../generics/CustomSecondButton/CustomSecondButton"
 
 import {SALE_ORDERS_API, MARKET_PURCHASE_API} from "../../constants";
-import HomeIMXItem from "../../components/HomeIMXItem/HomeIMXItem";
 
 import {UALContext} from "ual-reactjs-renderer";
+import HomeWaxItem from "../../components/HomeWaxItem/HomeWaxItem";
 
 export default function Home() {
+    
+    const { userImxItems: userWaxItems } = useSelector(({ user }) => user);
+
+
     const { activeUser } = useContext(UALContext);
     const [lastPurchases, setLastPurchases] = useState([]);
     const [newListingsPurchases, setNewListingsPurchases] = useState([]);
     const [lastPurchasesIMX, setLastPurchasesIMX] = useState([]);
     const [lastPurchasesLoading, setLastPurchasesLoading] = useState(true);
     const [newListings, setNewListings] = useState([]);
+    const [newListingsWax, setNewListingsWax] = useState([]);
     const [newListingsLoading, setNewListingsLoading] = useState(true);
     const [landVideo, setLandVideo] = useState('');
     const [landImage, setLandImage] = useState('');
@@ -47,10 +54,9 @@ export default function Home() {
         1024: { items: 4 }
     };
 
-    const weiToEth = (wei) => {
-        return parseFloat(wei / 1e18);
-    };
-
+    // const weiToEth = (wei) => {
+    //     return parseFloat(wei / 1e18);
+    // };
 
     useEffect(() => setRandomLandVideoOrImage(), []);
     // useEffect(() => {
@@ -60,11 +66,16 @@ export default function Home() {
     //             .catch(error => console.log(error))
     //             .finally(() => setLastPurchasesLoading(false));
     //     };
-    //
+    
     //     if (!activeUser)
     //     fetchLastPurchasesIMX();
-    //
+    
     // }, []);
+
+    // useEffect(() => {
+    //     setLastPurchasesWAX(mapLastPurchasesWAX(userWaxItems))
+    // }, [])
+
     // useEffect(() => {
     //     const fetchNewListingsPurchasesIMX = () => {
     //         axios.get(`${IMMUTABLE_SANDBOX_API}/orders?page_size=10&status=active&&buy_token_type=ETH&&order_by="created_at"`)
@@ -77,16 +88,6 @@ export default function Home() {
     //         fetchNewListingsPurchasesIMX();
     //
     // }, []);
-
-    useEffect(() => {
-        const fetchNewListingsPurchasesWAX = () => {
-
-        };
-
-        if (activeUser)
-            fetchNewListingsPurchasesWAX();
-
-    }, []);
 
 
     useEffect(() => {
@@ -109,6 +110,13 @@ export default function Home() {
 
         fetchNewListingsPurchases();
     }, []);
+
+    useEffect(() => {
+        setNewListingsWax(mapLastPurchasesWAX(userWaxItems))
+    }, [userWaxItems])
+
+    console.log(newListingsWax);
+    console.log(newListings);
 
     const mapNewListings = (items) => {
         return items
@@ -138,45 +146,68 @@ export default function Home() {
             });
     };
 
-    const shortenString = (str) => {
-        if (!str) {
-            return '';
-        }
-        const words = str.split(' ');
-        if (words.length <= 2) {
-            return str;
-        } else {
-            return words.slice(0, 2).join(' ');
-        }
-    }
+    // const shortenString = (str) => {
+    //     if (!str) {
+    //         return '';
+    //     }
+    //     const words = str.split(' ');
+    //     if (words.length <= 2) {
+    //         return str;
+    //     } else {
+    //         return words.slice(0, 2).join(' ');
+    //     }
+    // }
 
 
-    const mapLastPurchasesIMX = (items) => {
-        return items
-            .map(({ order_id, sell, buy, status }) => {
-                const mediaUrl = sell?.data?.properties?.image_url || buy?.data?.properties?.image_url;
-                const name = shortenString(sell?.data?.properties?.name) || shortenString(buy?.data?.properties?.name);
-                const collection = sell?.data?.properties?.collection?.name || buy?.data?.properties?.collection?.name;
-                const price = sell?.data?.properties && weiToEth(buy?.data?.quantity) || buy?.data?.properties && weiToEth(sell?.data?.quantity);
-                const symbol = sell?.data?.symbol || buy?.data?.symbol;
+    // const mapLastPurchasesIMX = (items) => {
+    //     return items
+    //         .map(({ order_id, sell, buy, status }) => {
+    //             const mediaUrl = sell?.data?.properties?.image_url || buy?.data?.properties?.image_url;
+    //             const name = shortenString(sell?.data?.properties?.name) || shortenString(buy?.data?.properties?.name);
+    //             const collection = sell?.data?.properties?.collection?.name || buy?.data?.properties?.collection?.name;
+    //             const price = sell?.data?.properties && weiToEth(buy?.data?.quantity) || buy?.data?.properties && weiToEth(sell?.data?.quantity);
+    //             const symbol = sell?.data?.symbol || buy?.data?.symbol;
 
-                if (price === 1) {
-                    return null;
-                }
+    //             if (price === 1) {
+    //                 return null;
+    //             }
+
+    //             return (
+    //                 <HomeIMXItem
+    //                     purchaseId={order_id}
+    //                     symbol={symbol}
+    //                     mediaUrl={mediaUrl}
+    //                     name={name}
+    //                     price={price}
+    //                     collection={collection}
+    //                     status={status}
+    //                 />
+    //             );
+    //         });
+    // };
+
+        const mapLastPurchasesWAX = () => {
+        return userWaxItems
+            .map(({ asset_ids, collection_name, sale_id, listing_price }) => {
+
+                let name = asset_ids[0].data.name;
+                let ipfs = asset_ids[0].data.img;
+
+
 
                 return (
-                    <HomeIMXItem
-                        purchaseId={order_id}
-                        symbol={symbol}
-                        mediaUrl={mediaUrl}
-                        name={name}
-                        price={price}
-                        collection={collection}
-                        status={status}
-                    />
+                    <HomeWaxItem
+                    ipfs={ipfs}
+                    mediaUrl={ipfs}
+                    name={name}
+                    price={listing_price}
+                    item_id={sale_id}
+                    collection={collection_name}
+                />
                 );
             });
     };
+
 
     //const mouseOver = (e) => e.target.play()
     //    .catch((e) => onErrorSetDefaultVideoLand(e));
@@ -262,11 +293,9 @@ export default function Home() {
                     <h1>New Listings</h1>
                     <div className={'home-head-line'} />
                     <div className="blockchain-buttons">
-                        {/*<CustomSecondButton*/}
-                        {/*    text={'Flow'}*/}
-                        {/*    onClick={ () => {setSelectedBlockchain('Flow')} }*/}
-                        {/*    borderButton={selectedBlockchain !== 'Flow'}*/}
-                        {/*/>*/}
+                        <CustomSecondButton text={'FLOW'}  onClick={ () => {setSelectedBlockchain('Flow')} } borderButton={selectedBlockchain !== 'Flow'} />
+                        <CustomSecondButton text={'WAX'}  onClick={ () => {setSelectedBlockchain('Wax')} } borderButton={selectedBlockchain !== 'Wax'} />
+                      
                         {/*<CustomSecondButton*/}
                         {/*    text={'ImmutableX'}*/}
                         {/*    onClick={ () => {setSelectedBlockchain('Immutable')} }*/}
@@ -288,7 +317,7 @@ export default function Home() {
                             ? <div className={'home-block-content'}>
                                 <AliceCarousel
                                     mouseTracking
-                                    items={selectedBlockchain === 'Flow' ? newListings : newListingsPurchases}
+                                    items={selectedBlockchain === 'Flow' ? newListings : newListingsWax}
                                     responsive={responsive}
                                     infinite={true}
                                     autoPlay={true}
@@ -324,7 +353,7 @@ export default function Home() {
                     ? <ItemsLoadingPlaceholder amount={isMobile ? 1 : 4} />
                     : <div className={'home-block-content'}>
                         <AliceCarousel
-                            items={selectedBlockchain === 'Flow' ? lastPurchases : lastPurchasesIMX}
+                            items={selectedBlockchain === 'Flow' ? lastPurchases : lastPurchases}
                             responsive={responsive}
                             infinite={true}
                             autoPlay={true}

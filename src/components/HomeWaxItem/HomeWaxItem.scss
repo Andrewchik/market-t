@@ -1,0 +1,12 @@
+@import "../../styles/_variables";
+
+.home-item-wrapper {
+  box-shadow: 0 5px 25px rgba(0,0,0,.2);
+  margin-top: 20px;
+  margin-bottom: 70px;
+  background-color: #f7fafc;
+
+  .item-description {
+    background: #f7fafc;
+  }
+}

@@ -25,14 +25,14 @@ import {
     HIDE_TERMS_AND_CONDITION_POPUP,
     OPEN_TERMS_AND_CONDITION_POPUP,
     CONFIRMED_TERMS_AND_CONDITIONS,
-    HIDE_CONNECTION_WALLET_POPUP, HIDE_BALANCES_POPUP, CONFIG
+    HIDE_CONNECTION_WALLET_POPUP, HIDE_BALANCES_POPUP, USER_ITEMS_WAX
 } from "./constants";
 import ListedImxItem from "./containers/ListImxItem/ListedImxItem";
 import BalancesModal from "./modals/Balances/BalancesModal";
 import LastPurchaseIMXItem from "./containers/LastPurchaseIMXItem/LastPurchaseIMXItem";
 import ListedWAXItem from "./containers/ListedWAXItem/ListedWAXItem";
 import { UALContext } from "ual-reactjs-renderer";
-import { getConfig } from "./services/wax.service";
+import { getSales } from "./services/wax.service";
 import { showErrorMessage } from "./helpers";
 
 //test
@@ -55,6 +55,21 @@ function App() {
 
       checkConfirmed();
   }, [dispatch]);
+
+
+  useEffect(() => {
+    getSales()
+        .then((data) => {
+            dispatch({
+                type: USER_ITEMS_WAX,
+                payload: data
+            });
+        })
+        .catch((error) => {
+            showErrorMessage(error)
+            console.log(error)
+        })
+}, [dispatch])
 
 //   useEffect(() => {
 //     if(activeUser) {

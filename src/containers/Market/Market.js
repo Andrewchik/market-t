@@ -27,14 +27,16 @@ import {
     SALE_ORDERS_API,
 } from "../../constants";
 
-import {getDCschemas, getSales} from "../../services/wax.service";
+import {getDCschemas} from "../../services/wax.service";
 import WaxItemToSell from "../../components/WaxItemToSell/WaxItemToSell";
 import { UALContext } from "ual-reactjs-renderer";
 
 
 export default function Market() {
     const { activeUser } = useContext(UALContext);
-    const { userItems } = useSelector(({ user }) => user);
+
+    const { userItems, userImxItems: userWaxItems } = useSelector(({ user }) => user);
+
 
     const [allItems, setAllItems] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -62,8 +64,6 @@ export default function Market() {
     const [blockchainSelected, setBlockchainSelected] = useState('Flow')
     const [tokenSelected, setTokenSelected] = useState('SDM')
 
-    const [waxSalesItem, setWaxSalesItem] = useState([])
-
     const containerRef = useRef();
 
 
@@ -74,17 +74,6 @@ export default function Market() {
 
         return () => window.removeEventListener('scroll', onScroll);
     });
-
-    useEffect(() => {
-        getSales()
-            .then((data) => {
-                setWaxSalesItem(data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }, [])
-
 
     useEffect(() => {
         getDCschemas()
@@ -294,7 +283,7 @@ export default function Market() {
     }, [allItems, selectedCollections, selectedTemplate, sortOption, searchString]);
 
     const waxItemsToShow = useMemo(() => {
-        const filteredItems = waxSalesItem.filter(({ asset_ids }) => {
+        const filteredItems = userWaxItems.filter(({ asset_ids }) => {
             return (selectedCollections.length ? selectedCollections.includes(asset_ids[0].schema.schema_name) : true) &&
                 (searchString && searchString.length > 2
                     ? asset_ids[0]?.name?.toString().toLowerCase().includes(searchString.toString().toLowerCase())
@@ -317,7 +306,7 @@ export default function Market() {
         });
 
         return sortedItems;
-    }, [waxSalesItem, searchString, sortOption, selectedCollections]);
+    }, [userWaxItems, searchString, sortOption, selectedCollections]);
 
 
     // useEffect(() => forceVisible(), [itemsToShow, imxItemsToShow]);
@@ -388,11 +377,11 @@ export default function Market() {
                             {/*    })*/}
                             {/*}*/}
 
-                            {blockchainSelected === 'WAX' && activeUser &&
+                            {blockchainSelected === 'WAX' &&
                                 waxItemsToShow
                                 .slice(0, limit)
                                 .map((i) => {
-                                    const userOwner = i.seller === activeUser.accountName ? true : false;
+                                    const userOwner = i.seller === activeUser?.accountName ? true : false;
                                     return <WaxItemToSell item={i} userOwner={userOwner} />;
                                 })
                             }

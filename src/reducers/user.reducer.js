@@ -2,12 +2,14 @@ import {
     USER_ITEMS_IDS_REQUEST,
     USER_ITEMS_IDS_SUCCESS,
     USER_ITEMS_IDS_FAIL,
-    USER_ITEMS_IMX
+    USER_ITEMS_IMX,
+    USER_ITEMS_WAX
 } from '../constants';
 
 const initialState = {
     userItems: [],
     userImxItems: [],
+    userWaxItems: [],
     loading: false
 };
 
@@ -38,6 +40,12 @@ export default function user(state = initialState, action) {
                 ...state,
                 userImxItems: action.payload
             };
+
+            case USER_ITEMS_WAX:
+                return {
+                    ...state,
+                    userImxItems: action.payload
+                };
 
         default:
             return state;

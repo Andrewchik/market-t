@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0bd36b4d-3c4b-4f8c-b253-856dd497962d" name="Changes" comment="[ADD] project">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/error.constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/error.constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Profile/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/error.helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/error.helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/user.constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/user.constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Home/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Market/Market.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Market/Market.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/user.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/user.reducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +48,7 @@
       <workItem from="1688678882639" duration="1856000" />
       <workItem from="1688681004441" duration="4498000" />
       <workItem from="1688715596576" duration="1683000" />
+      <workItem from="1688930971129" duration="55000" />
     </task>
     <task id="LOCAL-00001" summary="[ADD] project">
       <created>1688684978609</created>
