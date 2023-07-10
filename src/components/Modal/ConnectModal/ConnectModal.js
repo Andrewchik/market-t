@@ -12,6 +12,7 @@ import BlocktoLogo from '../../../resources/images/icons/blockto_logo.png'
 import MetamaskLogo from '../../../resources/images/icons/metamask_logo.png'
 import CloudWalletLogo from '../../../resources/images/logos/Mycloudwallet.png'
 import CloudWalletLogo2 from '../../../resources/images/logos/Mycloudwallet_logo.png'
+import WaxWalletLogo2 from '../../../resources/images/logos/wax_login.png'
 import ArrowBlack from '../../../resources/images/next-black.png'
 import ArrowWhite from '../../../resources/images/next-white.png'
 
@@ -116,8 +117,8 @@ function ConnectModal({ visible, handleClose }) {
                         <img className={'arrow'} src={ArrowWhite} alt=""/>
                     </div>
                     <div className="blockchain-block cloud" onClick={waxSignIn}>
-                        <img className={'icon'} src={CloudWalletLogo} alt=""/>
-                        <img className={'icon-2'} src={CloudWalletLogo2} alt=""/>
+                        <img className={'icon'} src={WaxWalletLogo2} alt=""/>
+                        <p className={'text'}>(Anchor, Cloud Wallet)</p>
                         <img className={'arrow'} src={ArrowBlack} alt=""/>
                     </div>
                     <div className="blockchain-block metamask" onClick={null}>
