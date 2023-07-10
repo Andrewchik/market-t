@@ -1,4 +1,5 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, useEffect} from "react";
+import { useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
 
@@ -22,10 +23,15 @@ import {getSales, sellItem} from "../../services/wax.service";
 
 function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaUrl, moveItemToOnSaleBlock, moveWaxItemToOnSaleBlock, imxItemUrl, token_address, token_id, asset_ids, mediaWaxUrl, setWaxItemsToSale }) {
 
+    
+    const { config } = useSelector(({ config }) => config);
+
     const { activeUser } = useContext(UALContext);
     const [currency, setCurrency] = useState(FLOW);
     const [price, setPrice] = useState('');
     const [receivedMoney, setReceivedMoney] = useState('0.00');
+    const [makerFees, setMakerFees] = useState(false);
+    const [takerFees, setTakerFees] = useState(false);
     const [selling, setSelling] = useState(false);
 
     const link = new Link(process.env.SANDBOX_LINK_URL)
@@ -127,6 +133,23 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
     }
 
 
+    
+    useEffect(() => {
+        if(config.taker_market_fee === '0.00000000000000000'){
+            setTakerFees(false)
+        }else{
+            setTakerFees(true)
+        }
+
+        if(config.taker_market_fee === '0.00000000000000000'){
+            setMakerFees(false)
+        }else{
+            setMakerFees(true)
+        }
+       
+    }, [config])
+
+
     return (
         <Rodal
             visible={visible}
@@ -213,8 +236,18 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
                         {activeUser &&
                             <div className={'sale-info'}>
                                 <p>Collection fee 5%</p>
-                                {/* <p>Taker market fees: {(Number(config.taker_market_fee * 100)).toFixed(2) + '%'}</p>
-                                <p>Maker market fees: {(Number(config.maker_market_fee * 100)).toFixed(2) + '%'}</p> */}
+                                {takerFees ? 
+                                    <p>Taker market fees: {(Number(config.taker_market_fee * 100)).toFixed(2) + '%'}</p>
+                                        :
+                                    <></>
+                                }
+                                               
+                                {makerFees ? 
+                                    <p>Maker market fees: {(Number(config.maker_market_fee * 100)).toFixed(2) + '%'}</p>
+                                        :
+                                    <></>
+                                
+                                }
                                 <p>You will receive <span>{ receivedMoney && parseFloat(receivedMoney) > 0 ? receivedMoney : 0 }</span> SDM</p>
                             </div>
                         }

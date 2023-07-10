@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { toast } from "react-toastify";
@@ -29,12 +29,16 @@ const CANCEL_ITEM_STATUS = 'CANCEL_ITEM_STATUS';
 
 export default function ListedWAXItem({ history, match: { params: { id } } }) {
 
+    const { config } = useSelector(({ config }) => config);
+
     const { activeUser } = useContext(UALContext);
     const [item, setItem] = useState({});
     const [processing, setProcessing] = useState(false);
     const [itemStatus, setItemStatus] = useState(INITIAL_ITEM_STATUS);
     const [listedItems, setListedItems] = useState([])
     const [loading, setLoading] = useState(true);
+    const [makerFees, setMakerFees] = useState(false);
+    const [takerFees, setTakerFees] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => { document.documentElement.scrollTop = 0 }, []);
@@ -110,6 +114,23 @@ export default function ListedWAXItem({ history, match: { params: { id } } }) {
                 showErrorMessage(error);
             });
     };
+
+    console.log(config.taker_market_fee);
+
+    useEffect(() => {
+        if(config.taker_market_fee === '0.00000000000000000'){
+            setTakerFees(false)
+        }else{
+            setTakerFees(true)
+        }
+
+        if(config.taker_market_fee === '0.00000000000000000'){
+            setMakerFees(false)
+        }else{
+            setMakerFees(true)
+        }
+       
+    }, [config])
 
     const removeItemFromSale = (sale_id) => {
         setProcessing(true);
@@ -188,8 +209,19 @@ export default function ListedWAXItem({ history, match: { params: { id } } }) {
                                             />
                                             <div>
                                                 <p>Collection fee: {(Number(item.collection_fee * 100)).toFixed(2) + '%'}</p>
-                                                {/* <p>Taker market fees: {(Number(config.taker_market_fee * 100)).toFixed(2) + '%'}</p>
-                                                <p>Maker market fees: {(Number(config.maker_market_fee * 100)).toFixed(2) + '%'}</p> */}
+
+                                                {takerFees ? 
+                                                    <p>Taker market fees: {(Number(config.taker_market_fee * 100)).toFixed(2) + '%'}</p>
+                                                 :
+                                                 <></>
+                                                }
+                                               
+                                               {makerFees ? 
+                                                    <p>Maker market fees: {(Number(config.maker_market_fee * 100)).toFixed(2) + '%'}</p>
+                                                 :
+                                                 <></>
+                                                }
+                                               
                                             </div>
                                         </>
                                     }
