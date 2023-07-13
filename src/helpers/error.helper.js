@@ -9,7 +9,7 @@ import {
     TRANSACTION_EXPIRED,
     BILLED_CPU,
     NO_RAM,
-    NO_BALANCE, NO_BALANCE_SDM
+    NO_BALANCE, NO_BALANCE_SDM, ITEM_ANNOUNCED
 } from "../constants";
 
 //TODO: add more custom errors here
@@ -41,6 +41,9 @@ export const showErrorMessage = (e) => {
 
     if (e && e.toString().includes(NO_BALANCE_SDM))
         return toast.error('No balance');
+
+    if (e && e.toString().includes(ITEM_ANNOUNCED))
+        return toast.error('Item announced');
 
     toast.error(e);
 }

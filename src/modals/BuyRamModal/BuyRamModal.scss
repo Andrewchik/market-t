@@ -53,6 +53,30 @@
     text-align: center;
   }
 
+  .text-field{
+    position: relative;
+
+
+    span{
+      position: absolute;
+      top: 33%;
+      transform: translateY(-50%);
+      right: 10px;
+    }
+  }
+
+  .error-ram{
+    font-size: 13px;
+    margin-bottom: 15px;
+    color: red;
+
+    span{
+      color: darkblue;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
   .custom-text-field {
     margin-bottom: 20px;
   }

@@ -13,7 +13,7 @@ import CustomSelect from "../../generics/CustomSelect/CustomSelect";
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
 import Loader from "../../components/Loader/Loader";
 
-import {ETH, FLOW, SDM} from '../../constants';
+import {ETH, FLOW, NO_RAM, SDM} from '../../constants';
 import { sellMarketItem } from '../../flow';
 
 import { renderDarkCountryItemImageOrVideo, showErrorMessage } from "../../helpers";
@@ -21,7 +21,7 @@ import {Link} from "@imtbl/imx-sdk";
 import {UALContext} from "ual-reactjs-renderer";
 import {getSales, sellItem} from "../../services/wax.service";
 
-function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaUrl, moveItemToOnSaleBlock, moveWaxItemToOnSaleBlock, imxItemUrl, token_address, token_id, asset_ids, mediaWaxUrl, setWaxItemsToSale }) {
+function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaUrl, moveItemToOnSaleBlock, moveWaxItemToOnSaleBlock, imxItemUrl, token_address, token_id, asset_ids, mediaWaxUrl, setWaxItemsToSale, setErrorRamText }) {
 
     
     const { config } = useSelector(({ config }) => config);
@@ -33,6 +33,7 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
     const [makerFees, setMakerFees] = useState(false);
     const [takerFees, setTakerFees] = useState(false);
     const [selling, setSelling] = useState(false);
+
 
     const link = new Link(process.env.SANDBOX_LINK_URL)
 
@@ -125,7 +126,11 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
                     })
                     .catch(e => {
                         showErrorMessage(e);
-                        showBuyRamModal(true)
+                        if (e && e.toString().includes(NO_RAM)){
+                            showBuyRamModal(true)
+                            setErrorRamText(e.message)
+                        }
+
                         console.log(e);
                     })
                     .finally(() => setSelling(false));

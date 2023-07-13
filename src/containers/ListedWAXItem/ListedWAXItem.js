@@ -115,8 +115,6 @@ export default function ListedWAXItem({ history, match: { params: { id } } }) {
             });
     };
 
-    console.log(config.taker_market_fee);
-
     useEffect(() => {
         if(config.taker_market_fee === '0.00000000000000000'){
             setTakerFees(false)

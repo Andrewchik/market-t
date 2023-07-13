@@ -92,6 +92,8 @@ export default function  Profile({ history, match: { params: { address } } }) {
     const [reRender, setReRender] = useState(false);
     const [selling, setSelling] = useState(false);
 
+    const [errorRamText, setErrorRamText] = useState('');
+
     // const [saleId, setSaleId] = useState(false);
 
     const authUser = useSelector(({ auth }) => auth.auth);
@@ -149,7 +151,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
                 setCurrentAddress(address);
                 fetchUserWax();
             }
-        };
+        }
 
     }, [address, currentAddress, history, activeUser]);
 
@@ -289,11 +291,6 @@ export default function  Profile({ history, match: { params: { address } } }) {
                 .then((data) => {
                     const filteredData = data
                         .filter(item => item.seller === activeUser?.accountName)
-                        // .map(item => {
-                        //     console.log(data)
-                        //     setSaleId(item.sale_id)
-                        //     return item.asset_ids
-                        // })
                         .flat();
 
 
@@ -325,7 +322,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
             setUserOwnProfile(user)
         }
 
-    }, [user, authUser]);
+    }, [user, authUser, activeUser]);
 
     useEffect(() => {
         const handleItemsSearch = (value) => {
@@ -421,8 +418,9 @@ export default function  Profile({ history, match: { params: { address } } }) {
     };
 
     const moveWaxItemToOnSaleBlock = (price) => {
+        console.log(price)
         setMyWaxItems(myWaxItems.filter(({ asset_id }) => item.asset_id !== asset_id));
-        setOnSaleItems([...onSaleItems, { ...item, price, status_msg: SALE_STATUS }]);
+        setOnWaxSaleItems([...onSaleWaxItems, { ...item, price, status_msg: SALE_STATUS }]);
     };
 
     const removeTransferredItemFromMyItems = () => {
@@ -558,6 +556,9 @@ export default function  Profile({ history, match: { params: { address } } }) {
                 return <></>;
         }
     };
+
+    console.log(myWaxItems)
+    console.log(waxItemsToSale)
 
     const renderWaxItems = () => {
         let itemsToRender = [];
@@ -787,6 +788,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
                 asset_ids={item && item.asset_id ? item.asset_id : ''}
                 mediaWaxUrl={ item && item.data ? item.data.img : '' }
                 setWaxItemsToSale={setWaxItemsToSale}
+                setErrorRamText={setErrorRamText}
             />
 
             <TransferModal
@@ -805,6 +807,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
             <BuyRamModal
                 visible={buyRamModal}
                 onClose={() => showBuyRamModal(false)}
+                errorRamText={errorRamText}
             />
             
             <BuyCPUModal

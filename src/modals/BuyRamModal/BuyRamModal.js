@@ -3,7 +3,6 @@ import Rodal from "rodal";
 
 import { toast } from "react-toastify";
 
-import './BuyRamModal.scss';
 
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
 import CustomButton from "../../generics/CustomButton/CustomButton";
@@ -13,12 +12,23 @@ import {UALContext} from "ual-reactjs-renderer";
 import { transferRAM } from "../../services/wax.service";
 import { showErrorMessage } from "../../helpers";
 
+import './BuyRamModal.scss';
 
-export default function BuyRamModal({ visible, onClose }) {
-    const [amount, setAmount] = useState(0);
+
+export default function BuyRamModal({ visible, onClose, errorRamText }) {
+    const [amount, setAmount] = useState('1.00');
     const [processing, setProcessing] = useState(false);
     const { activeUser } = useContext(UALContext);
 
+    const updateErrorMessage = (inputString) => {
+        let oneBite =  0.00041245 // WAX
+        const regex = /needs (\d+) bytes/;
+        const match = inputString.match(regex);
+        if (match) {
+            return parseInt(match[1]) * oneBite * 1.2;
+        }
+        return null;
+    };
 
     const handleTransferRAM = async () => {
         setProcessing(true);
@@ -27,7 +37,7 @@ export default function BuyRamModal({ visible, onClose }) {
             transferRAM({activeUser, amount})
                 .then(() => {
                     toast.success('Success');
-                    setAmount(0)
+                    setAmount('1.00')
                     onClose()
                 })
                 .catch((e) => {
@@ -37,7 +47,6 @@ export default function BuyRamModal({ visible, onClose }) {
                 })
         }
     }
-
 
     return (
         <Rodal
@@ -50,16 +59,21 @@ export default function BuyRamModal({ visible, onClose }) {
             closeOnEsc={true}
         >
             <div className={'transfer-modal-wrapper'}>
-                <h3>RAM</h3>
+                <h3>Not Enough RAM</h3>
             
 
-                <p className={'alert'}>Please make sure that your wallet have WAX</p>
+                <p className={'alert'}>Please make sure that your wallet has enough RAM</p>
 
-                <CustomTextField
-                    placeholder={'Amount RAM'}
-                    value={amount}
-                    onChange={({ target: { value } }) => setAmount(value)}
-                />
+                <div className="text-field">
+                    <CustomTextField
+                        placeholder={'Amount RAM'}
+                        value={amount}
+                        onChange={({ target: { value } }) => setAmount(value)}
+                    />
+                    <span>WAX</span>
+                </div>
+
+                <p className={'error-ram'}>Needs <span onClick={() => setAmount(updateErrorMessage(errorRamText))}>{updateErrorMessage(errorRamText)}</span> WAX</p>
 
                 { processing
                     ? <Loader />

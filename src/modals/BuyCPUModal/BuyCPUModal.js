@@ -10,7 +10,7 @@ import CustomButton from "../../generics/CustomButton/CustomButton";
 import Loader from "../../components/Loader/Loader";
 
 import {UALContext} from "ual-reactjs-renderer";
-import { transferCPU, transferRAM } from "../../services/wax.service";
+import { transferCPU } from "../../services/wax.service";
 import { showErrorMessage } from "../../helpers";
 
 
@@ -54,7 +54,7 @@ export default function BuyCPUModal({ visible, onClose }) {
                 <h3>CPU</h3>
             
 
-                <p className={'alert'}>Please make sure that your wallet have WAX</p>
+                <p className={'alert'}>Please make sure that your wallet has enough CPU and NET</p>
 
                 <CustomTextField
                     placeholder={'Amount CPU (WAX)'}
