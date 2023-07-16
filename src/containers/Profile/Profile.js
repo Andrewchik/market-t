@@ -255,19 +255,28 @@ export default function  Profile({ history, match: { params: { address } } }) {
 
     useEffect(() => {
         const myItems = () => {
-            getMyItems({activeUser})
+            getMyItems({ activeUser })
                 .then((data) => {
-                    setMyWaxItems(data)
+                    const filteredItems = data.filter((item) => {
+                        return !waxItemsToSale.some((saleItem) => {
+                            return saleItem.asset_ids.some((asset) => asset.asset_id === item.asset_id);
+                        });
+                    });
+
+                    setMyWaxItems(filteredItems);
                 })
-                .catch(error => {
-                    console.log(error)
-                })
-        }
+                .catch((error) => {
+                    console.log(error);
+                });
+        };
+
+
+
 
         if (activeUser)
             myItems()
 
-    }, [activeUser])
+    }, [activeUser, waxItemsToSale])
 
     useEffect(() => {
         const getBuyOffersWax = () => {
@@ -418,7 +427,6 @@ export default function  Profile({ history, match: { params: { address } } }) {
     };
 
     const moveWaxItemToOnSaleBlock = (price) => {
-        console.log(price)
         setMyWaxItems(myWaxItems.filter(({ asset_id }) => item.asset_id !== asset_id));
         setOnWaxSaleItems([...onSaleWaxItems, { ...item, price, status_msg: SALE_STATUS }]);
     };
@@ -556,9 +564,6 @@ export default function  Profile({ history, match: { params: { address } } }) {
                 return <></>;
         }
     };
-
-    console.log(myWaxItems)
-    console.log(waxItemsToSale)
 
     const renderWaxItems = () => {
         let itemsToRender = [];

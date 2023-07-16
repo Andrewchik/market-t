@@ -20,16 +20,6 @@ export default function BuyRamModal({ visible, onClose, errorRamText }) {
     const [processing, setProcessing] = useState(false);
     const { activeUser } = useContext(UALContext);
 
-    const updateErrorMessage = (inputString) => {
-        let oneBite =  0.00041245 // WAX
-        const regex = /needs (\d+) bytes/;
-        const match = inputString.match(regex);
-        if (match) {
-            return parseInt(match[1]) * oneBite * 1.2;
-        }
-        return null;
-    };
-
     const handleTransferRAM = async () => {
         setProcessing(true);
       
@@ -73,7 +63,7 @@ export default function BuyRamModal({ visible, onClose, errorRamText }) {
                     <span>WAX</span>
                 </div>
 
-                <p className={'error-ram'}>Needs <span onClick={() => setAmount(updateErrorMessage(errorRamText))}>{updateErrorMessage(errorRamText)}</span> WAX</p>
+                <p className={'error-ram'}>*Your RAM will be freed once your transaction is completed or cancelled</p>
 
                 { processing
                     ? <Loader />

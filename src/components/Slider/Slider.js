@@ -17,8 +17,6 @@
                             ? `https://atomichub-ipfs.com/ipfs/${item?.data?.img}`
                             : item?.data?.img;
 
-                        console.log(imgUrl)
-
                         imgs.push(imgUrl);
                     });
                     setImages(imgs)

@@ -115,9 +115,6 @@ export default function Home() {
         setNewListingsWax(mapLastPurchasesWAX(userWaxItems))
     }, [userWaxItems])
 
-    console.log(newListingsWax);
-    console.log(newListings);
-
     const mapNewListings = (items) => {
         return items
             .map(({ data: { name, ipfs, mediaUrl }, price, item_id, collection }) => {

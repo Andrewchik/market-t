@@ -59,16 +59,18 @@
 
     span{
       position: absolute;
-      top: 33%;
+      top: 43%;
       transform: translateY(-50%);
       right: 10px;
     }
   }
 
+
   .error-ram{
-    font-size: 13px;
-    margin-bottom: 15px;
-    color: red;
+    font-size: 11px;
+    margin-bottom: 14px;
+    color: black;
+    padding: 0 20px;
 
     span{
       color: darkblue;
@@ -78,7 +80,7 @@
   }
 
   .custom-text-field {
-    margin-bottom: 20px;
+    margin-bottom: 5px!important;
   }
 
   .custom-text-field, button {
