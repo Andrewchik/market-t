@@ -6,7 +6,6 @@ import axios from "axios";
 import AliceCarousel from "react-alice-carousel";
 import 'react-alice-carousel/lib/alice-carousel.css';
 
-import UpcomingDrop1Image from "../../resources/images/Drop Cards.webp";
 import CommonLandImage from "../../resources/images/lands/Common__xvid.b6df2fac.webp";
 import EpicLandImage from "../../resources/images/lands/Epic__xvid.d15929ea.webp";
 import LegendaryLandImage from "../../resources/images/lands/Legendary__xvid.d534466a.webp";
@@ -29,7 +28,11 @@ import CustomSecondButton from "../../generics/CustomSecondButton/CustomSecondBu
 import {SALE_ORDERS_API, MARKET_PURCHASE_API} from "../../constants";
 
 import {UALContext} from "ual-reactjs-renderer";
+import {banners} from "../../data/wax.data";
 import HomeWaxItem from "../../components/HomeWaxItem/HomeWaxItem";
+
+import Banner from "../Banner/Banner";
+
 
 export default function Home() {
     
@@ -44,6 +47,7 @@ export default function Home() {
     const [newListings, setNewListings] = useState([]);
     const [newListingsWax, setNewListingsWax] = useState([]);
     const [newListingsLoading, setNewListingsLoading] = useState(true);
+    const [bannerLoading, setBannerLoading] = useState(false);
     const [landVideo, setLandVideo] = useState('');
     const [landImage, setLandImage] = useState('');
     const [isMobile, setIsMobile] = useState(false);
@@ -52,6 +56,11 @@ export default function Home() {
     const responsive = {
         0: { items: 1 },
         1024: { items: 4 }
+    };
+
+    const responsiveTwo = {
+        0: { items: 1 },
+        2000: { items: 2 }
     };
 
     // const weiToEth = (wei) => {
@@ -128,6 +137,20 @@ export default function Home() {
                 />
             });
     };
+
+    const mapBanner = () => {
+        return banners
+            .map(({ topTitle, title, text, btnText, image }) => {
+                return <Banner
+                    topTitle={topTitle}
+                    title={title}
+                    text={text}
+                    btnText={btnText}
+                    image={image}
+                />
+            });
+    };
+
 
     const mapLastPurchases = (items) => {
         return items
@@ -242,47 +265,29 @@ export default function Home() {
         }
     };
 
+
     return (
         <div className={'home-container'}>
+
             <div className={'home-container-head'}>
-                <div className={'home-container-heading'}>
-                    <h1>New Events</h1>
-                    <div className={'home-head-line'} />
-                </div>
-
-                <div className={'home-container-head-content'}>
-
-                    <div className={'home-container-head-single'}>
-                        <div className={'head-single-info'}>
-                            <h2>Dark Country</h2>
-                            <h2>Lands Unpacking</h2>
-                            <p>Launched!</p>
-                        </div>
-
-                        <a href="https://flow.darkcountry.io/unpacker/land" target="_blank" rel="noreferrer">
-                            { isMobile
-                                ? <img src={landImage} alt="dc-land" />
-                                : <video
-                                    src={landVideo ? landVideo : LegendaryLandVideo}
-                                    loop={true}
-                                    muted={true}
+                { bannerLoading
+                    ? <ItemsLoadingPlaceholder amount={isMobile ? 1 : 2} />
+                    : <>
+                        { mapBanner().length
+                            ? <div className={'home-block-content'}>
+                                <AliceCarousel
+                                    items={mapBanner()}
+                                    responsive={responsiveTwo}
+                                    infinite={true}
                                     autoPlay={true}
+                                    autoPlayStrategy={'action'}
+                                    autoPlayInterval={3000}
                                 />
-                            }
-                        </a>
-                    </div>
-
-                    <div className={'home-container-head-single'}>
-                        <div className={'head-single-info'}>
-                            <h2>Dark Country</h2>
-                            <h2>Cards & Heroes Drop</h2>
-                            <p>Coming soon!</p>
-                        </div>
-                        <a href="https://darkcountry.io" target="_blank" rel="noreferrer" aria-label="drop">
-                            <img src={UpcomingDrop1Image} alt="" />
-                        </a>
-                    </div>
-                </div>
+                            </div>
+                            : <></>
+                        }
+                    </>
+                }
             </div>
 
             <div className={'home-block live-auctions'}>
@@ -319,7 +324,8 @@ export default function Home() {
                                     infinite={true}
                                     autoPlay={true}
                                     autoPlayStrategy={'action'}
-                                    autoPlayInterval={2000}/>
+                                    autoPlayInterval={2000}
+                                />
                             </div>
                             : <></>
                         }

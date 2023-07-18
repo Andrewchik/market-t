@@ -112,6 +112,12 @@ img {
 }
 
 @font-face {
+  font-family: 'SairaMedium';
+  src: local("Saira"), url("./fonts/Saira_SemiExpanded-Medium.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
   font-family: 'SairaBold';
   src: local("Saira"), url("./fonts/Saira_SemiExpanded-SemiBold.ttf") format("truetype");
   font-weight: 600;
