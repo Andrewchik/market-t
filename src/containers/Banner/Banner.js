@@ -1,12 +1,24 @@
 import React from 'react'
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
+import {useHistory} from "react-router-dom";
 
 import './Banner.scss';
 
 
 
-export default function Banner({ topTitle, title, text, btnText, image }) {
+
+export default function Banner({ topTitle, title, text, btnText, image, link }) {
+
+    const history = useHistory();
+
+    const goLink = () => {
+        if (link.startsWith('http')) {
+            window.open(link, '_blank');
+        } else {
+            history.push(link);
+        }
+    }
 
     return (
         <div className={'home-container-head-item'}>
@@ -21,7 +33,7 @@ export default function Banner({ topTitle, title, text, btnText, image }) {
                         <p>{text}</p>
                         <CustomButton
                             text={btnText}
-                            onClick={ null }
+                            onClick={ goLink }
                         />
                     </div>
                 </div>

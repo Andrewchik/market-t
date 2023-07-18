@@ -140,13 +140,14 @@ export default function Home() {
 
     const mapBanner = () => {
         return banners
-            .map(({ topTitle, title, text, btnText, image }) => {
+            .map(({ topTitle, title, text, btnText, image, link }) => {
                 return <Banner
                     topTitle={topTitle}
                     title={title}
                     text={text}
                     btnText={btnText}
                     image={image}
+                    link={link}
                 />
             });
     };
