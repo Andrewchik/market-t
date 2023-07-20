@@ -13,7 +13,7 @@ import CustomSelect from "../../generics/CustomSelect/CustomSelect";
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
 import Loader from "../../components/Loader/Loader";
 
-import {ETH, FLOW, NO_RAM, SDM} from '../../constants';
+import {BILLED_CPU, ETH, FLOW, NO_RAM, SDM} from '../../constants';
 import { sellMarketItem } from '../../flow';
 
 import { renderDarkCountryItemImageOrVideo, showErrorMessage } from "../../helpers";
@@ -21,7 +21,7 @@ import {Link} from "@imtbl/imx-sdk";
 import {UALContext} from "ual-reactjs-renderer";
 import {getSales, sellItem} from "../../services/wax.service";
 
-function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaUrl, moveItemToOnSaleBlock, moveWaxItemToOnSaleBlock, imxItemUrl, token_address, token_id, asset_ids, mediaWaxUrl, setWaxItemsToSale, setErrorRamText }) {
+function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaUrl, moveItemToOnSaleBlock, moveWaxItemToOnSaleBlock, imxItemUrl, token_address, token_id, asset_ids, mediaWaxUrl, setWaxItemsToSale, setErrorRamText, showCPUModal }) {
 
     
     const { config } = useSelector(({ config }) => config);
@@ -129,6 +129,10 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
                         if (e && e.toString().includes(NO_RAM)){
                             showBuyRamModal(true)
                             setErrorRamText(e.message)
+                        }
+
+                        if (e && e.toString().includes(BILLED_CPU)) {
+                            showCPUModal(true)
                         }
 
                         console.log(e);

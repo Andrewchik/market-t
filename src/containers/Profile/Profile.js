@@ -799,6 +799,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
                 mediaWaxUrl={ item && item.data ? item.data.img : '' }
                 setWaxItemsToSale={setWaxItemsToSale}
                 setErrorRamText={setErrorRamText}
+                showCPUModal={showCPUModal}
             />
 
             <TransferModal

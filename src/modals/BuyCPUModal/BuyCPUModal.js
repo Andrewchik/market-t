@@ -51,7 +51,7 @@ export default function BuyCPUModal({ visible, onClose }) {
             closeOnEsc={true}
         >
             <div className={'transfer-modal-wrapper'}>
-                <h3>CPU</h3>
+                <h3>CPU and NET</h3>
             
 
                 <p className={'alert'}>Please make sure that your wallet has enough CPU and NET</p>
@@ -71,7 +71,7 @@ export default function BuyCPUModal({ visible, onClose }) {
                 { processing
                     ? <Loader />
                     : <CustomButton
-                        text={'Buy CPU and NET'}
+                        text={'Buy CPU or NET'}
                         onClick={handleTransferCPU}
                         disabled={!!!amount && !!!amountCPU}
                     />

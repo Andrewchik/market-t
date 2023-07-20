@@ -31,10 +31,10 @@ export const showErrorMessage = (e) => {
         return toast.error(TRANSACTION_EXPIRED);
         
     if (e && e.toString().includes(BILLED_CPU))
-        return toast.warning('Buy more CPU for continue');
+        return toast.warning('To continue buy more CPU');
 
     if (e && e.toString().includes(NO_RAM))
-        return toast.warning('Buy more RAM for continue');
+        return toast.warning('You need more RAM');
 
     if (e && e.toString().includes(NO_BALANCE))
         return toast.error(NO_BALANCE);
