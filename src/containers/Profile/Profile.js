@@ -100,6 +100,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
 
     const link = new Link(process.env.SANDBOX_LINK_URL)
 
+    console.log(waxItemsSoldBuy)
 
     useEffect(() => {
         if (!localStorage.getItem('metamask') && !activeUser){
@@ -282,7 +283,10 @@ export default function  Profile({ history, match: { params: { address } } }) {
         const getBuyOffersWax = () => {
             getBuyOffers()
                 .then((data) => {
-                    setWaxItemsSoldBuy(data)
+                    let newData = data.filter((item) => {
+                        return item.buyer === activeUser?.accountName
+                    })
+                    setWaxItemsSoldBuy(newData)
                 })
                 .catch((error) => {
                     console.log(error)
@@ -623,7 +627,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
                 break;
 
             case BOUGHT_ITEMS:
-                itemsToRender = searchItems ? searchItems : waxItemsSoldBuy.filter((item) => item.recipient === activeUser.accountName);
+                itemsToRender = searchItems ? searchItems : waxItemsSoldBuy;
 
                 if (Array.isArray(itemsToRender)) {
                     return itemsToRender.map(item =>
@@ -635,13 +639,14 @@ export default function  Profile({ history, match: { params: { address } } }) {
                 }
 
             case SOLD_ITEMS:
-                itemsToRender = searchItems ? searchItems : waxItemsSoldBuy.filter((item) => item.buyer === activeUser.accountName);
+                itemsToRender = searchItems ? searchItems : waxItemsSoldBuy;
 
                 if (Array.isArray(itemsToRender)) {
                     return itemsToRender.map(item =>
                         <BoughtSoldWaxItem
                             item={item}
                             userOwnProfile={userOwnProfile}
+                            SOLD_ITEMS={SOLD_ITEMS}
                         />
                     );
                 }
