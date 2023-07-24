@@ -50,7 +50,7 @@ export default function WaxItem({
                         <div className={'sell-action'}>
 
                             <CustomButton
-                                text={'CANSEL'}
+                                text={'CANCEL'}
                                 onClick={() => handlerCanselWaxItemFromListing(sale_id) }
                             />
 

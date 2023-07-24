@@ -195,6 +195,7 @@ export default function ListedWAXItem({ history, match: { params: { id } } }) {
                                 </div>
 
                                 <p className={'price'}>Price: { item.listing_price } </p>
+                                <span className={'fees-burned'}>*All SDM fees will be burned</span>
                                 <div className={'listed-item-actions'}>
                                     { processing && <Loader /> }
 

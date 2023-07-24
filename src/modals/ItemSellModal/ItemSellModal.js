@@ -258,6 +258,7 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
                                 
                                 }
                                 <p>You will receive <span>{ receivedMoney && parseFloat(receivedMoney) > 0 ? receivedMoney : 0 }</span> SDM</p>
+                                <span className={'fees-burned'}>*All SDM fees will be burned</span>
                             </div>
                         }
 

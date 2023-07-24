@@ -45,7 +45,7 @@ export default function IXMItem({
                         <div className={'sell-action'}>
 
                             <CustomButton
-                                text={'CANSEL'}
+                                text={'CANCEL'}
                                 onClick={() => handlerCanselItemFromListing(String(orderId)) }
                             />
 
