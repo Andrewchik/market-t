@@ -33,7 +33,6 @@ const Footer = ({ burnStat }) => {
                 <div className="footer-description">
                     <img src={logo} alt="logo" />
                     <h3>NFT Marketplace</h3>
-                    <p>TopExpo.io is a marketplace for NFTs based on Flow blockchain.</p>
                 </div>
 
                 <div className="footer-explore">
@@ -64,10 +63,13 @@ const Footer = ({ burnStat }) => {
                     </p>
                 </div>
             </div>
-            {burnStat && <div className="burned-fees">
-                Total SDM fees burned: {calculateBurnedFees()}
+
+           <div className="burned-fees">
+                <p>TopExpo.io is a marketplace for NFTs based on Flow <br /> blockchain.</p>
+               {burnStat.length !== 0 &&
+                   <p>Total SDM fees burned: {calculateBurnedFees()}</p>
+               }
             </div>
-            }
         </div>
     );
 };
