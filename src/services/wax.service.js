@@ -168,6 +168,17 @@ export const getConfig = async () => {
     return rows[0];
 };
 
+export const getBurnStat = async () => {
+    const { rows } = await fetchRows({
+        contract: NEWMARKETNEW_CONTRACT,
+        scope: NEWMARKETNEW_CONTRACT,
+        table: 'burnstat',
+        limit: 100,
+    });
+
+    return rows[0];
+};
+
 export const sellItem = async ({
                                   activeUser,
                                    asset_ids,

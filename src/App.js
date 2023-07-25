@@ -32,7 +32,7 @@ import BalancesModal from "./modals/Balances/BalancesModal";
 import LastPurchaseIMXItem from "./containers/LastPurchaseIMXItem/LastPurchaseIMXItem";
 import ListedWAXItem from "./containers/ListedWAXItem/ListedWAXItem";
 import { UALContext } from "ual-reactjs-renderer";
-import { getConfig, getSales } from "./services/wax.service";
+import {getBurnStat, getConfig, getSales} from "./services/wax.service";
 import { showErrorMessage } from "./helpers";
 
 //test
@@ -43,7 +43,7 @@ function App() {
   const { openSuccessPurchasePopup, openTermsAndConditionModal, openConnectWalletModal, openBalancesModal } = useSelector(({ modal }) => modal);
   const [loggedIn, setLoggedIn] = useState(false);
   const [metamask, setMetamask] = useState('')
-
+  const [burnStat, setBurnStat] = useState([])
 
   useEffect(() => {
       const checkConfirmed = () => {
@@ -70,6 +70,19 @@ function App() {
             console.log(error)
         })
 }, [dispatch])
+
+
+
+
+    useEffect(() => {
+        getBurnStat()
+            .then((data) => {
+                setBurnStat(data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }, [])
 
   useEffect(() => {
     if(activeUser) {
@@ -107,7 +120,7 @@ function App() {
           <Redirect to={'/'} />
       </Switch>
 
-      <Footer />
+      <Footer burnStat={burnStat} />
 
       <ToastContainer
           position="bottom-left"

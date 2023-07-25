@@ -23,7 +23,7 @@ export const ATOMIC_ASSETS_API_TESTNET = 'https://test.wax.api.atomicassets.io/a
 //choose API endpoint based on REACT_APP_MAINNET value
 export const ATOMIC_ASSETS_API = process.env.REACT_APP_MAINNET === 'mainnet' ? ATOMIC_ASSETS_API_MAINNET : ATOMIC_ASSETS_API_TESTNET;
 
-export const NEWMARKETNEW_CONTRACT = 'darkmarketdc' //atomicmarket // newmarketnew
+export const NEWMARKETNEW_CONTRACT = 'darkmarketdc' //atomicmarket // newmarketnew // darkmarketdc
 export const EOSIO_TOKEN ='eosio.token';
 export const EOSIO ='eosio';
 
