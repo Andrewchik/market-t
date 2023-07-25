@@ -63,12 +63,11 @@ const Footer = ({ burnStat }) => {
                     </p>
                 </div>
             </div>
-
-           <div className="burned-fees">
+            <div className="burned-fees">
                 <p>TopExpo.io is a marketplace for NFTs based on Flow <br /> blockchain.</p>
-               {burnStat.length !== 0 &&
-                   <p>Total SDM fees burned: {calculateBurnedFees()}</p>
-               }
+                {burnStat?.length !== 0 && (
+                    <p>Total SDM fees burned: {calculateBurnedFees()}</p>
+                )}
             </div>
         </div>
     );
