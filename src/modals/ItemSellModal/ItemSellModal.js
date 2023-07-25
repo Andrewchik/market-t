@@ -21,7 +21,7 @@ import {Link} from "@imtbl/imx-sdk";
 import {UALContext} from "ual-reactjs-renderer";
 import {getSales, sellItem} from "../../services/wax.service";
 
-function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaUrl, moveItemToOnSaleBlock, moveWaxItemToOnSaleBlock, imxItemUrl, token_address, token_id, asset_ids, mediaWaxUrl, setWaxItemsToSale, setErrorRamText, showCPUModal }) {
+function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaUrl, moveItemToOnSaleBlock, moveWaxItemToOnSaleBlock, imxItemUrl, token_address, token_id, asset_ids, mediaWaxUrl, setWaxItemsToSale, setErrorRamText, showCPUModal, setMyWaxItems, myWaxItems }) {
 
     
     const { config } = useSelector(({ config }) => config);
@@ -121,6 +121,12 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
 
                                     setWaxItemsToSale(filteredData);
                                 })
+
+                        let updWaxItems = myWaxItems.filter(item => {
+                            return item.asset_id !== asset_ids
+                        });
+
+                        setMyWaxItems(updWaxItems);
 
                         handleClose();
                     })

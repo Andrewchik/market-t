@@ -100,8 +100,6 @@ export default function  Profile({ history, match: { params: { address } } }) {
 
     const link = new Link(process.env.SANDBOX_LINK_URL)
 
-    console.log(waxItemsSoldBuy)
-
     useEffect(() => {
         if (!localStorage.getItem('metamask') && !activeUser){
             const fetchUser = () => {
@@ -435,6 +433,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
         setOnWaxSaleItems([...onSaleWaxItems, { ...item, price, status_msg: SALE_STATUS }]);
     };
 
+
     const removeTransferredItemFromMyItems = () => {
         setSearchQuery('');
         setSearchItems(null);
@@ -575,7 +574,6 @@ export default function  Profile({ history, match: { params: { address } } }) {
         switch (currentItemsBlock) {
             case MY_ITEMS_BLOCK:
                 itemsToRender = searchItems ? searchItems : myWaxItems;
-
 
                 if (Array.isArray(itemsToRender)) {
                     return itemsToRender.map(item =>
@@ -800,6 +798,8 @@ export default function  Profile({ history, match: { params: { address } } }) {
                 setWaxItemsToSale={setWaxItemsToSale}
                 setErrorRamText={setErrorRamText}
                 showCPUModal={showCPUModal}
+                setMyWaxItems={setMyWaxItems}
+                myWaxItems={myWaxItems}
             />
 
             <TransferModal
