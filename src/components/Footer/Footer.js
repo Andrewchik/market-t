@@ -64,7 +64,7 @@ const Footer = ({ burnStat }) => {
                 </div>
             </div>
             <div className="burned-fees">
-                <p>TopExpo.io is a marketplace for NFTs based on Flow <br /> blockchain.</p>
+                <p>TopExpo.io is a multi-chain marketplace for NFTs based on Flow and WAX blockchains.</p>
                 {calculateBurnedFees() !== 0 ? (
                     <p>Total SDM fees burned: {calculateBurnedFees()}</p>
                 ) : null}

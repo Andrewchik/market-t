@@ -76,6 +76,7 @@
     color: #FF791D;
     text-align: center;
 
+
     @media screen and (max-width: 1300px){
       width: 90%;
     }
@@ -87,10 +88,15 @@
     p:first-child{
       text-align: left;
       color: #ffffff;
+      width: 453px;
 
       @media screen and (max-width: 768px){
         margin-bottom: 20px;
         text-align: left;
+      }
+
+      @media screen and (max-width: 473px){
+        width: 286px;
       }
     }
   }
