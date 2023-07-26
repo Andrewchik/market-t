@@ -1,11 +1,8 @@
-import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import {useSelector} from "react-redux";
-// import {forceVisible} from "react-lazyload";
 import {StringParam, useQueryParam} from 'use-query-params';
 
 import axios from "axios";
-
-import "./Market.scss";
 
 import MarketFilters from "../../components/MarketFilters/MarketFilters";
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
@@ -18,7 +15,7 @@ import ItemsLoadingPlaceholder
 import SearchIcon from "../../resources/images/icons/search_icon.webp";
 
 import {
-    DARKCOUNTRY_COLLECTION,
+    // DARKCOUNTRY_COLLECTION,
     // IMMUTABLE_SANDBOX_API,
     LISTINGS_ASC,
     LISTINGS_DESC,
@@ -30,6 +27,9 @@ import {
 import {getDCschemas} from "../../services/wax.service";
 import WaxItemToSell from "../../components/WaxItemToSell/WaxItemToSell";
 import { UALContext } from "ual-reactjs-renderer";
+
+
+import "./Market.scss";
 
 
 export default function Market() {
@@ -45,9 +45,9 @@ export default function Market() {
     const [limit, setLimit] = useState(INITIAL_LIMIT);
     // const [itemsImxToShow, setItemsImxToShow] = useState(10);
 
-    const allCollections = [DARKCOUNTRY_COLLECTION];
+    // const allCollections = [DARKCOUNTRY_COLLECTION];
 
-    const [filteredCollections, setFilteredCollections] = useState(allCollections);
+    // const [filteredCollections, setFilteredCollections] = useState(allCollections);
     const [dcSchemas, setDcSchemas] = useState([])
     const [selectedCollections, setSelectedCollections] = useState([]);
     // const [selectedCollectionsImx, setSelectedCollectionsImx] = useState('');
@@ -63,8 +63,6 @@ export default function Market() {
 
     const [blockchainSelected, setBlockchainSelected] = useState('Flow')
     const [tokenSelected, setTokenSelected] = useState('SDM')
-
-    const containerRef = useRef();
 
 
     useEffect(() => fetchItems(), []);
@@ -164,30 +162,30 @@ export default function Market() {
             .finally(() => setLoading(false));
     };
 
-    const handleCollectionsSearch = ({ target: { value } }) => {
-
-        if (value.length > 2 && blockchainSelected === 'Flow') {
-            return setFilteredCollections(allCollections.filter(({ name }) => {
-                return name.toString().toLowerCase().includes(value.toString().toLowerCase());
-            }));
-        }
-
-        // if (value.length > 2 && blockchainSelected === 'Immutable') {
-        //     return setFilteredImxCollections(allImxCollections.filter(({ name }) => {
-        //         return name.toString().toLowerCase().includes(value.toString().toLowerCase());
-        //     }));
-        // }
-
-        if (value.length > 2 && blockchainSelected === 'WAX') {
-            return setFilteredDCschemas(dcSchemas.filter(({ schema_name }) => {
-                return schema_name.toString().toLowerCase().includes(value.toString().toLowerCase());
-            }));
-        }
-
-        setFilteredDCschemas(dcSchemas)
-        // setFilteredImxCollections(allImxCollections)
-        setFilteredCollections(allCollections);
-    };
+    // const handleCollectionsSearch = ({ target: { value } }) => {
+    //
+    //     if (value.length > 2 && blockchainSelected === 'Flow') {
+    //         return setFilteredCollections(allCollections.filter(({ name }) => {
+    //             return name.toString().toLowerCase().includes(value.toString().toLowerCase());
+    //         }));
+    //     }
+    //
+    //     // if (value.length > 2 && blockchainSelected === 'Immutable') {
+    //     //     return setFilteredImxCollections(allImxCollections.filter(({ name }) => {
+    //     //         return name.toString().toLowerCase().includes(value.toString().toLowerCase());
+    //     //     }));
+    //     // }
+    //
+    //     if (value.length > 2 && blockchainSelected === 'WAX') {
+    //         return setFilteredDCschemas(dcSchemas.filter(({ schema_name }) => {
+    //             return schema_name.toString().toLowerCase().includes(value.toString().toLowerCase());
+    //         }));
+    //     }
+    //
+    //     setFilteredDCschemas(dcSchemas)
+    //     // setFilteredImxCollections(allImxCollections)
+    //     setFilteredCollections(allCollections);
+    // };
 
     const handleItemsSearch = ({ target: { value } }) => {
         // if (value.length > 2 && filteredCollections.length !== 1)
@@ -315,18 +313,11 @@ export default function Market() {
     return (
         <div className={'market-container'}>
             <MarketFilters
-                collections={filteredCollections}
                 handleCollectionFilter={handleCollectionFilter}
-                handleCollectionsSearch={handleCollectionsSearch}
                 handleTemplateFilter={handleTemplateFilter}
                 selectedTemplate={selectedTemplate}
                 blockchainSelected={blockchainSelected}
                 setBlockchainSelected={setBlockchainSelected}
-                // allImxCollections={filteredImxCollections}
-                // handleCollectionImxFilter={handleCollectionImxFilter}
-                // allImxCollectionsAsset={allImxCollectionsAsset}
-                ref={containerRef}
-                // itemsImxToShow={itemsImxToShow}
                 tokenSelected={tokenSelected}
                 setTokenSelected={setTokenSelected}
                 dcSchemas={filteredDCschemas}
@@ -381,7 +372,7 @@ export default function Market() {
                                 waxItemsToShow
                                 .slice(0, limit)
                                 .map((i) => {
-                                    const userOwner = i.seller === activeUser?.accountName ? true : false;
+                                    const userOwner = i.seller === activeUser?.accountName;
                                     return <WaxItemToSell item={i} userOwner={userOwner} />;
                                 })
                             }

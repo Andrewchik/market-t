@@ -4,7 +4,7 @@ import CollectionFilter from "./CollectionFilter/CollectionFilter";
 import BlockchainFilter from "./BlockchainFilter/BlockchainFilter";
 
 export default function MarketFilters(
-    { collections, handleCollectionImxFilter, handleCollectionsSearch, handleTemplateFilter, selectedTemplate, blockchainSelected, setBlockchainSelected, allImxCollections, handleCollectionFilter, allImxCollectionsAsset, tokenSelected, setTokenSelected, dcSchemas, handlerCloseModal }
+    { collections, handleTemplateFilter, selectedTemplate, blockchainSelected, setBlockchainSelected, allImxCollections, handleCollectionFilter, allImxCollectionsAsset, tokenSelected, setTokenSelected, dcSchemas, handlerCloseModal }
 ) {
     return (
         <div className={'market-filters-wrapper'}>
@@ -18,13 +18,11 @@ export default function MarketFilters(
             <CollectionFilter
                 collections={collections}
                 handleFilter={handleCollectionFilter}
-                handleCollectionsSearch={handleCollectionsSearch}
                 handleTemplateFilter={handleTemplateFilter}
                 selectedTemplate={selectedTemplate}
                 blockchainSelected={blockchainSelected}
                 allImxCollections={allImxCollections}
                 handleCollection={handleCollectionFilter}
-                // handleCollectionImxFilter={handleCollectionImxFilter}
                 allImxCollectionsAsset={allImxCollectionsAsset}
                 dcSchemas={dcSchemas}
             />

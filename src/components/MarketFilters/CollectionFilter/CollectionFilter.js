@@ -9,7 +9,7 @@ import DCLogo from "../../../resources/images/logos/dc-logo2.webp";
 import './CollectionFilter.scss'
 
 
-function CollectionFilter({ collections, handleFilter, handleCollectionsSearch, handleTemplateFilter, selectedTemplate, blockchainSelected, allImxCollections, handleCollectionImxFilter, dcSchemas}) {
+function CollectionFilter({ collections, handleFilter, handleTemplateFilter, selectedTemplate, blockchainSelected, allImxCollections, handleCollectionImxFilter, dcSchemas}) {
     const [expanded, setExpanded] = useState(window.innerWidth >= 1024);
     const [expandedSchemas, setExpandedSchemas] = useState(window.innerWidth >= 1024);
     const [selectedCollections, setSelectedCollections] = useState([]);
