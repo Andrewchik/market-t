@@ -15,7 +15,7 @@ import ItemsLoadingPlaceholder
 import SearchIcon from "../../resources/images/icons/search_icon.webp";
 
 import {
-    // DARKCOUNTRY_COLLECTION,
+    DARKCOUNTRY_COLLECTION,
     // IMMUTABLE_SANDBOX_API,
     LISTINGS_ASC,
     LISTINGS_DESC,
@@ -45,9 +45,9 @@ export default function Market() {
     const [limit, setLimit] = useState(INITIAL_LIMIT);
     // const [itemsImxToShow, setItemsImxToShow] = useState(10);
 
-    // const allCollections = [DARKCOUNTRY_COLLECTION];
+    const allCollections = [DARKCOUNTRY_COLLECTION];
 
-    // const [filteredCollections, setFilteredCollections] = useState(allCollections);
+    const [filteredCollections, setFilteredCollections] = useState(allCollections);
     const [dcSchemas, setDcSchemas] = useState([])
     const [selectedCollections, setSelectedCollections] = useState([]);
     // const [selectedCollectionsImx, setSelectedCollectionsImx] = useState('');
@@ -313,6 +313,7 @@ export default function Market() {
     return (
         <div className={'market-container'}>
             <MarketFilters
+                collections={filteredCollections}
                 handleCollectionFilter={handleCollectionFilter}
                 handleTemplateFilter={handleTemplateFilter}
                 selectedTemplate={selectedTemplate}
