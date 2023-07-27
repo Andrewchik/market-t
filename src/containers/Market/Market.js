@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useMemo, useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {StringParam, useQueryParam} from 'use-query-params';
 
 import axios from "axios";
@@ -21,21 +21,23 @@ import {
     LISTINGS_DESC,
     PRICE_ASC,
     PRICE_DESC,
-    SALE_ORDERS_API,
+    SALE_ORDERS_API, USER_ITEMS_WAX,
 } from "../../constants";
 
-import {getDCschemas} from "../../services/wax.service";
+import {getDCschemas, getSales} from "../../services/wax.service";
 import WaxItemToSell from "../../components/WaxItemToSell/WaxItemToSell";
 import { UALContext } from "ual-reactjs-renderer";
-
+import {showErrorMessage} from "../../helpers";
 
 import "./Market.scss";
 
 
+
 export default function Market() {
     const { activeUser } = useContext(UALContext);
+    const dispatch = useDispatch();
 
-    const { userItems, userImxItems: userWaxItems } = useSelector(({ user }) => user);
+    const { userItems, userWaxItems } = useSelector(({ user }) => user);
 
 
     const [allItems, setAllItems] = useState([]);
@@ -72,6 +74,20 @@ export default function Market() {
 
         return () => window.removeEventListener('scroll', onScroll);
     });
+
+    useEffect(() => {
+        getSales()
+            .then((data) => {
+                dispatch({
+                    type: USER_ITEMS_WAX,
+                    payload: data
+                });
+            })
+            .catch((error) => {
+                showErrorMessage(error)
+                console.log(error)
+            })
+    }, [dispatch])
 
     useEffect(() => {
         getDCschemas()

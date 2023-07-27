@@ -44,7 +44,7 @@ export default function user(state = initialState, action) {
             case USER_ITEMS_WAX:
                 return {
                     ...state,
-                    userImxItems: action.payload
+                    userWaxItems: action.payload
                 };
 
         default:

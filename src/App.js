@@ -72,8 +72,6 @@ function App() {
 }, [dispatch])
 
 
-
-
     useEffect(() => {
         getBurnStat()
             .then((data) => {
