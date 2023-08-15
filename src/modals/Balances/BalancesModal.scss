@@ -61,6 +61,7 @@
       padding: 0 30px;
       overflow: auto;
       height: 295px;
+      overflow-x: hidden;
 
       @media screen and (max-width: 1699px){
         padding: 0 20px;
@@ -69,6 +70,7 @@
       @media screen and (max-width: 1599px){
         padding: 0 10px;
       }
+      
       .balances-item{
         cursor: pointer;
         display: flex;
@@ -78,6 +80,7 @@
         padding: 13px 36px 15px 36px;
         margin-top: 20px;
         box-sizing: border-box;
+        align-items: center;
 
         .balances-item_left{
 

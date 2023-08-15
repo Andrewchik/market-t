@@ -16,6 +16,8 @@ import WaxWalletLogo2 from '../../../resources/images/logos/wax_login.png'
 import ArrowBlack from '../../../resources/images/next-black.png'
 import ArrowWhite from '../../../resources/images/next-white.png'
 
+import {Link} from "@imtbl/imx-sdk";
+
 import './ConnectModal.scss';
 import axios from "axios";
 import {AUTH_LOGIN_SUCCESS, MARKET_USER_API, USER_ITEMS_IDS_REQUEST} from "../../../constants";
@@ -23,29 +25,29 @@ import {AUTH_LOGIN_SUCCESS, MARKET_USER_API, USER_ITEMS_IDS_REQUEST} from "../..
 
 
 
-function ConnectModal({ visible, handleClose }) {
+function ConnectModal({ visible, handleClose, setLoggedIn, setMetamask }) {
     const dispatch = useDispatch();
     const { showModal } = useContext(UALContext);
     const user = useSelector(({ auth }) => auth.auth);
 
-    // const [metaMaskWallet, setMetaMaskWallet] = useState(false);
+    const [metaMaskWallet, setMetaMaskWallet] = useState(false);
     const [processing, setProcessing] = useState(false);
 
-    // const linkSetup = async () => {
-    //     const link = new Link(process.env.SANDBOX_LINK_URL)
-    //     await link.setup({providerPreference: 'metamask'})
-    //         .then((data) => {
-    //             localStorage.setItem('metamask', JSON.stringify(data))
-    //             handleClose()
-    //             setLoggedIn(true);
-    //             setMetamask(data)
-    //
-    //             handleClose()
-    //         })
-    //         .catch((error) => {
-    //             console.log(error)
-    //         })
-    // };
+    const linkSetup = async () => {
+        const link = new Link(process.env.SANDBOX_LINK_URL)
+        await link.setup({providerPreference: 'metamask'})
+            .then((data) => {
+                localStorage.setItem('metamask', JSON.stringify(data))
+                handleClose()
+                setLoggedIn(true);
+                setMetamask(data)
+    
+                handleClose()
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    };
 
     useEffect(() => {
         const loginUser = (user) => {
@@ -80,6 +82,7 @@ function ConnectModal({ visible, handleClose }) {
             }
         });
     }, [user.address, processing, dispatch]);
+
 
     const signIn = () => fcl.authenticate()
         .then(() => {
@@ -121,7 +124,7 @@ function ConnectModal({ visible, handleClose }) {
                         <p className={'text'}>(Anchor, Cloud Wallet)</p>
                         <img className={'arrow'} src={ArrowBlack} alt=""/>
                     </div>
-                    <div className="blockchain-block metamask" onClick={null}>
+                    <div className="blockchain-block metamask" onClick={linkSetup}>
                         <img className={'icon'} src={MetamaskLogo} alt=""/>
                         <img className={'arrow'} src={ArrowBlack} alt=""/>
                     </div>

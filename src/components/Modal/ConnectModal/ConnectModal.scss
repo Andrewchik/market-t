@@ -130,11 +130,11 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      background-color: #464646;
+      background-color: #ffffff;
       box-shadow: 0 3px 6px #0000004D;
       border-radius: 10px;
       transition: .3s;
-      cursor: not-allowed;
+      cursor: pointer;
 
       @media screen and (max-width: 1699px){
         height: 85px;
@@ -154,9 +154,9 @@
         margin-right: 10px;
       }
 
-      //&:hover{
-      //  transform: scale(1.025);
-      //}
+      &:hover{
+       transform: scale(1.025);
+      }
 
       .icon{
         top: -24px;

@@ -17,6 +17,8 @@ export default function IMXOnSale({
                                 }) {
     const history = useHistory();
 
+    console.log(userOwner);
+
     const shortenString = (str) => {
         if (!str) {
             return '';

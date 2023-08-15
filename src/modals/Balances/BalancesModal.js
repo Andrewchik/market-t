@@ -1,11 +1,11 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Rodal from "rodal";
-// import axios from "axios";
-// import {Button} from "@material-ui/core";
-// import {Link} from "@imtbl/imx-sdk";
+import axios from "axios";
+import {Button} from "@material-ui/core";
+import {Link} from "@imtbl/imx-sdk";
 
 import CustomButton from "../../generics/CustomButton/CustomButton";
-// import EthIcon from  '../../resources/images/eth_icon.png'
+import EthIcon from  '../../resources/images/eth_icon.png'
 
 
 import './BalancesModal.scss'
@@ -15,25 +15,34 @@ import './BalancesModal.scss'
 
 
 function BalancesModal({handleClose, visible, address}) {
-    // const link = new Link(process.env.SANDBOX_LINK_URL)
+    const link = new Link(process.env.SANDBOX_LINK_URL)
 
-    // const [balanceInfo, setBalanceInfo] = useState([])
-    // const [selectedCrypto, setSelectedCrypto] = useState(null);
+    const [balanceInfo, setBalanceInfo] = useState([])
+    const [selectedCrypto, setSelectedCrypto] = useState(null);
 
 
-    // useEffect(async () => {
-    //     if (address){
-    //         await axios.get(`https://api.sandbox.x.immutable.com/v2/balances/${address?.address}`)
-    //             .then(({data: {result}}) => setBalanceInfo(result))
-    //     }
-    // }, [address])
+    useEffect(() => {
+        async function fetchData() {
+          if (address) {
+            try {
+              const response = await axios.get(`https://api.sandbox.x.immutable.com/v2/balances/${address?.address}`);
+              const { data: { result } } = response;
+              setBalanceInfo(result);
+            } catch (error) {
+              console.error('Error fetching balance:', error);
+            }
+          }
+        }
+    
+        fetchData();
+      }, [address]);
 
-    // const weiToEth = (wei) => {
-    //     return parseFloat(wei / 10 ** 18).toFixed(6);
-    // };
+    const weiToEth = (wei) => {
+        return parseFloat(wei / 10 ** 18).toFixed(6);
+    };
 
     const handlerDeposit = () => {
-    //    link.deposit({})
+       link.deposit({})
     };
 
     const shortEthAddres = (address) => {
@@ -57,11 +66,11 @@ function BalancesModal({handleClose, visible, address}) {
                     </div>
 
                     <div className="balance-content">
-                        {/* {balanceInfo.map((item, index) =>
+                        {balanceInfo.map((item, index) =>
                             <div className={"balances-item" + (selectedCrypto === item ? " available" : "")} key={index} onClick={() => setSelectedCrypto(item)}>
                             <div className={"balances-item_left"}>
                                     <p className={'amount'}>{ item.symbol === 'ETH' ? weiToEth(item.balance): item.balance}</p>
-                                    <p className={'usd'}>($0 USD)</p>
+                                    {/* <p className={'usd'}>($0 USD)</p> */}
                                 </div>
                                 <div className="balances-item_right">
                                     <div className="symbol-img">
@@ -70,7 +79,7 @@ function BalancesModal({handleClose, visible, address}) {
                                     <p className={'symbol'}>{item.symbol}</p>
                                 </div>
                             </div>
-                        )} */}
+                        )}
                     </div>
 
                 </div>
@@ -79,14 +88,14 @@ function BalancesModal({handleClose, visible, address}) {
                     text={'Add funds'}
                     onClick={ handlerDeposit }
                 />
-                {/* <Button
+                <Button
                     variant={'text'}
                     className={'withdraw-btn'}
                     onClick={ () => {} }
                     disabled={true}
                 >
                     Withdraw
-                </Button> */}
+                </Button>
             </div>
         </Rodal>
     );

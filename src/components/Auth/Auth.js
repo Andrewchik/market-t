@@ -2,8 +2,9 @@ import React, {useContext, useEffect} from "react";
 import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {UALContext} from "ual-reactjs-renderer";
+import { IconButton } from '@material-ui/core';
 
-
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import * as fcl from "@onflow/fcl";
 
 
@@ -16,11 +17,11 @@ import {
     AUTH_LOGOUT_SUCCESS,
     USER_ITEMS_IDS_SUCCESS,
     OPEN_CONNECTION_WALLET_POPUP,
-    // OPEN_BALANCES_POPUP,
+    OPEN_BALANCES_POPUP,
 } from "../../constants";
 
 
-export default function Auth({ handleRedirect, setLoggedIn, metamask, setMetamask }) {
+export default function Auth({ handleRedirect, loggedIn, setLoggedIn, metamask, setMetamask }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const { activeUser, logout } = useContext(UALContext);
@@ -28,14 +29,12 @@ export default function Auth({ handleRedirect, setLoggedIn, metamask, setMetamas
     const user = useSelector(({ auth }) => auth.auth);
 
 
-
-    //
-    // const shortEthAddres = () => {
-    //     let address = metamask.address
-    //
-    //     if (typeof address === "string")
-    //         return "0x" + address.substring(0, 4) + "..." + address.substring(36);
-    // }
+    const shortEthAddres = () => {
+        let address = metamask.address
+    
+        if (typeof address === "string")
+            return "0x" + address.substring(0, 4) + "..." + address.substring(36);
+    }
 
     useEffect(() => {
         const metamaskFromStorage = localStorage.getItem('metamask');
@@ -48,13 +47,13 @@ export default function Auth({ handleRedirect, setLoggedIn, metamask, setMetamas
         }
     }, [setLoggedIn, setMetamask]);
 
-    // const sighOutFromMetamask = () => {
-    //     localStorage.removeItem('metamask');
-    //     setLoggedIn(false);
-    //     setMetamask({})
-    //
-    //     history.push('/');
-    // }
+    const sighOutFromMetamask = () => {
+        localStorage.removeItem('metamask');
+        setLoggedIn(false);
+        setMetamask({})
+    
+        history.push('/');
+    }
 
     const sighOutFromWAX = () => {
         logout();
@@ -68,11 +67,11 @@ export default function Auth({ handleRedirect, setLoggedIn, metamask, setMetamas
         });
     }
 
-    // const openBalancesModal = () => {
-    //     dispatch({
-    //         type: OPEN_BALANCES_POPUP
-    //     });
-    // }
+    const openBalancesModal = () => {
+        dispatch({
+            type: OPEN_BALANCES_POPUP
+        });
+    }
 
     const sighOut = () => {
         fcl.unauthenticate();
@@ -101,20 +100,20 @@ export default function Auth({ handleRedirect, setLoggedIn, metamask, setMetamas
         );
     }
 
-    // if (loggedIn) {
-    //     return (
-    //         <div className="user-info">
-    //             <IconButton color="primary" component="label">
-    //                 <AccountBalanceWalletOutlined onClick={openBalancesModal}/>
-    //             </IconButton>
-    //             <p onClick={() => handleRedirect(`/profile/${metamask.address}`)}>{ shortEthAddres() }</p>
-    //             <CustomButton
-    //                 text={'Sign Out'}
-    //                 onClick={ sighOutFromMetamask }
-    //             />
-    //         </div>
-    //     );
-    // }
+    if (loggedIn) {
+        return (
+            <div className="user-info">
+                <IconButton color="primary" component="label">
+                    <AccountBalanceWalletIcon onClick={openBalancesModal}/>
+                </IconButton>
+                <p onClick={() => handleRedirect(`/profile/${metamask.address}`)}>{ shortEthAddres() }</p>
+                <CustomButton
+                    text={'Sign Out'}
+                    onClick={ sighOutFromMetamask }
+                />
+            </div>
+        );
+    }
 
     if (activeUser) {
         return (

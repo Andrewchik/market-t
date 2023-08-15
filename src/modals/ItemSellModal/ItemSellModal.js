@@ -21,7 +21,7 @@ import {Link} from "@imtbl/imx-sdk";
 import {UALContext} from "ual-reactjs-renderer";
 import {getSales, sellItem} from "../../services/wax.service";
 
-function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaUrl, moveItemToOnSaleBlock, moveWaxItemToOnSaleBlock, imxItemUrl, token_address, token_id, asset_ids, mediaWaxUrl, setWaxItemsToSale, setErrorRamText, showCPUModal, setMyWaxItems, myWaxItems }) {
+function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaUrl, moveItemToOnSaleBlock, moveWaxItemToOnSaleBlock, moveImxItemToOnSaleBlock, imxItemUrl, token_address, token_id, asset_ids, mediaWaxUrl, setWaxItemsToSale, setErrorRamText, showCPUModal, setMyWaxItems, myWaxItems, onUpdateImxActive }) {
 
     
     const { config } = useSelector(({ config }) => config);
@@ -53,7 +53,7 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
         }
 
         if (localStorage.getItem('metamask')){
-            setReceivedMoney((parseFloat(value) * 0.97).toFixed(2));
+            setReceivedMoney((parseFloat(value) * 0.8).toFixed(4));
         }
 
         if (activeUser){
@@ -94,7 +94,8 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
                     tokenAddress: token_address,
                 })
                     .then(() => {
-
+                        moveImxItemToOnSaleBlock(price)
+                        onUpdateImxActive()
                         toast.success('Item put on sale');
 
                         handleClose();
@@ -241,9 +242,9 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
 
                         {localStorage.getItem('metamask') && !activeUser &&
                             <div className={'sale-info'}>
-                                <p>Protocol fee 2%</p>
+                                <p>Marketplace fee 2%</p>
                                 <p>Royalties to creator 0%</p>
-                                <p>Marketplace fee 1%</p>
+                                <p>Collection fee 0%</p>
                                 <p>You will receive <span>{ receivedMoney && parseFloat(receivedMoney) > 0 ? receivedMoney : 0 }</span> ETH</p>
                             </div>
                         }

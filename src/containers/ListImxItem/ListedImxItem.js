@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {  useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 import {Link as IMXLink} from "@imtbl/imx-sdk";
 
@@ -18,7 +19,7 @@ import ListedItemLoadingPlaceholder from "../../components/LoadingPlaceholders/L
 
 
 import {
-    IMMUTABLE_SANDBOX_API,
+    IMMUTABLE_SANDBOX_API, OPEN_SUCCESS_PURCHASE_POPUP,
 } from "../../constants";
 import { showErrorMessage } from "../../helpers";
 import {ethers} from "ethers";
@@ -28,6 +29,7 @@ const BUY_ITEM_STATUS = 'BUY_ITEM_STATUS';
 const CANCEL_ITEM_STATUS = 'CANCEL_ITEM_STATUS';
 
 export default function ListedImxItem({ history, match: { params: { id } } }) {
+    const dispatch = useDispatch();
     const [item, setItem] = useState({});
     const [processing, setProcessing] = useState(false);
     const [itemStatus, setItemStatus] = useState(INITIAL_ITEM_STATUS);
@@ -89,6 +91,11 @@ export default function ListedImxItem({ history, match: { params: { id } } }) {
             await link.buy({ orderIds: [id] })
                 .then(() => {
                     toast.success('Congratulations on your purchase');
+
+                    setTimeout(() => {
+                        setProcessing(false)
+                        dispatch({ type: OPEN_SUCCESS_PURCHASE_POPUP });
+                    }, 5000);
                 })
                 .catch(e => {
                     showErrorMessage(e);
@@ -188,7 +195,7 @@ export default function ListedImxItem({ history, match: { params: { id } } }) {
                                             <div>
                                                 <p>Protocol fee 2%</p>
                                                 <p>Royalties to creator 0%</p>
-                                                <p>Marketplace fee 1%</p>
+                                                <p>Collection fee 0%</p>
                                             </div>
                                         </>
                                     }

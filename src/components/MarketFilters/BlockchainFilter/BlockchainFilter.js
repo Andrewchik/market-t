@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FlowIcon from "../../../resources/images/blockchain/flow_icon.png";
 import SDMIcon from "../../../resources/images/blockchain/sdm_icon.png";
 import WAXIcon from "../../../resources/images/blockchain/wax_icon.png";
+import ImxIcon from "../../../resources/images/blockchain/immutable_x.png";
 
 import './BlockchainFilter.scss'
 
@@ -44,8 +45,8 @@ function BlockchainFilter({blockchainSelected, setBlockchainSelected, tokenSelec
 
     const blockchains = [
         {id: 1, name: 'Flow blockchain', img: FlowIcon, click: () => {handleSelectedBlockchain('Flow')}},
-        // {id: 2 name: 'ImmutableX', img: ImxIcon, click: () => {handleSelectedBlockchain('Immutable')}}
-        {id: 2, name: 'Wax blockchain', img: WAXIcon, click: () => {handleSelectedBlockchain('WAX')}}
+        {id: 2, name: 'Wax blockchain', img: WAXIcon, click: () => {handleSelectedBlockchain('WAX')}},
+        {id: 3, name: 'ImmutableX', img: ImxIcon, click: () => {handleSelectedBlockchain('Immutable')}}
     ]
 
     // const tokens = [
@@ -73,7 +74,18 @@ function BlockchainFilter({blockchainSelected, setBlockchainSelected, tokenSelec
                 <AccordionSummary
                     expandIcon={ <ExpandMoreIcon /> }
                 >
-                    <img src={ blockchainSelected === 'Flow' ? FlowIcon : WAXIcon } alt="" />
+                   <img
+                    src={
+                        blockchainSelected === 'Flow'
+                        ? FlowIcon
+                        : blockchainSelected === 'WAX'
+                        ? WAXIcon
+                        : blockchainSelected === 'Immutable'
+                        ? ImxIcon
+                        : ''
+                    }
+                    alt=""
+                    />
                     <Typography>{blockchainSelected} blockchain</Typography>
                 </AccordionSummary>
                 <div className="blockchain-filter_container">

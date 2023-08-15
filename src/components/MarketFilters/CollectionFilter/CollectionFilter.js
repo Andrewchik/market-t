@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import randomcolor from 'randomcolor';
 
 import { Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -25,6 +24,7 @@ function CollectionFilter({ collections, handleFilter, handleTemplateFilter, sel
     };
 
     const handleSelectSchemas = (e, selectedSchema) => {
+        console.log(selectedSchema);
         const newSelectedSchemas = selectedSchemas.includes(selectedSchema)
             ? selectedSchemas.filter(collection => collection !== selectedSchema)
             : [...selectedSchemas, selectedSchema];
@@ -119,31 +119,42 @@ function CollectionFilter({ collections, handleFilter, handleTemplateFilter, sel
                     }
 
                     {blockchainSelected === 'Immutable' &&
-                        <div  className={'filter-collections imx-collections'}>
-                                        {allImxCollections.map(({ address, collection_image_url, name }, index) => (
-                                            <div className={'filter-collection-wrapper'} key={index}>
-                                                <div className={`filter-collection`} onClick={(event) => handleSelectCollectionIMX(event, address)} key={name}>
-                                                    {collection_image_url ? (
-                                                        <img src={collection_image_url} alt="" />
-                                                    ) : (
-                                                        <div
-                                                            style={{
-                                                                width: "30px",
-                                                                height: "30px",
-                                                                marginRight: "10px",
-                                                                borderRadius: "50%",
-                                                                backgroundColor: randomcolor(),
-                                                            }}
-                                                        />
-                                                    )}
-                                                    <p className={selectedCollections.includes(address) ? "available" : ""}>{name}</p>
-                                                    {selectedCollections.includes(address) && (
-                                                        <span onClick={(event) => handleSelectCollectionIMX(event, "")}>x</span>
+                        <div  className={'filter-collections wax'}>
+                        <div className={'filter-collection-wrapper'}>
+                            <div className={`filter-collection`}>
+                                <Accordion expanded={expandedSchemas} onChange={() => setExpandedSchemas(!expandedSchemas)} className={'accordoin-for-schemas'}>
+                                    <AccordionSummary
+                                        // expandIcon={ <ExpandMoreIcon /> }
+                                        className={'filter-collection-schemas'}
+                                    >
+                                        <img src={ DCLogo } alt="DCLogo" />
+                                        <p className={"available"}>Dark Country</p>
+                                    </AccordionSummary>
+                                    {/* <AccordionDetails>
+                                        <div className="schema-list">
+                                            {dcSchemas && dcSchemas.map((item, index) =>
+                                                <div key={index} className="schema-item" onClick={(event) => handleSelectSchemas(event, item.schema_name)}>
+                                                    <div
+                                                        style={{
+                                                            width: "20px",
+                                                            height: "20px",
+                                                            marginRight: "20px",
+                                                            borderRadius: "50%",
+                                                            backgroundColor: '#770F00',
+                                                        }}
+                                                    />
+                                                    <p className={selectedSchemas.includes(item.schema_name) ? "available" : ""}>{item.schema_name}</p>
+                                                    {selectedSchemas.includes(item.schema_name) && (
+                                                        <span onClick={(event) => handleSelectSchemas(event, "")}>x</span>
                                                     )}
                                                 </div>
-                                            </div>
-                                        ))}
-                                    </div>
+                                            )}
+                                        </div>
+                                    </AccordionDetails> */}
+                                </Accordion>
+                            </div>
+                        </div>
+                </div>
                     }
 
                     {blockchainSelected === 'WAX' &&
@@ -180,7 +191,6 @@ function CollectionFilter({ collections, handleFilter, handleTemplateFilter, sel
                                                 </div>
                                             </AccordionDetails>
                                         </Accordion>
-
                                     </div>
                                 </div>
                         </div>

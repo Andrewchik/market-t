@@ -154,6 +154,26 @@ export default function  Profile({ history, match: { params: { address } } }) {
 
     }, [address, currentAddress, history, activeUser]);
 
+    const fetchUserImxItems = (address) => {
+        setLoading(true);
+        if (address && address.length) {
+            axios.get(`${IMMUTABLE_SANDBOX_API}/assets?user=${address}&sell_orders=true&collection=0xaf2945d065e19167524bec040bae292b5990fbb0`)
+            .then(({data: {result}}) => {
+                const filteredResult = result.filter(item => !item.hasOwnProperty('orders'));
+                setMyImxItems(filteredResult);
+            })
+            .catch(error => {
+                hideItems();
+                console.log(error);
+            })
+            .finally(() => setLoading(false));
+        
+        } else {
+            hideItems();
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         if (!localStorage.getItem('metamask')){
             const getUserItems = (address) => {
@@ -201,22 +221,11 @@ export default function  Profile({ history, match: { params: { address } } }) {
             }
         }
 
+        
+
         if (localStorage.getItem('metamask')){
-            const fetchUserImxItems = (address) => {
-                setLoading(true);
-                if (address && address.length) {
-                    axios.get(`${IMMUTABLE_SANDBOX_API}/assets?user=${address}`)
-                        .then(({data: {result}}) => setMyImxItems(result))
-                        .catch(error => {
-                            hideItems();
-                            console.log(error);
-                        })
-                        .finally(() => setLoading(false));
-                } else {
-                    hideItems();
-                    setLoading(false);
-                }
-            };
+        
+
 
             const groupImxOrderItems = (imxOrderItems) => {
                 let imxActive = imxOrderItems.filter((item) => {
@@ -251,6 +260,32 @@ export default function  Profile({ history, match: { params: { address } } }) {
 
 
     }, [user]);
+
+ 
+        const fetchUserActiveImxItems = (address) => {
+            setTimeout(() => {
+                if (address && address.length) {
+                    axios.get(`${IMMUTABLE_SANDBOX_API}/orders?user=${address}&status=active`)
+                        .then(({data: {result}}) => {
+                            setImxActive(result)
+
+                            setTimeout(() => {
+                                fetchUserImxItems(address)
+                            }, 2000);
+                        
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                        .finally(() => setLoading(false));
+                }
+            }, 1500)
+          
+        };
+
+        console.log(imxActive);
+
+
 
     useEffect(() => {
         const myItems = () => {
@@ -380,15 +415,12 @@ export default function  Profile({ history, match: { params: { address } } }) {
             orderId: orderId,
         })
             .then(() => {
-                toast.success('Item canceled success');
+                toast.success('Removed from sale');
+                fetchUserActiveImxItems(user.address)
             })
             .catch(e => {
 
                 showErrorMessage(e);
-
-                if (e && e.toString().includes(NO_RAM)){
-                    showBuyRamModal(true)
-                }
 
                 console.log(e);
             })
@@ -410,6 +442,11 @@ export default function  Profile({ history, match: { params: { address } } }) {
                 if (e && e.toString().includes(BILLED_CPU)) {
                     showCPUModal(true)
                 }
+
+                
+                if (e && e.toString().includes(NO_RAM)){
+                    showBuyRamModal(true)
+                }
            
             })
             .finally(() => setSelling(false));
@@ -427,6 +464,15 @@ export default function  Profile({ history, match: { params: { address } } }) {
         setMyItems(myItems.filter(({ item_id }) => item.item_id !== item_id));
         setOnSaleItems([...onSaleItems, { ...item, price, status_msg: SALE_STATUS }]);
     };
+
+    const moveImxItemToOnSaleBlock = (price) => {
+        setMyImxItems(myImxItems.filter(({ id }) => item.id !== id));
+        console.log(item);
+        // setImxActive([...imxActive, { ...imxActive, price, status_msg: SALE_STATUS }]);
+    };
+
+
+    console.log(myImxItems);
 
     const moveWaxItemToOnSaleBlock = (price) => {
         setMyWaxItems(myWaxItems.filter(({ asset_id }) => item.asset_id !== asset_id));
@@ -517,7 +563,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
         switch (currentItemsBlock) {
             case MY_ITEMS_BLOCK:
                 itemsToRender = searchItems ? searchItems : myImxItems;
-
+                console.log(item);
                 return itemsToRender.map((item) =>
                     <IMXItem
                         item={item}
@@ -540,15 +586,20 @@ export default function  Profile({ history, match: { params: { address } } }) {
             case ON_SALE_BLOCK:
                 itemsToRender = searchItems ? searchItems : imxActive;
 
-                return itemsToRender.map((item) =>
-                    <IMXItem
-                        item={ item.sell.data.properties }
+                return itemsToRender.map((item) => {
+                    console.log(item);
+                  
+                    return (
+                        <IMXItem
+                        item={item?.sell?.data?.properties}
                         userOwner={userOwnProfile}
                         hideButtons={!userOwnProfile}
                         itemOnSale={userOwnProfile}
                         handlerCanselItemFromListing={handlerCanselItemFromListing}
                         orderId={item.order_id}
                     />
+                    )
+                }
                 );
 
             case BOUGHT_ITEMS:
@@ -790,6 +841,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
                 itemId={item ? item.item_id : null}
                 moveItemToOnSaleBlock={moveItemToOnSaleBlock}
                 moveWaxItemToOnSaleBlock={moveWaxItemToOnSaleBlock}
+                moveImxItemToOnSaleBlock={moveImxItemToOnSaleBlock}
                 imxItemUrl={item && item.image_url ? item.image_url : ''}
                 token_address={item && item.token_address ? item.token_address : ''}
                 token_id={item && item.token_id ? item.token_id : ''}
@@ -800,6 +852,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
                 showCPUModal={showCPUModal}
                 setMyWaxItems={setMyWaxItems}
                 myWaxItems={myWaxItems}
+                onUpdateImxActive={() =>  fetchUserActiveImxItems(user.address)}
             />
 
             <TransferModal
