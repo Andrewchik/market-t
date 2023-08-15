@@ -20,7 +20,7 @@ export default function TransferModal({ visible, onClose, itemId, ipfs, mediaUrl
     const [recipientAddress, setRecipientAddress] = useState('');
     const [processing, setProcessing] = useState(false);
     const { activeUser } = useContext(UALContext);
-    const link = new Link('https://link.sandbox.x.immutable.com')
+    const link = new Link('https://api.x.immutable.com')
 
     const handleTransfer = async () => {
         setProcessing(true);

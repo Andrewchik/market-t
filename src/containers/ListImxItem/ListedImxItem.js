@@ -19,7 +19,7 @@ import ListedItemLoadingPlaceholder from "../../components/LoadingPlaceholders/L
 
 
 import {
-    IMMUTABLE_SANDBOX_API, OPEN_SUCCESS_PURCHASE_POPUP,
+    IMMUTABLE_SANDBOX_API, OPEN_SUCCESS_PURCHASE_POPUP, SANDBOX_LINK_URL,
 } from "../../constants";
 import { showErrorMessage } from "../../helpers";
 import {ethers} from "ethers";
@@ -36,7 +36,7 @@ export default function ListedImxItem({ history, match: { params: { id } } }) {
     const [loading, setLoading] = useState(true);
     const [selling, setSelling] = useState(false);
 
-    const link = new IMXLink(process.env.SANDBOX_LINK_URL)
+    const link = new IMXLink(SANDBOX_LINK_URL)
 
     const { userItems } = useSelector(({ user }) => user);
 

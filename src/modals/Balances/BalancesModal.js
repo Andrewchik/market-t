@@ -9,13 +9,14 @@ import EthIcon from  '../../resources/images/eth_icon.png'
 
 
 import './BalancesModal.scss'
+import { SANDBOX_LINK_URL } from "../../constants";
 
 
 
 
 
 function BalancesModal({handleClose, visible, address}) {
-    const link = new Link(process.env.SANDBOX_LINK_URL)
+    const link = new Link(SANDBOX_LINK_URL)
 
     const [balanceInfo, setBalanceInfo] = useState([])
     const [selectedCrypto, setSelectedCrypto] = useState(null);
@@ -25,7 +26,7 @@ function BalancesModal({handleClose, visible, address}) {
         async function fetchData() {
           if (address) {
             try {
-              const response = await axios.get(`https://api.sandbox.x.immutable.com/v2/balances/${address?.address}`);
+              const response = await axios.get(`https://api.x.immutable.com/v2/balances/${address?.address}`);
               const { data: { result } } = response;
               setBalanceInfo(result);
             } catch (error) {

@@ -34,7 +34,7 @@ import {
     SALE_STATUS,
     MARKET_USER_API,
     VERIFICATION_LEVEL_1,
-    HISTORY_STATS_API, IMMUTABLE_SANDBOX_API, NO_RAM, BILLED_CPU
+    HISTORY_STATS_API, IMMUTABLE_SANDBOX_API, NO_RAM, BILLED_CPU, SANDBOX_LINK_URL
 } from "../../constants";
 
 import { readCollectionIds, setup } from "../../flow";
@@ -98,7 +98,7 @@ export default function  Profile({ history, match: { params: { address } } }) {
 
     const authUser = useSelector(({ auth }) => auth.auth);
 
-    const link = new Link(process.env.SANDBOX_LINK_URL)
+    const link = new Link(SANDBOX_LINK_URL)
 
     useEffect(() => {
         if (!localStorage.getItem('metamask') && !activeUser){

@@ -13,7 +13,7 @@ import CustomSelect from "../../generics/CustomSelect/CustomSelect";
 import CustomTextField from "../../generics/CustomTextField/CustomTextField";
 import Loader from "../../components/Loader/Loader";
 
-import {BILLED_CPU, ETH, FLOW, NO_RAM, SDM} from '../../constants';
+import {BILLED_CPU, ETH, FLOW, NO_RAM, SANDBOX_LINK_URL, SDM} from '../../constants';
 import { sellMarketItem } from '../../flow';
 
 import { renderDarkCountryItemImageOrVideo, showErrorMessage } from "../../helpers";
@@ -35,7 +35,7 @@ function ItemSellModal({ visible, showBuyRamModal, onClose, itemId, ipfs, mediaU
     const [selling, setSelling] = useState(false);
 
 
-    const link = new Link(process.env.SANDBOX_LINK_URL)
+    const link = new Link(SANDBOX_LINK_URL)
 
     const handleClose = () => {
         setPrice('');

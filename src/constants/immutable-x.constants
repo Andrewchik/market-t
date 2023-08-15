@@ -1,1 +1,0 @@
-export const MARKET_API_SANDBOX = 'https://api.sandbox.x.immutable.com/v1'

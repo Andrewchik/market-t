@@ -14,7 +14,7 @@ import ArrowWhite from '../../../resources/images/next-white.png'
 
 import './DepositModal.scss';
 import axios from "axios";
-import {AUTH_LOGIN_SUCCESS, MARKET_USER_API, USER_ITEMS_IDS_REQUEST} from "../../../constants";
+import {AUTH_LOGIN_SUCCESS, MARKET_USER_API, SANDBOX_LINK_URL, USER_ITEMS_IDS_REQUEST} from "../../../constants";
 
 
 
@@ -27,7 +27,7 @@ function DepositModal({ visible, handleClose,setLoggedIn, setMetamask }) {
 
 
     const linkSetup = async () => {
-        const link = new Link(process.env.SANDBOX_LINK_URL)
+        const link = new Link(SANDBOX_LINK_URL)
         await link.setup({providerPreference: 'metamask'})
             .then((data) => {
                 localStorage.setItem('metamask', JSON.stringify(data))

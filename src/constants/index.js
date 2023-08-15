@@ -11,5 +11,5 @@ export * from "./verification-levels.constants";
 export * from "./error.constants";
 export * from "./land.constants";
 export * from "./pack.constants";
-export * from "./immutable-x.constants";
 export * from "./wax.constants";
+export * from "./imx.constants";
